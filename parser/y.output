@@ -51,7 +51,7 @@ state 4
 state 5
 	expr:  '(' ')'.    (2)
 
-	.  reduce 2 (src line 35)
+	.  reduce 2 (src line 37)
 
 
 state 6
@@ -72,7 +72,7 @@ state 7
 	NUMBER  shift 9
 	ATOM  shift 8
 	STRING  shift 10
-	.  reduce 6 (src line 42)
+	.  reduce 6 (src line 44)
 
 	expr  goto 11
 	atom  goto 16
@@ -81,37 +81,37 @@ state 7
 state 8
 	atom:  ATOM.    (8)
 
-	.  reduce 8 (src line 46)
+	.  reduce 8 (src line 48)
 
 
 state 9
 	atom:  NUMBER.    (9)
 
-	.  reduce 9 (src line 48)
+	.  reduce 9 (src line 50)
 
 
 state 10
 	atom:  STRING.    (10)
 
-	.  reduce 10 (src line 49)
+	.  reduce 10 (src line 51)
 
 
 state 11
 	atom:  expr.    (11)
 
-	.  reduce 11 (src line 50)
+	.  reduce 11 (src line 52)
 
 
 state 12
 	expr:  '\'' expr.    (5)
 
-	.  reduce 5 (src line 39)
+	.  reduce 5 (src line 41)
 
 
 state 13
 	expr:  '(' atoms ')'.    (3)
 
-	.  reduce 3 (src line 37)
+	.  reduce 3 (src line 39)
 
 
 state 14
@@ -130,7 +130,7 @@ state 14
 state 15
 	atoms:  atom atoms.    (7)
 
-	.  reduce 7 (src line 44)
+	.  reduce 7 (src line 46)
 
 
 state 16
@@ -142,7 +142,7 @@ state 16
 	NUMBER  shift 9
 	ATOM  shift 8
 	STRING  shift 10
-	.  reduce 6 (src line 42)
+	.  reduce 6 (src line 44)
 
 	expr  goto 11
 	atom  goto 16
@@ -158,7 +158,7 @@ state 17
 state 18
 	expr:  '(' atom '.' atom ')'.    (4)
 
-	.  reduce 4 (src line 38)
+	.  reduce 4 (src line 40)
 
 
 10 terminals, 5 nonterminals

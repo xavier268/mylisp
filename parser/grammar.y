@@ -29,19 +29,21 @@ func init() {
 %%
 
 top:
-    expr                     { $$ = $1}
+    expr                     { $$ = $1
+                              mylex.(*myLex).LastResult = $$
+                             }
                 
 
 expr:
-    '(' ')'                  { $$ = nil  }
+    '(' ')'                  { $$ = Cell {}  }
     | '('  atoms  ')'        { $$ = $2   }
-    | '(' atom '.' atom ')'  { $$ = $2  }
-    |  '\''  expr            { $$ = $2 }  
+    | '(' atom '.' atom ')'  { $$ = Cell{ $2, $4}  }
+    |  '\''  expr            { $$ = Cell{  String { "quote"}, $1} }  
     
 
 atoms:
-    atom                     { $$ = $1  }
-    | atom atoms             { $$ = $1  }
+    atom                     { $$ = Cell { $1, nil}  }
+    | atom atoms             { $$ = Cell { $1, $2 }  }
 
 atom:
     ATOM                     { $$ = $1  }
