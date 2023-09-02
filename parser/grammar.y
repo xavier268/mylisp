@@ -23,8 +23,8 @@ func init() {
 
 %type <value> top expr atom atoms 
 
-%token <value> '(' ')' '.' '\'' 
-%token <value> NUMBER ATOM STRING
+%token <value> '(' ')' '.' '\''
+%token <value> NUMBER IDENT STRING ERROR
 
 %%
 
@@ -46,7 +46,7 @@ atoms:
     | atom atoms             { $$ = Cell { $1, $2 }  }
 
 atom:
-    ATOM                     { $$ = $1  }
+    IDENT                     { $$ = $1  }
     | NUMBER                 { $$ = $1  }
     | STRING                 { $$ = $1  }
     | expr                   { $$ = $1  }

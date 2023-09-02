@@ -31,7 +31,7 @@ state 3
 	')'  shift 5
 	'\''  shift 4
 	NUMBER  shift 9
-	ATOM  shift 8
+	IDENT  shift 8
 	STRING  shift 10
 	.  error
 
@@ -70,7 +70,7 @@ state 7
 	'.'  shift 14
 	'\''  shift 4
 	NUMBER  shift 9
-	ATOM  shift 8
+	IDENT  shift 8
 	STRING  shift 10
 	.  reduce 6 (src line 44)
 
@@ -79,7 +79,7 @@ state 7
 	atoms  goto 15
 
 state 8
-	atom:  ATOM.    (8)
+	atom:  IDENT.    (8)
 
 	.  reduce 8 (src line 48)
 
@@ -120,7 +120,7 @@ state 14
 	'('  shift 3
 	'\''  shift 4
 	NUMBER  shift 9
-	ATOM  shift 8
+	IDENT  shift 8
 	STRING  shift 10
 	.  error
 
@@ -140,7 +140,7 @@ state 16
 	'('  shift 3
 	'\''  shift 4
 	NUMBER  shift 9
-	ATOM  shift 8
+	IDENT  shift 8
 	STRING  shift 10
 	.  reduce 6 (src line 44)
 
@@ -161,7 +161,7 @@ state 18
 	.  reduce 4 (src line 40)
 
 
-10 terminals, 5 nonterminals
+11 terminals, 5 nonterminals
 12 grammar rules, 19/16000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
 54 working sets used

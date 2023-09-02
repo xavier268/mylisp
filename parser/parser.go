@@ -23,8 +23,9 @@ type mySymType struct {
 }
 
 const NUMBER = 57346
-const ATOM = 57347
+const IDENT = 57347
 const STRING = 57348
+const ERROR = 57349
 
 var myToknames = [...]string{
 	"$end",
@@ -35,8 +36,9 @@ var myToknames = [...]string{
 	"'.'",
 	"'\\''",
 	"NUMBER",
-	"ATOM",
+	"IDENT",
 	"STRING",
+	"ERROR",
 }
 
 var myStatenames = [...]string{}
@@ -103,7 +105,7 @@ var myTok1 = [...]int8{
 }
 
 var myTok2 = [...]int8{
-	2, 3, 8, 9, 10,
+	2, 3, 8, 9, 10, 11,
 }
 
 var myTok3 = [...]int8{
