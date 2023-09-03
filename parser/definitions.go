@@ -1,6 +1,9 @@
 package parser
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type Term interface {
 	String() string
@@ -28,8 +31,18 @@ type Number struct {
 	Den int
 }
 
-func (t Number) String() string {
-	return fmt.Sprintf("%d/%d", t.Num, t.Den)
+var NumberZero = Number{0, 1}
+var NumberOne = Number{1, 1}
+var NumberNaN = Number{1, 0}
+
+func (n Number) String() string {
+	if n.Den == 0 {
+		return "NaN"
+	}
+	if n.Den == 1 {
+		return fmt.Sprintf("%d", n.Num)
+	}
+	return fmt.Sprintf("%d/%d", n.Num, n.Den)
 }
 
 // Normalize the internal representation of a number.
@@ -66,6 +79,37 @@ func (n Number) Normalize() Number {
 		}
 	}
 	panic("code should be unreacheable")
+}
+
+func NumberFromString(s string) (n Number, err error) {
+
+	if pp := PAT_NUMBER.FindStringIndex(s); pp == nil || pp[0] != 0 || pp[1] != len(s) {
+		return NumberZero, fmt.Errorf("invalid number format : <%s>", s)
+	}
+	m := PAT_NUMBER.FindStringSubmatch(s)
+	if len(m) != 5 {
+		return NumberZero, fmt.Errorf("invalid number format : <%s>", s)
+	}
+
+	for i, mm := range m {
+		fmt.Printf("%d\t -> <%s>\n", i, mm)
+	}
+
+	n.Num, err = strconv.Atoi(m[2])
+	n.Den = 1
+	if err != nil {
+		return NumberZero, fmt.Errorf("invalid number format : <%s> because %v", s, err)
+	}
+	if len(m[1]) > 0 { // minus sign
+		n.Num = -n.Num
+	}
+	if len(m[4]) > 0 { // denominator
+		n.Den, err = strconv.Atoi(m[4])
+		if err != nil {
+			return NumberZero, fmt.Errorf("invalid number format : <%s> because %v", s, err)
+		}
+	}
+	return n.Normalize(), nil
 }
 
 type String struct {

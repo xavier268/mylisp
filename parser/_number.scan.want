@@ -1,0 +1,15 @@
+Test name : TestNumberScan
+This file : _number.scan.want
+ 0:	1	 --> 1
+ 1:	-0	 --> 0
+ 2:	-50	 --> -50
+ 3:	010	 --> 10
+ 4:	-5/6	 --> -5/6
+ 5:	14/7	 --> 2
+ 6:	14/-7	 --> 0
+	*******  invalid number format : <14/-7>
+ 7:	12.	 --> 0
+	*******  invalid number format : <12.>
+ 8:	12.3	 --> 0
+	*******  invalid number format : <12.3>
+
