@@ -68,13 +68,14 @@ func (lx *myLex) Lex(lval *mySymType) int {
 			Num: 0,
 			Den: 0,
 		}
+		return NUMBER
 	case STRING:
 		lval.value = String{
 			Value: token,
 		}
 		return STRING
 	default:
-		lx.LastErr = append(lx.LastErr, fmt.Errorf("lexing error in  %s, line %d - col %d :unknown scan type  %v for %s", lx.SourceName, lx.line, lx.col, lx.ttype, token))
+		lx.LastErr = append(lx.LastErr, fmt.Errorf("scan error in  %s, line %d - col %d :unknown scan type  %v for %s", lx.SourceName, lx.line, lx.col, lx.ttype, token))
 		return ERROR
 	}
 
