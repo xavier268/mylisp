@@ -91,10 +91,6 @@ func NumberFromString(s string) (n Number, err error) {
 		return NumberZero, fmt.Errorf("invalid number format : <%s>", s)
 	}
 
-	for i, mm := range m {
-		fmt.Printf("%d\t -> <%s>\n", i, mm)
-	}
-
 	n.Num, err = strconv.Atoi(m[2])
 	n.Den = 1
 	if err != nil {

@@ -1,0 +1,52 @@
+Test name : TestLexer
+This file : _lexer.want
+
+0:	input : <a>
+	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+
+1:	input : < a b>
+	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+
+2:	input : <2/3>
+	ttype : 57346 (E002),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:2, Den:3}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:2, Den:3}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:2, Den:3}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:2, Den:3}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:2, Den:3}}
+
+3:	input : <2/3  3/4>
+	ttype : 57346 (E002),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:2, Den:3}}
+	ttype : 57346 (E002),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:3, Den:4}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:3, Den:4}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:3, Den:4}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:3, Den:4}}
+
+4:	input : <  2/3  3/4  >
+	ttype : 57346 (E002),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:2, Den:3}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:2, Den:3}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:2, Den:3}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:2, Den:3}}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Number{Num:2, Den:3}}
+
+5:	input : <'>
+	ttype : 39 (27),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+
+6:	input : < ' a>
+	ttype : 39 (27),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 0 (0),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+

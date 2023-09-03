@@ -30,7 +30,7 @@ func NewLexer(input io.Reader, fileName string) *myLex {
 }
 
 var PAT_COMMENT = regexp.MustCompile("(?m)^;.*$")
-var PAT_SPACE = regexp.MustCompile("^[ \t]+")
+var PAT_SPACE = regexp.MustCompile(`^[\s]+`)
 var PAT_STRING = regexp.MustCompile(`^"([^"]*)"`)
 var PAT_NUMBER = regexp.MustCompile(`^(-)?(\d+)(/(\d+))?`)
 var PAT_OPERATOR = regexp.MustCompile(`^[()'.]`)
@@ -44,73 +44,119 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 	var pos []int
 
 	if atEOF && len(data) == 0 {
-		return 0, nil, bufio.ErrFinalToken
+		lx.ttype = 0
+		return 0, nil, nil
 	}
 
 	// eat white spaces
 	pos = PAT_SPACE.FindIndex(data)
-	if pos != nil && pos[0] == 0 { // found white space, eat  it
+	switch {
+	case pos == nil || pos[0] != 0:
+		//  ignore
+	case pos[1] == len(data) && atEOF: // extend until end of file
 		lx.pos += pos[1]
-		return pos[1], nil, nil
+		return pos[1], nil, bufio.ErrFinalToken // final non-token
+	case pos[1] == len(data) && !atEOF: // could be missing something
+		lx.pos += pos[1]
+		return pos[1], nil, nil // no need to ask for more data
+	case pos[1] < len(data): // found, and there will be more
+		lx.pos += pos[1]
+		return pos[1], nil, nil // return
+	default:
+		panic("case not implemented")
 	}
 
 	// eat comments
 	pos = PAT_COMMENT.FindIndex(data)
-	if pos != nil && pos[0] == 0 { // found comment
-		if pos[1] <= len(data) || atEOF { // has remainer or end of file
-			lx.pos += pos[1]
-			return pos[1], nil, nil // eat comment
-		} else {
-			return 0, nil, nil // ask for more data
-		}
-	}
-
-	// scan operators
-	pos = PAT_OPERATOR.FindIndex(data)
-	if pos != nil && pos[0] == 0 { // found operator
-		if pos[1] <= len(data) || atEOF { // has remainer or end of file
-			lx.ttype = int(data[0])
-			lx.pos += pos[1]
-			return pos[1], data[0:pos[1]], nil // return operator
-		} else {
-			return 0, nil, nil // ask for more data
-		}
-	}
-
-	// scan strings
-	pos = PAT_STRING.FindIndex(data)
-	if pos != nil && pos[0] == 0 { // found string
-		if pos[1] <= len(data) || atEOF { // has remainer or end of file
-			lx.ttype = STRING
-			lx.pos += pos[1]
-			return pos[1], data[0:pos[1]], nil // return string
-		} else {
-			return 0, nil, nil // ask for more data
-		}
+	switch {
+	case pos == nil || pos[0] != 0:
+		// ignore
+	case pos[1] == len(data) && atEOF: // extend until end of file
+		lx.pos += pos[1]
+		return pos[1], nil, bufio.ErrFinalToken // final non token
+	case pos[1] == len(data) && !atEOF: // could be missing something
+		return 0, nil, nil // ask for more data
+	case pos[1] < len(data): // found, and there will be more
+		lx.pos += pos[1]
+		return pos[1], nil, nil // eat comment
+	default:
+		panic("case not implemented")
 	}
 
 	// scan numbers
 	pos = PAT_NUMBER.FindIndex(data)
-	if pos != nil && pos[0] == 0 { // found number
-		if pos[1] <= len(data) || atEOF { // has remainer or end of file
-			lx.ttype = NUMBER
-			lx.pos += pos[1]
-			return pos[1], data[0:pos[1]], nil // return number
-		} else {
-			return 0, nil, nil // ask for more data
-		}
+	switch {
+	case pos == nil || pos[0] != 0:
+		// no number, ignore
+	case pos[1] == len(data) && atEOF: // extend until end of file
+		lx.ttype = NUMBER
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], bufio.ErrFinalToken // final token
+	case pos[1] == len(data) && !atEOF: // could be missing something
+		return 0, nil, nil // ask for more data
+	case pos[1] < len(data): // found, and there will be more
+		lx.ttype = NUMBER
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], nil // return number
+	default:
+		panic("case not implemented")
+	}
+
+	// scan operators
+	pos = PAT_OPERATOR.FindIndex(data)
+	switch {
+	case pos == nil || pos[0] != 0:
+		// no number, ignore
+	case pos[1] == len(data) && atEOF: // extend until end of file
+		lx.ttype = int(data[0])
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], bufio.ErrFinalToken // final token
+	case pos[1] == len(data) && !atEOF: // could be missing something
+		return 0, nil, nil // ask for more data
+	case pos[1] < len(data): // found, and there will be more
+		lx.ttype = int(data[0])
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], nil // return number
+	default:
+		panic("case not implemented")
+	}
+
+	// scan strings
+	pos = PAT_STRING.FindIndex(data)
+	switch {
+	case pos == nil || pos[0] != 0:
+		// no number, ignore
+	case pos[1] == len(data) && atEOF: // extend until end of file
+		lx.ttype = STRING
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], bufio.ErrFinalToken // final token
+	case pos[1] == len(data) && !atEOF: // could be missing something
+		return 0, nil, nil // ask for more data
+	case pos[1] < len(data): // found, and there will be more
+		lx.ttype = STRING
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], nil // return number
+	default:
+		panic("case not implemented")
 	}
 
 	// scan identifiers
 	pos = PAT_IDENT.FindIndex(data)
-	if pos != nil && pos[0] == 0 { // found identifier
-		if pos[1] <= len(data) || atEOF { // has remainer or end of file
-			lx.ttype = IDENT
-			lx.pos += pos[1]
-			return pos[1], data[0:pos[1]], nil // return identifier
-		} else {
-			return 0, nil, nil // ask for more data
-		}
+	switch {
+	case pos == nil || pos[0] != 0:
+		// no number, ignore
+	case pos[1] == len(data) && atEOF: // extend until end of file
+		lx.ttype = IDENT
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], bufio.ErrFinalToken // final token
+	case pos[1] == len(data) && !atEOF: // could be missing something
+		return 0, nil, nil // ask for more data
+	case pos[1] < len(data): // found, and there will be more
+		lx.ttype = IDENT
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], nil // return number
+	default:
+		panic("case not implemented")
 	}
 
 	panic("not implemented")
@@ -145,14 +191,16 @@ func (lx *myLex) Lex(lval *mySymType) int {
 		}
 		return IDENT
 	case NUMBER:
-		lval.value = Number{ // TODO : convert token to rational
-			Num: 0,
-			Den: 0,
+		n, err := NumberFromString(token)
+		if err != nil {
+			lx.LastErr = append(lx.LastErr, fmt.Errorf("scan error in  %s, pos %d  :unknown number for %s :  %v ", lx.SourceName, lx.pos, token, err))
+			return ERROR
 		}
+		lval.value = n
 		return NUMBER
 	case STRING:
 		lval.value = String{
-			Value: token,
+			Value: token[1 : len(token)-1], // strip quotation marks
 		}
 		return STRING
 	default:

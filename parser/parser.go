@@ -8,7 +8,9 @@ import __yyfmt__ "fmt"
 
 //line grammar.y:6
 
-import ()
+import (
+	"fmt"
+)
 
 func init() {
 	myErrorVerbose = true
@@ -47,7 +49,7 @@ const myEofCode = 1
 const myErrCode = 2
 const myInitialStackSize = 16
 
-//line grammar.y:55
+//line grammar.y:56
 
 //line yacctab:1
 var myExca = [...]int8{
@@ -61,39 +63,39 @@ const myPrivate = 57344
 const myLast = 33
 
 var myAct = [...]int8{
-	16, 2, 18, 7, 1, 6, 8, 7, 11, 14,
-	8, 4, 3, 5, 12, 17, 7, 9, 13, 8,
-	4, 3, 5, 7, 15, 0, 8, 4, 3, 5,
-	0, 0, 10,
+	16, 2, 18, 13, 6, 1, 0, 8, 9, 12,
+	7, 4, 3, 5, 8, 17, 14, 7, 4, 3,
+	5, 8, 10, 15, 7, 4, 3, 5, 0, 0,
+	0, 0, 11,
 }
 
 var myPact = [...]int16{
-	19, -1000, -1000, -1000, -1000, -1000, -1000, 12, -1, -1000,
-	13, 3, -1000, -1000, 19, -1000, 19, -3, -1000,
+	3, -1000, -1000, -1000, -1000, -1000, -1000, 3, 17, -1000,
+	-1000, -2, 10, -1000, 3, -1000, 3, -3, -1000,
 }
 
 var myPgo = [...]int8{
-	0, 4, 5, 0, 24,
+	0, 5, 4, 0, 23,
 }
 
 var myR1 = [...]int8{
-	0, 1, 2, 2, 2, 2, 4, 4, 3, 3,
+	0, 1, 2, 2, 2, 4, 4, 3, 3, 3,
 	3, 3,
 }
 
 var myR2 = [...]int8{
-	0, 1, 2, 3, 5, 2, 1, 2, 1, 1,
-	1, 1,
+	0, 1, 2, 3, 5, 1, 2, 1, 1, 1,
+	1, 2,
 }
 
 var myChk = [...]int16{
-	-1000, -1, -3, 9, 8, 10, -2, 4, 7, 5,
-	-4, -3, -2, 5, 6, -4, -3, -3, 5,
+	-1000, -1, -3, 9, 8, 10, -2, 7, 4, -3,
+	5, -4, -3, 5, 6, -4, -3, -3, 5,
 }
 
 var myDef = [...]int8{
-	0, -2, 1, 8, 9, 10, 11, 0, 0, 2,
-	0, 6, 5, 3, 0, 7, 6, 0, 4,
+	0, -2, 1, 7, 8, 9, 10, 0, 0, 11,
+	2, 0, 5, 3, 0, 6, 5, 0, 4,
 }
 
 var myTok1 = [...]int8{
@@ -475,46 +477,47 @@ mydefault:
 			myVAL.value = Cell{myDollar[2].value, myDollar[4].value}
 		}
 	case 5:
-		myDollar = myS[mypt-2 : mypt+1]
-//line grammar.y:41
-		{
-			myVAL.value = Cell{String{"tick"}, myDollar[1].value}
-		}
-	case 6:
 		myDollar = myS[mypt-1 : mypt+1]
 //line grammar.y:46
 		{
 			myVAL.value = Cell{myDollar[1].value, nil}
 		}
-	case 7:
+	case 6:
 		myDollar = myS[mypt-2 : mypt+1]
 //line grammar.y:47
 		{
 			myVAL.value = Cell{myDollar[1].value, myDollar[2].value}
 		}
-	case 8:
+	case 7:
 		myDollar = myS[mypt-1 : mypt+1]
 //line grammar.y:50
 		{
 			myVAL.value = myDollar[1].value
 		}
-	case 9:
+	case 8:
 		myDollar = myS[mypt-1 : mypt+1]
 //line grammar.y:51
 		{
 			myVAL.value = myDollar[1].value
 		}
-	case 10:
+	case 9:
 		myDollar = myS[mypt-1 : mypt+1]
 //line grammar.y:52
 		{
 			myVAL.value = myDollar[1].value
 		}
-	case 11:
+	case 10:
 		myDollar = myS[mypt-1 : mypt+1]
 //line grammar.y:53
 		{
 			myVAL.value = myDollar[1].value
+		}
+	case 11:
+		myDollar = myS[mypt-2 : mypt+1]
+//line grammar.y:54
+		{
+			myVAL.value = Cell{String{"tick"}, myDollar[2].value}
+			fmt.Println("DEBUG :", myDollar[2].value, myVAL.value)
 		}
 	}
 	goto mystack /* stack new state and value */

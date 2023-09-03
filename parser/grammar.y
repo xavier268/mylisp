@@ -5,7 +5,7 @@
 package parser
 
 import (
-
+"fmt"
 )
 
 func init() {
@@ -38,7 +38,7 @@ expr:
     '(' ')'                  { $$ = Cell {}  }
     | '('  atoms  ')'        { $$ = $2   }
     | '(' atom '.' atom ')'  { $$ = Cell{ $2, $4}  }
-    |  '\''  expr            { $$ = Cell{  String { "tick"}, $1} }  
+   
 
     
 
@@ -51,5 +51,6 @@ atom:
     | NUMBER                 { $$ = $1  }
     | STRING                 { $$ = $1  }
     | expr                   { $$ = $1  }
+    |  '\''  atom            { $$ = Cell{  String { "tick"}, $2} ; fmt.Println("DEBUG :", $2, $$)}  
 
 %%
