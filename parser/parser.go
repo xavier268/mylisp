@@ -18,7 +18,7 @@ func init() {
 //line grammar.y:19
 type mySymType struct {
 	yys int
-	// define SymType structure
+	// define SymType structure, used to communicate with lexer
 	value Term
 }
 
@@ -58,22 +58,22 @@ var myExca = [...]int8{
 
 const myPrivate = 57344
 
-const myLast = 36
+const myLast = 33
 
 var myAct = [...]int8{
-	16, 18, 13, 3, 7, 14, 4, 9, 8, 10,
-	1, 0, 0, 3, 5, 17, 4, 9, 8, 10,
-	3, 0, 0, 4, 9, 8, 10, 3, 11, 2,
-	4, 15, 0, 12, 0, 6,
+	16, 2, 18, 7, 1, 6, 8, 7, 11, 14,
+	8, 4, 3, 5, 12, 17, 7, 9, 13, 8,
+	4, 3, 5, 7, 15, 0, 8, 4, 3, 5,
+	0, 0, 10,
 }
 
 var myPact = [...]int16{
-	23, -1000, -1000, 9, 23, -1000, -3, -1, -1000, -1000,
-	-1000, -1000, -1000, -1000, 16, -1000, 16, -4, -1000,
+	19, -1000, -1000, -1000, -1000, -1000, -1000, 12, -1, -1000,
+	13, 3, -1000, -1000, 19, -1000, 19, -3, -1000,
 }
 
 var myPgo = [...]int8{
-	0, 10, 28, 0, 31,
+	0, 4, 5, 0, 24,
 }
 
 var myR1 = [...]int8{
@@ -87,13 +87,13 @@ var myR2 = [...]int8{
 }
 
 var myChk = [...]int16{
-	-1000, -1, -2, 4, 7, 5, -4, -3, 9, 8,
-	10, -2, -2, 5, 6, -4, -3, -3, 5,
+	-1000, -1, -3, 9, 8, 10, -2, 4, 7, 5,
+	-4, -3, -2, 5, 6, -4, -3, -3, 5,
 }
 
 var myDef = [...]int8{
-	0, -2, 1, 0, 0, 2, 0, 6, 8, 9,
-	10, 11, 5, 3, 0, 7, 6, 0, 4,
+	0, -2, 1, 8, 9, 10, 11, 0, 0, 2,
+	0, 6, 5, 3, 0, 7, 6, 0, 4,
 }
 
 var myTok1 = [...]int8{
@@ -478,41 +478,41 @@ mydefault:
 		myDollar = myS[mypt-2 : mypt+1]
 //line grammar.y:41
 		{
-			myVAL.value = Cell{String{"quote"}, myDollar[1].value}
+			myVAL.value = Cell{String{"tick"}, myDollar[1].value}
 		}
 	case 6:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:45
+//line grammar.y:46
 		{
 			myVAL.value = Cell{myDollar[1].value, nil}
 		}
 	case 7:
 		myDollar = myS[mypt-2 : mypt+1]
-//line grammar.y:46
+//line grammar.y:47
 		{
 			myVAL.value = Cell{myDollar[1].value, myDollar[2].value}
 		}
 	case 8:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:49
+//line grammar.y:50
 		{
 			myVAL.value = myDollar[1].value
 		}
 	case 9:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:50
+//line grammar.y:51
 		{
 			myVAL.value = myDollar[1].value
 		}
 	case 10:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:51
+//line grammar.y:52
 		{
 			myVAL.value = myDollar[1].value
 		}
 	case 11:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:52
+//line grammar.y:53
 		{
 			myVAL.value = myDollar[1].value
 		}

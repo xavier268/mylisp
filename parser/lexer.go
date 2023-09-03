@@ -4,13 +4,12 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"strings"
-	"unicode"
 )
 
 type myLex struct {
-	reader     bufio.Reader
-	SourceName string
+	scanner    *bufio.Scanner
+	ttype      int     // token type
+	SourceName string  // source for the data, used to print relevant errors
 	line, col  int     // position reading
 	token      string  // accumulator for token string
 	LastErr    []error // the errors encountered
@@ -18,8 +17,9 @@ type myLex struct {
 }
 
 func NewLexer(input io.Reader, fileName string) *myLex {
-	return &myLex{
-		reader:     bufio.NewReader(input), // buffer input to read rune by rune.
+	lx := &myLex{
+		scanner:    bufio.NewScanner(input),
+		ttype:      0,
 		SourceName: fileName,
 		line:       0,
 		col:        0,
@@ -27,78 +27,64 @@ func NewLexer(input io.Reader, fileName string) *myLex {
 		LastErr:    []error{},
 		LastResult: nil,
 	}
+	lx.scanner.Split(lx.splitFunc)
+	return lx
 }
 
-// rune classifier.
-// Alpha are returned as 'A',
-// space as ' '
-// digits as '0'
-// "';().\n are returned as is,
-// eof is 0, unknown is -1.
-func rtype(r rune) int {
-	switch {
-	case strings.ContainsRune(";()'.\n\"/+-*", r):
-		return int(r)
-	case unicode.IsSpace(r): // \n already handled above
-		return ' '
-	case unicode.IsDigit(r):
-		return '0'
-	case r == 0:
-		return 0
-	case unicode.IsLetter(r) || strings.ContainsRune("_$+-*", r):
-		return 'A'
-	default:
-		return ERROR
-	}
+// split function for the scanner
+// type recognized is in lx.ttype
+// responsible for eating comments and advancing line and pos
+func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, err error) {
+	// set token type in a field in myLex ? Using regexp ?
+	panic("not implemented")
 }
 
 // The parser calls this method to get each new token.
 // The token type is the return value, and the token value is in the lval.
-// The tokens types are : '(' ')' '.' '\'' NUMBER IDENT STRING
+// The tokens types are : '(' ')' '.' '\” NUMBER IDENT STRING
 // Comments starts with a ; until end of line, and are skipped.
-
 func (lx *myLex) Lex(lval *mySymType) int {
-
-	lval.value = nil // reset value to nil
-	var (
-		r    rune
-		err  error
-		size int
-	)
-
-start:
-
-	r = lx.NextRune()
-	switch rtype(r) {
-
-	case '(', ')':
-		return int(r)
-
-		// TODO - continuer !!
+	if !lx.scanner.Scan() {
+		if lx.scanner.Err() == nil { // eof
+			return 0
+		} else {
+			lx.LastErr = append(lx.LastErr, fmt.Errorf("lexing error in  %s, line %d - col %d : %v", lx.SourceName, lx.line, lx.col, lx.scanner.Err()))
+			return ERROR
+		}
 	}
-
-	goto start
-
-	panic("unimplemented")
-}
-
-func (lx *myLex) NextRune() rune {
-	r, _, err := lx.reader.ReadRune()
-	lx.col += 1
-	if r == '\n' {
-		lx.line += 1
-		lx.col = 0
-	}
-	if err != nil {
-		lx.LastErr = append(lx.LastErr, err)
+	token := lx.scanner.Text()
+	switch lx.ttype {
+	case 0:
+		lval.value = nil
+		return 0
+	case '(', ')', '.', '\'':
+		lval.value = nil
+		return lx.ttype
+	case IDENT:
+		lval.value = Atom{
+			Value: token,
+		}
+		return IDENT
+	case NUMBER:
+		lval.value = Number{ // TODO : convert token to rational
+			Num: 0,
+			Den: 0,
+		}
+	case STRING:
+		lval.value = String{
+			Value: token,
+		}
+		return STRING
+	default:
+		lx.LastErr = append(lx.LastErr, fmt.Errorf("lexing error in  %s, line %d - col %d :unknown scan type  %v for %s", lx.SourceName, lx.line, lx.col, lx.ttype, token))
 		return ERROR
 	}
-	return r
+
 }
 
-// Required to satisfy interface.
+// Required to satisfy interface with parser
 func (lx *myLex) Error(s string) {
-	lx.LastErr = append(lx.LastErr, fmt.Errorf("error in %s, line %d - col %d : %v", lx.SourceName, lx.line, lx.col, s))
+	lx.LastErr = append(lx.LastErr, fmt.Errorf("parse error in %s, line %d - col %d : %v", lx.SourceName, lx.line, lx.col, s))
 	fmt.Println(lx.LastErr)
 }
 

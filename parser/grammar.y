@@ -17,7 +17,7 @@ func init() {
 %}
 
 %union{
-    // define SymType structure
+    // define SymType structure, used to communicate with lexer
     value Term
 }
 
@@ -29,16 +29,17 @@ func init() {
 %%
 
 top:
-    expr                     { $$ = $1
+    atom                     { $$ = $1
                               mylex.(*myLex).LastResult = $$
                              }
                 
 
-expr:
+expr:  
     '(' ')'                  { $$ = Cell {}  }
     | '('  atoms  ')'        { $$ = $2   }
     | '(' atom '.' atom ')'  { $$ = Cell{ $2, $4}  }
-    |  '\''  expr            { $$ = Cell{  String { "quote"}, $1} }  
+    |  '\''  expr            { $$ = Cell{  String { "tick"}, $1} }  
+
     
 
 atoms:
@@ -46,10 +47,9 @@ atoms:
     | atom atoms             { $$ = Cell { $1, $2 }  }
 
 atom:
-    IDENT                     { $$ = $1  }
+    IDENT                    { $$ = $1  }
     | NUMBER                 { $$ = $1  }
     | STRING                 { $$ = $1  }
     | expr                   { $$ = $1  }
-
 
 %%

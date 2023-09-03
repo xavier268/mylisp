@@ -2,12 +2,16 @@
 state 0
 	$accept: .top $end 
 
-	'('  shift 3
-	'\''  shift 4
+	'('  shift 7
+	'\''  shift 8
+	NUMBER  shift 4
+	IDENT  shift 3
+	STRING  shift 5
 	.  error
 
 	top  goto 1
-	expr  goto 2
+	expr  goto 6
+	atom  goto 2
 
 state 1
 	$accept:  top.$end 
@@ -17,90 +21,90 @@ state 1
 
 
 state 2
-	top:  expr.    (1)
+	top:  atom.    (1)
 
 	.  reduce 1 (src line 31)
 
 
 state 3
+	atom:  IDENT.    (8)
+
+	.  reduce 8 (src line 49)
+
+
+state 4
+	atom:  NUMBER.    (9)
+
+	.  reduce 9 (src line 51)
+
+
+state 5
+	atom:  STRING.    (10)
+
+	.  reduce 10 (src line 52)
+
+
+state 6
+	atom:  expr.    (11)
+
+	.  reduce 11 (src line 53)
+
+
+state 7
 	expr:  '('.')' 
 	expr:  '('.atoms ')' 
 	expr:  '('.atom '.' atom ')' 
 
-	'('  shift 3
-	')'  shift 5
-	'\''  shift 4
-	NUMBER  shift 9
-	IDENT  shift 8
-	STRING  shift 10
+	'('  shift 7
+	')'  shift 9
+	'\''  shift 8
+	NUMBER  shift 4
+	IDENT  shift 3
+	STRING  shift 5
 	.  error
 
-	expr  goto 11
-	atom  goto 7
-	atoms  goto 6
+	expr  goto 6
+	atom  goto 11
+	atoms  goto 10
 
-state 4
+state 8
 	expr:  '\''.expr 
 
-	'('  shift 3
-	'\''  shift 4
+	'('  shift 7
+	'\''  shift 8
 	.  error
 
 	expr  goto 12
 
-state 5
+state 9
 	expr:  '(' ')'.    (2)
 
 	.  reduce 2 (src line 37)
 
 
-state 6
+state 10
 	expr:  '(' atoms.')' 
 
 	')'  shift 13
 	.  error
 
 
-state 7
+state 11
 	expr:  '(' atom.'.' atom ')' 
 	atoms:  atom.    (6)
 	atoms:  atom.atoms 
 
-	'('  shift 3
+	'('  shift 7
 	'.'  shift 14
-	'\''  shift 4
-	NUMBER  shift 9
-	IDENT  shift 8
-	STRING  shift 10
-	.  reduce 6 (src line 44)
+	'\''  shift 8
+	NUMBER  shift 4
+	IDENT  shift 3
+	STRING  shift 5
+	.  reduce 6 (src line 45)
 
-	expr  goto 11
+	expr  goto 6
 	atom  goto 16
 	atoms  goto 15
-
-state 8
-	atom:  IDENT.    (8)
-
-	.  reduce 8 (src line 48)
-
-
-state 9
-	atom:  NUMBER.    (9)
-
-	.  reduce 9 (src line 50)
-
-
-state 10
-	atom:  STRING.    (10)
-
-	.  reduce 10 (src line 51)
-
-
-state 11
-	atom:  expr.    (11)
-
-	.  reduce 11 (src line 52)
-
 
 state 12
 	expr:  '\'' expr.    (5)
@@ -117,34 +121,34 @@ state 13
 state 14
 	expr:  '(' atom '.'.atom ')' 
 
-	'('  shift 3
-	'\''  shift 4
-	NUMBER  shift 9
-	IDENT  shift 8
-	STRING  shift 10
+	'('  shift 7
+	'\''  shift 8
+	NUMBER  shift 4
+	IDENT  shift 3
+	STRING  shift 5
 	.  error
 
-	expr  goto 11
+	expr  goto 6
 	atom  goto 17
 
 state 15
 	atoms:  atom atoms.    (7)
 
-	.  reduce 7 (src line 46)
+	.  reduce 7 (src line 47)
 
 
 state 16
 	atoms:  atom.    (6)
 	atoms:  atom.atoms 
 
-	'('  shift 3
-	'\''  shift 4
-	NUMBER  shift 9
-	IDENT  shift 8
-	STRING  shift 10
-	.  reduce 6 (src line 44)
+	'('  shift 7
+	'\''  shift 8
+	NUMBER  shift 4
+	IDENT  shift 3
+	STRING  shift 5
+	.  reduce 6 (src line 45)
 
-	expr  goto 11
+	expr  goto 6
 	atom  goto 16
 	atoms  goto 15
 
@@ -165,11 +169,11 @@ state 18
 12 grammar rules, 19/16000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
 54 working sets used
-memory: parser 10/240000
-8 extra closures
-28 shift entries, 1 exceptions
+memory: parser 11/240000
+12 extra closures
+31 shift entries, 1 exceptions
 9 goto entries
-5 entries saved by goto default
-Optimizer space used: output 36/240000
-36 table entries, 6 zero
+6 entries saved by goto default
+Optimizer space used: output 33/240000
+33 table entries, 3 zero
 maximum spread: 10, maximum offset: 14
