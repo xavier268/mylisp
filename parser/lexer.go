@@ -11,7 +11,6 @@ type myLex struct {
 	ttype      int     // token type
 	SourceName string  // source for the data, used to print relevant errors
 	line, col  int     // position reading
-	token      string  // accumulator for token string
 	LastErr    []error // the errors encountered
 	LastResult Term    // the last result from the parser
 }
@@ -23,7 +22,6 @@ func NewLexer(input io.Reader, fileName string) *myLex {
 		SourceName: fileName,
 		line:       0,
 		col:        0,
-		token:      "",
 		LastErr:    []error{},
 		LastResult: nil,
 	}
