@@ -24,10 +24,19 @@ func TermError(err error, context Term) Term {
 // Returns nil, not Cell{}, if there are no parameters.
 func MakeList(t ...Term) Term {
 	if t == nil {
-		return nil
+		return Cell{Car: nil, Cdr: nil}
 	}
-	return Cell{
-		Car: t[0],
-		Cdr: MakeList(t[1:]...),
+	if len(t) == 1 {
+		return Cell{
+			Car: t[0],
+			Cdr: nil,
+		}
 	}
+	if len(t) >= 2 {
+		return Cell{
+			Car: t[0],
+			Cdr: MakeList(t[1:]...),
+		}
+	}
+	panic(" case not implemented")
 }
