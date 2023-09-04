@@ -60,7 +60,12 @@ func (it *Inter) DoSpecial(t Term) (result Term, ok bool) {
 // Initialize the special builtin predicates
 func (it *Inter) InitSpecials() {
 	it.specials = map[parser.Atom]TransformFunc{
-		Atom{Value: "tick"}: it.specTick,
+		Atom{Value: "tick"}:   it.specTick,
+		Atom{Value: "lambda"}: it.specLambda,
+		Atom{Value: "+"}:      it.specPlus,
+		Atom{Value: "-"}:      it.specMinus,
+		Atom{Value: "*"}:      it.specMul,
+		Atom{Value: "/"}:      it.specDiv,
 	}
 }
 
@@ -72,4 +77,24 @@ func (it *Inter) specTick(t Term) (res Term, ok bool) {
 		err := fmt.Errorf("tick: argument is not a cell")
 		return TermError(err, t), true // stop eval
 	}
+}
+
+func (it *Inter) specLambda(t Term) (res Term, ok bool) {
+	panic("not implementd")
+}
+
+func (it *Inter) specPlus(t Term) (res Term, ok bool) {
+	panic("not implementd")
+}
+
+func (it *Inter) specMinus(t Term) (res Term, ok bool) {
+	panic("not implementd")
+}
+
+func (it *Inter) specMul(t Term) (res Term, ok bool) {
+	panic("not implementd")
+}
+
+func (it *Inter) specDiv(t Term) (res Term, ok bool) {
+	panic("not implementd")
 }

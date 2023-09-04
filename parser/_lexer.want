@@ -80,16 +80,20 @@ This file : _lexer.want
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"//"}}
 	ttype : 0
 
-15:	input : <+=>
+15:	input : </>
+	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"/"}}
+	ttype : 0
+
+16:	input : <+=>
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"+="}}
 	ttype : 0
 
-16:	input : <+ =>
+17:	input : <+ =>
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"+"}}
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"="}}
 	ttype : 0
 
-17:	input : <==>
+18:	input : <==>
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"=="}}
 	ttype : 0
 

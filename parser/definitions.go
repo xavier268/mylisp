@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"cmp"
 	"fmt"
 	"strconv"
 )
@@ -157,6 +158,40 @@ func NumberFromString(s string) (n Number, err error) {
 	}
 	return n.Normalize(), nil
 }
+
+func (n Number) Plus(m Number) Number {
+	return Number{
+		Num: n.Num*m.Den + m.Num*n.Den,
+		Den: n.Den * m.Den,
+	}.Normalize()
+}
+func (n Number) Minus(m Number) Number {
+	return Number{
+		Num: n.Num*m.Den - m.Num*n.Den,
+		Den: n.Den * m.Den,
+	}.Normalize()
+}
+
+func (n Number) Mul(m Number) Number {
+	return Number{
+		Num: n.Num * m.Num,
+		Den: n.Den * m.Den,
+	}.Normalize()
+}
+
+func (n Number) Div(m Number) Number {
+	return Number{
+		Num: n.Num * m.Den,
+		Den: n.Den * m.Num,
+	}.Normalize()
+}
+
+// Compare n and m. -1 if n<m, 0 if n==m, 1 if n>m.
+func Compare(n, m Number) int {
+	return cmp.Compare(n.Num*m.Den, m.Num*n.Den)
+}
+
+// ===================================================================
 
 type String struct {
 	Value string

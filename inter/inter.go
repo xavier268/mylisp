@@ -10,6 +10,7 @@ func NewInter() *Inter {
 	return it
 }
 
+// Retrieve the Term that is bound to this variable, if any.
 func (it *Inter) GetVariable(a Atom) (resTerm Term, ok bool) {
 	panic("not implemented	")
 }

@@ -1,0 +1,12 @@
+Test name : TestMakeList
+This file : _makelist.want
+
+0:	[x] ---> ( x )
+0:	[x] ---> parser.Cell{Car:parser.Atom{Value:"x"}, Cdr:parser.Term(nil)}
+
+1:	[x ( y z ) x] ---> ( x ( y z ) x )
+1:	[x ( y z ) x] ---> parser.Cell{Car:parser.Atom{Value:"x"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Atom{Value:"y"}, Cdr:parser.Cell{Car:parser.Atom{Value:"z"}, Cdr:parser.Term(nil)}}, Cdr:parser.Cell{Car:parser.Atom{Value:"x"}, Cdr:parser.Term(nil)}}}
+
+2:	[] ---> ( )
+2:	[] ---> parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}
+

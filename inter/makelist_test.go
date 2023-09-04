@@ -10,17 +10,24 @@ import (
 
 func TestMakeList(t *testing.T) {
 
-	X, Y, Z := Atom{"x"}, Atom{"y"}, Atom{"z"}
+	X, Y, Z := Atom{Value: "x"}, Atom{Value: "y"}, Atom{Value: "z"}
 
 	tests := [][]Term{
-		[]Term{},
+
 		{X},
 		{X, MakeList(Y, Z), X},
+		{},
 	}
 	sb := new(strings.Builder)
 	for i, l := range tests {
 		fmt.Fprintln(sb)
-		fmt.Fprintln(sb, i, l, "---->", MakeList(l...))
+		if len(l) == 0 {
+			fmt.Fprintf(sb, "%d:\t%v ---> %v\n", i, l, MakeList())
+			fmt.Fprintf(sb, "%d:\t%v ---> %#v\n", i, l, MakeList())
+		} else {
+			fmt.Fprintf(sb, "%d:\t%v ---> %v\n", i, l, MakeList(l...))
+			fmt.Fprintf(sb, "%d:\t%v ---> %#v\n", i, l, MakeList(l...))
+		}
 	}
 
 	mytest.Verify(t, sb.String(), "makelist")
