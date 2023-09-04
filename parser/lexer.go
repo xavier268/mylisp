@@ -178,7 +178,7 @@ func (lx *myLex) Lex(lval *mySymType) int {
 			if PAT_OPERATOR.MatchString(token) {
 				op := string(token)
 				d := int(op[0])
-				fmt.Printf("DEBUG : type as char : %d  %c\n", d, d)
+				// fmt.Printf("DEBUG : type as char : %d  %c\n", d, d)
 				return d // need to capture the full, multibyte, first character
 			}
 			return IDENT
