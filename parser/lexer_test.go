@@ -19,6 +19,8 @@ func TestLexer(t *testing.T) {
 		"  2/3  3/4  ",
 		"'",
 		" ' a",
+		" 'a",
+		"'()a",
 		// stings
 		`"a string" and
 		   "another string"`,

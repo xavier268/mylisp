@@ -25,22 +25,34 @@ This file : _lexer.want
 	ttype : 0
 
 5:	input : <'>
-	ttype : 39 ('),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"'"}}
+	ttype : 39 ('),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
 	ttype : 0
 
 6:	input : < ' a>
-	ttype : 39 ('),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"'"}}
+	ttype : 39 ('),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
 	ttype : 0
 
-7:	input : <"a string" and
+7:	input : < 'a>
+	ttype : 39 ('),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+	ttype : 0
+
+8:	input : <'()a>
+	ttype : 39 ('),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 40 ((),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 41 ()),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"a"}}
+	ttype : 0
+
+9:	input : <"a string" and
 		   "another string">
 	ttype : 57348 (E004),	lval : &parser.mySymType{yys:0, value:parser.String{Value:"a string"}}
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"and"}}
 	ttype : 57348 (E004),	lval : &parser.mySymType{yys:0, value:parser.String{Value:"another string"}}
 	ttype : 0
 
-8:	input : <a b ; comment
+10:	input : <a b ; comment
 		f
 		; another comment
 		d ;>
@@ -50,33 +62,34 @@ This file : _lexer.want
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"d"}}
 	ttype : 0
 
-9:	input : <)>
-	ttype : 41 ()),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:")"}}
+11:	input : <)>
+	ttype : 41 ()),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
 	ttype : 0
 
-10:	input : <()>
-	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"()"}}
+12:	input : <()>
+	ttype : 40 ((),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 41 ()),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
 	ttype : 0
 
-11:	input : <( )>
-	ttype : 40 ((),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"("}}
-	ttype : 41 ()),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:")"}}
+13:	input : <( )>
+	ttype : 40 ((),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
+	ttype : 41 ()),	lval : &parser.mySymType{yys:0, value:parser.Term(nil)}
 	ttype : 0
 
-12:	input : <//>
+14:	input : <//>
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"//"}}
 	ttype : 0
 
-13:	input : <+=>
+15:	input : <+=>
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"+="}}
 	ttype : 0
 
-14:	input : <+ =>
+16:	input : <+ =>
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"+"}}
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"="}}
 	ttype : 0
 
-15:	input : <==>
+17:	input : <==>
 	ttype : 57347 (E003),	lval : &parser.mySymType{yys:0, value:parser.Atom{Value:"=="}}
 	ttype : 0
 

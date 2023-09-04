@@ -1,3 +1,4 @@
+// package parser constains lexer, parser and structure definitions.
 package parser
 
 //go:generate go get golang.org/x/tools/cmd/goyacc
@@ -11,5 +12,5 @@ package parser
 //go:generate go fmt ./...
 
 const (
-	VERSION = "0.0.2"
+	VERSION = "0.0.4"
 )

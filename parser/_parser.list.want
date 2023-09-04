@@ -1,18 +1,17 @@
 Test name : TestParserList
 This file : _parser.list.want
 
-0: input : <() ; Caution () is an Atom, different from the empty list ( )>
-0: result raw: <parser.Atom{Value:"()"}>
-0: result str: <()>
+0: input : <() >
+0: result raw: <parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}>
+0: result str: <( )>
 
 1: input : <( )>
 1: result raw: <parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}>
 1: result str: <( )>
 
-2: input : <'( ) ; will fail beacuse missing space between ' and ( ,  '(  is recognized as single atom>
-2:	 ********** error: error : [parse error in test string #2, pos 4 : syntax error: unexpected ')']
-2: result raw: <parser.Atom{Value:"'("}>
-2: result str: <'(>
+2: input : <'( ) ; >
+2: result raw: <parser.Cell{Car:parser.Atom{Value:"tick"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
+2: result str: <( tick  )>
 
 3: input : <' ( ) >
 3: result raw: <parser.Cell{Car:parser.Atom{Value:"tick"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
@@ -54,15 +53,15 @@ This file : _parser.list.want
 12: result raw: <parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}>
 12: result str: <( )>
 
-13: input : <( . a )>
+13: input : <(.a )>
 13: result raw: <parser.Cell{Car:parser.Term(nil), Cdr:parser.Atom{Value:"a"}}>
 13: result str: <( . a )>
 
-14: input : < ( un . ( deux . ( trois . ( ) ) ) )>
+14: input : < ( un . ( deux . (trois . ( ) ) ) )>
 14: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Cell{Car:parser.Atom{Value:"trois"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}}}>
 14: result str: <( un deux trois  )>
 
-15: input : < ( un . ( deux . ( trois .  ) ) )>
+15: input : < ( un . ( deux.( trois . )) )>
 15: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Cell{Car:parser.Atom{Value:"trois"}, Cdr:parser.Term(nil)}}}>
 15: result str: <( un deux trois )>
 

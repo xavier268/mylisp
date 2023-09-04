@@ -38,9 +38,9 @@ func TestParserList(t *testing.T) {
 
 	tests := []string{
 		// simple lists
-		"() ; Caution () is an Atom, different from the empty list ( )",
+		"() ",
 		"( )",
-		"'( ) ; will fail beacuse missing space between ' and ( ,  '(  is recognized as single atom",
+		"'( ) ; ",
 		"' ( ) ",
 		"( un deux )",
 		"( un . deux )",
@@ -55,9 +55,9 @@ func TestParserList(t *testing.T) {
 		// using pairs to construct lists
 		"( a . )",
 		"( . )",
-		"( . a )",
-		" ( un . ( deux . ( trois . ( ) ) ) )",
-		" ( un . ( deux . ( trois .  ) ) )",
+		"(.a )",
+		" ( un . ( deux . (trois . ( ) ) ) )",
+		" ( un . ( deux.( trois . )) )",
 	}
 
 	sb := new(strings.Builder)

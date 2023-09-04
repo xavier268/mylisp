@@ -33,7 +33,7 @@ var PAT_COMMENT = regexp.MustCompile("(?m)^;.*$")
 var PAT_SPACE = regexp.MustCompile(`^[\s]+`)
 var PAT_STRING = regexp.MustCompile(`^"([^"]*)"`)
 var PAT_NUMBER = regexp.MustCompile(`^(-)?(\d+)(/(\d+))?`) // should be tested before IDENT
-var PAT_IDENT = regexp.MustCompile(`^[-+*/=()'.$_\pL\d]+`) // IDENT match this AND are neither number nor operator
+var PAT_IDENT = regexp.MustCompile(`^[-+*/=$_\pL\d]+`)     // IDENT match this AND are neither number nor operator
 
 var PAT_OPERATOR = regexp.MustCompile(`^[()'.]$`) // tell if an ident is an operator, once identified as IDENT
 
@@ -87,25 +87,6 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 		panic("case not implemented")
 	}
 
-	// scan numbers
-	pos = PAT_NUMBER.FindIndex(data)
-	switch {
-	case pos == nil || pos[0] != 0:
-		// no number, ignore
-	case pos[1] == len(data) && atEOF: // extend until end of file
-		lx.ttype = NUMBER
-		lx.pos += pos[1]
-		return pos[1], data[0:pos[1]], bufio.ErrFinalToken // final token
-	case pos[1] == len(data) && !atEOF: // could be missing something
-		return 0, nil, nil // ask for more data
-	case pos[1] < len(data): // found, and there will be more
-		lx.ttype = NUMBER
-		lx.pos += pos[1]
-		return pos[1], data[0:pos[1]], nil // return number
-	default:
-		panic("case not implemented")
-	}
-
 	// scan strings
 	pos = PAT_STRING.FindIndex(data)
 	switch {
@@ -119,6 +100,32 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 		return 0, nil, nil // ask for more data
 	case pos[1] < len(data): // found, and there will be more
 		lx.ttype = STRING
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], nil // return number
+	default:
+		panic("case not implemented")
+	}
+
+	// immediately process parenthesis, tick and period
+	if data[0] == '(' || data[0] == ')' || data[0] == '.' || data[0] == '\'' {
+		lx.pos += 1
+		lx.ttype = int(data[0])
+		return 1, data[0:1], nil
+	}
+
+	// scan numbers
+	pos = PAT_NUMBER.FindIndex(data)
+	switch {
+	case pos == nil || pos[0] != 0:
+		// no number, ignore
+	case pos[1] == len(data) && atEOF: // extend until end of file
+		lx.ttype = NUMBER
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], bufio.ErrFinalToken // final token
+	case pos[1] == len(data) && !atEOF: // could be missing something
+		return 0, nil, nil // ask for more data
+	case pos[1] < len(data): // found, and there will be more
+		lx.ttype = NUMBER
 		lx.pos += pos[1]
 		return pos[1], data[0:pos[1]], nil // return number
 	default:
@@ -182,6 +189,9 @@ func (lx *myLex) Lex(lval *mySymType) int {
 				return d // need to capture the full, multibyte, first character
 			}
 			return IDENT
+		case '(', ')', '\'', '.':
+			return int(token[0])
+
 		case NUMBER:
 			n, err := NumberFromString(token)
 			if err != nil {
