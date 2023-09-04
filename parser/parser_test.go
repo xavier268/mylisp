@@ -38,22 +38,26 @@ func TestParserList(t *testing.T) {
 
 	tests := []string{
 		// simple lists
-		"() ; should fail, because () is not ( )",
+		"() ; Caution () is an Atom, different from the empty list ( )",
 		"( )",
-		"'( )",
+		"'( ) ; will fail beacuse missing space between ' and ( ,  '(  is recognized as single atom",
+		"' ( ) ",
 		"( un deux )",
 		"( un . deux )",
 		"( un ' deux )",
-		"'( un  deux )",
+		"' ( un  deux )",
 		"( un deux trois )",
 
 		// nested lists
 		"( un ( deux ) trois )",
-		"( un ( deux () ) trois )",
+		"( un ( deux ( ) ) trois )",
 
 		// using pairs to construct lists
-		" (un . ( deux . ( trois . () ) ) )",
-		" (un . ( deux . ( trois .  ) ) )",
+		"( a . )",
+		"( . )",
+		"( . a )",
+		" ( un . ( deux . ( trois . ( ) ) ) )",
+		" ( un . ( deux . ( trois .  ) ) )",
 	}
 
 	sb := new(strings.Builder)

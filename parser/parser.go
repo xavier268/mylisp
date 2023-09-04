@@ -49,7 +49,7 @@ const myEofCode = 1
 const myErrCode = 2
 const myInitialStackSize = 16
 
-//line grammar.y:56
+//line grammar.y:59
 
 //line yacctab:1
 var myExca = [...]int8{
@@ -60,42 +60,46 @@ var myExca = [...]int8{
 
 const myPrivate = 57344
 
-const myLast = 33
+const myLast = 45
 
 var myAct = [...]int8{
-	16, 2, 18, 13, 6, 1, 0, 8, 9, 12,
-	7, 4, 3, 5, 8, 17, 14, 7, 4, 3,
-	5, 8, 10, 15, 7, 4, 3, 5, 0, 0,
-	0, 0, 11,
+	17, 2, 23, 22, 14, 6, 16, 8, 9, 12,
+	7, 4, 3, 5, 18, 11, 20, 8, 10, 13,
+	7, 4, 3, 5, 8, 21, 1, 7, 4, 3,
+	5, 8, 19, 0, 7, 4, 3, 5, 8, 0,
+	15, 7, 4, 3, 5,
 }
 
 var myPact = [...]int16{
-	3, -1000, -1000, -1000, -1000, -1000, -1000, 3, 17, -1000,
-	-1000, -2, 10, -1000, 3, -1000, 3, -3, -1000,
+	3, -1000, -1000, -1000, -1000, -1000, -1000, 3, 13, -1000,
+	-1000, -1, 34, 27, -1000, 20, -1000, 3, -2, -1000,
+	-3, -1000, -1000, -1000,
 }
 
 var myPgo = [...]int8{
-	0, 5, 4, 0, 23,
+	0, 26, 5, 0, 6,
 }
 
 var myR1 = [...]int8{
-	0, 1, 2, 2, 2, 4, 4, 3, 3, 3,
-	3, 3,
+	0, 1, 2, 2, 2, 2, 2, 2, 4, 4,
+	3, 3, 3, 3, 3,
 }
 
 var myR2 = [...]int8{
-	0, 1, 2, 3, 5, 1, 2, 1, 1, 1,
-	1, 2,
+	0, 1, 2, 3, 5, 4, 4, 3, 1, 2,
+	1, 1, 1, 1, 2,
 }
 
 var myChk = [...]int16{
 	-1000, -1, -3, 9, 8, 10, -2, 7, 4, -3,
-	5, -4, -3, 5, 6, -4, -3, -3, 5,
+	5, -4, -3, 6, 5, 6, -4, -3, -3, 5,
+	-3, 5, 5, 5,
 }
 
 var myDef = [...]int8{
-	0, -2, 1, 7, 8, 9, 10, 0, 0, 11,
-	2, 0, 5, 3, 0, 6, 5, 0, 4,
+	0, -2, 1, 10, 11, 12, 13, 0, 0, 14,
+	2, 0, 8, 0, 3, 0, 9, 8, 0, 7,
+	0, 5, 6, 4,
 }
 
 var myTok1 = [...]int8{
@@ -477,34 +481,34 @@ mydefault:
 			myVAL.value = Cell{myDollar[2].value, myDollar[4].value}
 		}
 	case 5:
-		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:46
+		myDollar = myS[mypt-4 : mypt+1]
+//line grammar.y:41
 		{
-			myVAL.value = Cell{myDollar[1].value, nil}
+			myVAL.value = Cell{myDollar[2].value, nil}
 		}
 	case 6:
-		myDollar = myS[mypt-2 : mypt+1]
-//line grammar.y:47
+		myDollar = myS[mypt-4 : mypt+1]
+//line grammar.y:42
 		{
-			myVAL.value = Cell{myDollar[1].value, myDollar[2].value}
+			myVAL.value = Cell{nil, myDollar[3].value}
 		}
 	case 7:
-		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:50
+		myDollar = myS[mypt-3 : mypt+1]
+//line grammar.y:43
 		{
-			myVAL.value = myDollar[1].value
+			myVAL.value = Cell{}
 		}
 	case 8:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:51
+//line grammar.y:49
 		{
-			myVAL.value = myDollar[1].value
+			myVAL.value = Cell{myDollar[1].value, nil}
 		}
 	case 9:
-		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:52
+		myDollar = myS[mypt-2 : mypt+1]
+//line grammar.y:50
 		{
-			myVAL.value = myDollar[1].value
+			myVAL.value = Cell{myDollar[1].value, myDollar[2].value}
 		}
 	case 10:
 		myDollar = myS[mypt-1 : mypt+1]
@@ -513,8 +517,26 @@ mydefault:
 			myVAL.value = myDollar[1].value
 		}
 	case 11:
-		myDollar = myS[mypt-2 : mypt+1]
+		myDollar = myS[mypt-1 : mypt+1]
 //line grammar.y:54
+		{
+			myVAL.value = myDollar[1].value
+		}
+	case 12:
+		myDollar = myS[mypt-1 : mypt+1]
+//line grammar.y:55
+		{
+			myVAL.value = myDollar[1].value
+		}
+	case 13:
+		myDollar = myS[mypt-1 : mypt+1]
+//line grammar.y:56
+		{
+			myVAL.value = myDollar[1].value
+		}
+	case 14:
+		myDollar = myS[mypt-2 : mypt+1]
+//line grammar.y:57
 		{
 			myVAL.value = Cell{Atom{"tick"}, myDollar[2].value}
 		}
