@@ -15,8 +15,8 @@ func TestParser(t *testing.T) {
 		"2/3",
 		`"a string"`,
 		" ' 2/3  ",
-		//"( un deux trois )",
-		//"( un . deux )",
+		" a b ; should fail beacause multiple atoms not allowed outside list",
+		"' ; should fail because ' must be followed by a Term",
 	}
 
 	sb := new(strings.Builder)
@@ -27,8 +27,39 @@ func TestParser(t *testing.T) {
 		if err != nil {
 			fmt.Fprintf(sb, "%d:\t ********** error: %v\n", i, err)
 		}
-		fmt.Fprintf(sb, "%d: result: <%s>\n", i, res)
+		fmt.Fprintf(sb, "%d: result raw: <%#v>\n", i, res)
+		fmt.Fprintf(sb, "%d: result str: <%s>\n", i, ToString(res))
 	}
 
 	mytest.Verify(t, sb.String(), "parser")
+}
+
+func TestParserList(t *testing.T) {
+
+	tests := []string{
+
+		"()",
+		"'()",
+		"( un deux )",
+		"( un . deux )",
+		"( un ' deux )",
+		"'( un  deux )",
+		"( un deux trois )",
+		"( un ( deux ) trois )",
+		"( un ( deux () ) trois )",
+	}
+
+	sb := new(strings.Builder)
+	for i, tt := range tests {
+		fmt.Fprintln(sb)
+		fmt.Fprintf(sb, "%d: input : <%s>\n", i, tt)
+		res, err := ParseString(tt, fmt.Sprintf("test string #%d", i))
+		if err != nil {
+			fmt.Fprintf(sb, "%d:\t ********** error: %v\n", i, err)
+		}
+		fmt.Fprintf(sb, "%d: result raw: <%#v>\n", i, res)
+		fmt.Fprintf(sb, "%d: result str: <%s>\n", i, ToString(res))
+	}
+
+	mytest.Verify(t, sb.String(), "parser.list")
 }

@@ -8,9 +8,7 @@ import __yyfmt__ "fmt"
 
 //line grammar.y:6
 
-import (
-	"fmt"
-)
+import ()
 
 func init() {
 	myErrorVerbose = true
@@ -28,6 +26,7 @@ const NUMBER = 57346
 const IDENT = 57347
 const STRING = 57348
 const ERROR = 57349
+const SKIP = 57350
 
 var myToknames = [...]string{
 	"$end",
@@ -41,6 +40,7 @@ var myToknames = [...]string{
 	"IDENT",
 	"STRING",
 	"ERROR",
+	"SKIP",
 }
 
 var myStatenames = [...]string{}
@@ -107,7 +107,7 @@ var myTok1 = [...]int8{
 }
 
 var myTok2 = [...]int8{
-	2, 3, 8, 9, 10, 11,
+	2, 3, 8, 9, 10, 11, 12,
 }
 
 var myTok3 = [...]int8{
@@ -516,8 +516,7 @@ mydefault:
 		myDollar = myS[mypt-2 : mypt+1]
 //line grammar.y:54
 		{
-			myVAL.value = Cell{String{"tick"}, myDollar[2].value}
-			fmt.Println("DEBUG :", myDollar[2].value, myVAL.value)
+			myVAL.value = Cell{Atom{"'"}, myDollar[2].value}
 		}
 	}
 	goto mystack /* stack new state and value */

@@ -5,7 +5,7 @@
 package parser
 
 import (
-"fmt"
+
 )
 
 func init() {
@@ -24,7 +24,7 @@ func init() {
 %type <value> top expr atom atoms 
 
 %token <value> '(' ')' '.' '\''
-%token <value> NUMBER IDENT STRING ERROR
+%token <value> NUMBER IDENT STRING ERROR SKIP
 
 %%
 
@@ -35,7 +35,7 @@ top:
                 
 
 expr:  
-    '(' ')'                  { $$ = Cell {}  }
+    '(' ')'                  { $$ = Cell{}  }
     | '('  atoms  ')'        { $$ = $2   }
     | '(' atom '.' atom ')'  { $$ = Cell{ $2, $4}  }
    
@@ -51,6 +51,6 @@ atom:
     | NUMBER                 { $$ = $1  }
     | STRING                 { $$ = $1  }
     | expr                   { $$ = $1  }
-    |  '\''  atom            { $$ = Cell{  String { "tick"}, $2} ; fmt.Println("DEBUG :", $2, $$)}  
+    |  '\''  atom            { $$ = Cell{  Atom { "'"}, $2} }  
 
 %%

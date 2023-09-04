@@ -12,6 +12,7 @@ import (
 func TestLexer(t *testing.T) {
 
 	tests := []string{
+		// atoms, nbr, ' ,whitespaces
 		"a",
 		" a b",
 		"2/3",
@@ -19,6 +20,14 @@ func TestLexer(t *testing.T) {
 		"  2/3  3/4  ",
 		"'",
 		" ' a",
+		// stings
+		`"a string" and
+		   "another string"`,
+		// comments
+		`a b ; comment
+		f
+		; another comment
+		d ;`,
 	}
 	sb := new(strings.Builder)
 	for i, test := range tests {

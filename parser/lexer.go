@@ -52,16 +52,17 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 	pos = PAT_SPACE.FindIndex(data)
 	switch {
 	case pos == nil || pos[0] != 0:
-		//  ignore
+		// no number, ignore
 	case pos[1] == len(data) && atEOF: // extend until end of file
+		lx.ttype = SKIP
 		lx.pos += pos[1]
-		return pos[1], nil, bufio.ErrFinalToken // final non-token
+		return pos[1], data[0:pos[1]], bufio.ErrFinalToken // final token
 	case pos[1] == len(data) && !atEOF: // could be missing something
-		lx.pos += pos[1]
-		return pos[1], nil, nil // no need to ask for more data
+		return 0, nil, nil // ask for more data
 	case pos[1] < len(data): // found, and there will be more
+		lx.ttype = SKIP
 		lx.pos += pos[1]
-		return pos[1], nil, nil // return
+		return pos[1], data[0:pos[1]], nil // return
 	default:
 		panic("case not implemented")
 	}
@@ -70,15 +71,17 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 	pos = PAT_COMMENT.FindIndex(data)
 	switch {
 	case pos == nil || pos[0] != 0:
-		// ignore
+		// no number, ignore
 	case pos[1] == len(data) && atEOF: // extend until end of file
+		lx.ttype = SKIP
 		lx.pos += pos[1]
-		return pos[1], nil, bufio.ErrFinalToken // final non token
+		return pos[1], data[0:pos[1]], bufio.ErrFinalToken // final token
 	case pos[1] == len(data) && !atEOF: // could be missing something
 		return 0, nil, nil // ask for more data
 	case pos[1] < len(data): // found, and there will be more
+		lx.ttype = SKIP
 		lx.pos += pos[1]
-		return pos[1], nil, nil // eat comment
+		return pos[1], data[0:pos[1]], nil // return
 	default:
 		panic("case not implemented")
 	}
@@ -168,46 +171,50 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 // Comments starts with a ; until end of line, and are skipped.
 // White spaces are skipped.
 func (lx *myLex) Lex(lval *mySymType) int {
-	if !lx.scanner.Scan() {
-		if lx.scanner.Err() == nil { // eof
+
+	for {
+		if !lx.scanner.Scan() {
+			if lx.scanner.Err() == nil { // eof
+				return 0
+			} else {
+				lx.LastErr = append(lx.LastErr, fmt.Errorf("lexing error in  %s, pos %d  : %v", lx.SourceName, lx.pos, lx.scanner.Err()))
+				return ERROR
+			}
+		}
+
+		token := lx.scanner.Text()
+		switch lx.ttype {
+		case 0:
+			lval.value = nil
 			return 0
-		} else {
-			lx.LastErr = append(lx.LastErr, fmt.Errorf("lexing error in  %s, pos %d  : %v", lx.SourceName, lx.pos, lx.scanner.Err()))
+		case SKIP:
+			continue // ignore and continue
+		case '(', ')', '.', '\'':
+			lval.value = nil
+			return lx.ttype
+		case IDENT:
+			lval.value = Atom{
+				Value: token,
+			}
+			return IDENT
+		case NUMBER:
+			n, err := NumberFromString(token)
+			if err != nil {
+				lx.LastErr = append(lx.LastErr, fmt.Errorf("scan error in  %s, pos %d  :unknown number for %s :  %v ", lx.SourceName, lx.pos, token, err))
+				return ERROR
+			}
+			lval.value = n
+			return NUMBER
+		case STRING:
+			lval.value = String{
+				Value: token[1 : len(token)-1], // strip quotation marks
+			}
+			return STRING
+		default:
+			lx.LastErr = append(lx.LastErr, fmt.Errorf("scan error in  %s, pos %d  :unknown scan type  %v for %s", lx.SourceName, lx.pos, lx.ttype, token))
 			return ERROR
 		}
 	}
-
-	token := lx.scanner.Text()
-	switch lx.ttype {
-	case 0:
-		lval.value = nil
-		return 0
-	case '(', ')', '.', '\'':
-		lval.value = nil
-		return lx.ttype
-	case IDENT:
-		lval.value = Atom{
-			Value: token,
-		}
-		return IDENT
-	case NUMBER:
-		n, err := NumberFromString(token)
-		if err != nil {
-			lx.LastErr = append(lx.LastErr, fmt.Errorf("scan error in  %s, pos %d  :unknown number for %s :  %v ", lx.SourceName, lx.pos, token, err))
-			return ERROR
-		}
-		lval.value = n
-		return NUMBER
-	case STRING:
-		lval.value = String{
-			Value: token[1 : len(token)-1], // strip quotation marks
-		}
-		return STRING
-	default:
-		lx.LastErr = append(lx.LastErr, fmt.Errorf("scan error in  %s, pos %d  :unknown scan type  %v for %s", lx.SourceName, lx.pos, lx.ttype, token))
-		return ERROR
-	}
-
 }
 
 // Required to satisfy interface with parser

@@ -169,7 +169,7 @@ state 18
 	.  reduce 4 (src line 40)
 
 
-11 terminals, 5 nonterminals
+12 terminals, 5 nonterminals
 12 grammar rules, 19/16000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
 54 working sets used

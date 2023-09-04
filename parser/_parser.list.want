@@ -1,0 +1,39 @@
+Test name : TestParserList
+This file : _parser.list.want
+
+0: input : <()>
+0: result raw: <parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}>
+0: result str: <()>
+
+1: input : <'()>
+1: result raw: <parser.Cell{Car:parser.Atom{Value:"'"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
+1: result str: <( '  )>
+
+2: input : <( un deux )>
+2: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Term(nil)}}>
+2: result str: <( un deux )>
+
+3: input : <( un . deux )>
+3: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Atom{Value:"deux"}}>
+3: result str: <( un . deux )>
+
+4: input : <( un ' deux )>
+4: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Atom{Value:"'"}, Cdr:parser.Atom{Value:"deux"}}, Cdr:parser.Term(nil)}}>
+4: result str: <( un ( ' . deux ) )>
+
+5: input : <'( un  deux )>
+5: result raw: <parser.Cell{Car:parser.Atom{Value:"'"}, Cdr:parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Term(nil)}}}>
+5: result str: <( ' un deux )>
+
+6: input : <( un deux trois )>
+6: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Cell{Car:parser.Atom{Value:"trois"}, Cdr:parser.Term(nil)}}}>
+6: result str: <( un deux trois )>
+
+7: input : <( un ( deux ) trois )>
+7: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Term(nil)}, Cdr:parser.Cell{Car:parser.Atom{Value:"trois"}, Cdr:parser.Term(nil)}}}>
+7: result str: <( un ( deux ) trois )>
+
+8: input : <( un ( deux () ) trois )>
+8: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}, Cdr:parser.Term(nil)}}, Cdr:parser.Cell{Car:parser.Atom{Value:"trois"}, Cdr:parser.Term(nil)}}}>
+8: result str: <( un ( deux () ) trois )>
+

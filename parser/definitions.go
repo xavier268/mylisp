@@ -18,9 +18,59 @@ type Cell struct {
 	Car, Cdr Term
 }
 
+// a convenience string function, thaht handles nil Term in the correct way.
+func ToString(t Term) string {
+	if t == nil {
+		return "<nil>"
+	}
+	return t.String()
+}
+
 func (t Cell) String() string {
 
-	panic("not implemented")
+	if t.Car == nil { //car == nil
+		if t.Cdr == nil {
+			return "()"
+		} else {
+			return "( . " + t.Cdr.String() + " )"
+		}
+	} else { //car != nil
+		ss, err := t.isList()
+		if err == nil {
+			return "( " + ss + " )"
+		} else {
+			return "( " + t.Car.String() + " . " + t.Cdr.String() + " )"
+		}
+
+	}
+
+}
+
+var ErrNotAList = fmt.Errorf("not a list")
+
+// if c is a list, returns the string of its inside, without parenthesis.
+// if not, retun error.
+func (c *Cell) isList() (s string, err error) {
+	if c == nil {
+		return "", ErrNotAList
+	}
+	if (*c == Cell{}) {
+		return "", nil
+	}
+	if c.Cdr == nil {
+		return c.Car.String(), nil
+	}
+	if cc, ok := c.Cdr.(Cell); ok {
+		// looks like a list
+		scc, err := cc.isList()
+		if err != nil {
+			return "", err
+		} else {
+			return c.Car.String() + " " + scc, nil
+		}
+	} else {
+		return "", ErrNotAList
+	}
 }
 
 // numbers are rational numbers

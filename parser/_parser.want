@@ -2,15 +2,28 @@ Test name : TestParser
 This file : _parser.want
 
 0: input : <a>
-0: result: <a>
+0: result raw: <parser.Atom{Value:"a"}>
+0: result str: <a>
 
 1: input : <2/3>
-1: result: <2/3>
+1: result raw: <parser.Number{Num:2, Den:3}>
+1: result str: <2/3>
 
 2: input : <"a string">
-2: result: <"a string">
+2: result raw: <parser.String{Value:"a string"}>
+2: result str: <"a string">
 
-3: input : < ' aa>
-3:	 ********** error: error : [parse error in test string #3, pos 3 : syntax error: unexpected $end]
-3: result: <%!s(<nil>)>
+3: input : < ' 2/3  >
+3: result raw: <parser.Cell{Car:parser.Atom{Value:"'"}, Cdr:parser.Number{Num:2, Den:3}}>
+3: result str: <( ' . 2/3 )>
+
+4: input : < a b ; should fail beacause multiple atoms not allowed outside list>
+4:	 ********** error: error : [parse error in test string #4, pos 4 : syntax error: unexpected IDENT]
+4: result raw: <parser.Atom{Value:"a"}>
+4: result str: <a>
+
+5: input : <' ; should fail because ' must be followed by a Term>
+5:	 ********** error: error : [parse error in test string #5, pos 52 : syntax error: unexpected $end]
+5: result raw: <<nil>>
+5: result str: <<nil>>
 
