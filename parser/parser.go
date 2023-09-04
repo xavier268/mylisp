@@ -516,7 +516,7 @@ mydefault:
 		myDollar = myS[mypt-2 : mypt+1]
 //line grammar.y:54
 		{
-			myVAL.value = Cell{Atom{"'"}, myDollar[2].value}
+			myVAL.value = Cell{Atom{"tick"}, myDollar[2].value}
 		}
 	}
 	goto mystack /* stack new state and value */

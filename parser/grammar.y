@@ -51,6 +51,6 @@ atom:
     | NUMBER                 { $$ = $1  }
     | STRING                 { $$ = $1  }
     | expr                   { $$ = $1  }
-    |  '\''  atom            { $$ = Cell{  Atom { "'"}, $2} }  
+    |  '\''  atom            { $$ = Cell{  Atom { "tick"}, $2} }  
 
 %%

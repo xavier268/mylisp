@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 	"testing"
-	"unicode"
 
 	"github.com/xavier268/mylisp/mytest"
 )
@@ -28,6 +27,14 @@ func TestLexer(t *testing.T) {
 		f
 		; another comment
 		d ;`,
+		// mixing operators, numbers and identifiers
+		")",
+		"()",
+		"( )",
+		"//",
+		"+=",
+		"+ =",
+		"==",
 	}
 	sb := new(strings.Builder)
 	for i, test := range tests {
@@ -36,11 +43,15 @@ func TestLexer(t *testing.T) {
 
 		lx := NewLexer(strings.NewReader(test), fmt.Sprintf("lexer test line %d", i))
 		lval := new(mySymType)
-		for k := 0; k < 5; k++ {
+		for k := 0; k < 30; k++ { // up to 30 tokens displayed
 
 			ttype := lx.Lex(lval)
-			if unicode.IsLetter(rune(ttype)) {
-				fmt.Fprintf(sb, "\tttype : %d (%c),\tlval : %#v\n", ttype, rune(ttype), lval)
+			if ttype == 0 {
+				fmt.Fprintf(sb, "\tttype : 0\n")
+				break
+			}
+			if ttype >= ' ' && ttype <= '~' {
+				fmt.Fprintf(sb, "\tttype : %d (%c),\tlval : %#v\n", ttype, ttype, lval)
 			} else {
 				fmt.Fprintf(sb, "\tttype : %d (%X),\tlval : %#v\n", ttype, ttype, lval)
 			}

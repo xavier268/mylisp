@@ -14,8 +14,8 @@ This file : _parser.want
 2: result str: <"a string">
 
 3: input : < ' 2/3  >
-3: result raw: <parser.Cell{Car:parser.Atom{Value:"'"}, Cdr:parser.Number{Num:2, Den:3}}>
-3: result str: <( ' . 2/3 )>
+3: result raw: <parser.Cell{Car:parser.Atom{Value:"tick"}, Cdr:parser.Number{Num:2, Den:3}}>
+3: result str: <( tick . 2/3 )>
 
 4: input : < a b ; should fail beacause multiple atoms not allowed outside list>
 4:	 ********** error: error : [parse error in test string #4, pos 4 : syntax error: unexpected IDENT]

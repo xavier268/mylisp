@@ -32,9 +32,10 @@ func NewLexer(input io.Reader, fileName string) *myLex {
 var PAT_COMMENT = regexp.MustCompile("(?m)^;.*$")
 var PAT_SPACE = regexp.MustCompile(`^[\s]+`)
 var PAT_STRING = regexp.MustCompile(`^"([^"]*)"`)
-var PAT_NUMBER = regexp.MustCompile(`^(-)?(\d+)(/(\d+))?`)
-var PAT_OPERATOR = regexp.MustCompile(`^[()'.]`)
-var PAT_IDENT = regexp.MustCompile(`^[-+*/$_\pL\d]+`) // caution, this definition contains numbers !
+var PAT_NUMBER = regexp.MustCompile(`^(-)?(\d+)(/(\d+))?`) // should be tested before IDENT
+var PAT_IDENT = regexp.MustCompile(`^[-+*/=()'.$_\pL\d]+`) // IDENT match this AND are neither number nor operator
+
+var PAT_OPERATOR = regexp.MustCompile(`^[()'.]$`) // tell if an ident is an operator, once identified as IDENT
 
 // split function for the scanner
 // type recognized is in lx.ttype
@@ -105,25 +106,6 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 		panic("case not implemented")
 	}
 
-	// scan operators
-	pos = PAT_OPERATOR.FindIndex(data)
-	switch {
-	case pos == nil || pos[0] != 0:
-		// no number, ignore
-	case pos[1] == len(data) && atEOF: // extend until end of file
-		lx.ttype = int(data[0])
-		lx.pos += pos[1]
-		return pos[1], data[0:pos[1]], bufio.ErrFinalToken // final token
-	case pos[1] == len(data) && !atEOF: // could be missing something
-		return 0, nil, nil // ask for more data
-	case pos[1] < len(data): // found, and there will be more
-		lx.ttype = int(data[0])
-		lx.pos += pos[1]
-		return pos[1], data[0:pos[1]], nil // return number
-	default:
-		panic("case not implemented")
-	}
-
 	// scan strings
 	pos = PAT_STRING.FindIndex(data)
 	switch {
@@ -162,7 +144,7 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 		panic("case not implemented")
 	}
 
-	panic("not implemented")
+	return 0, nil, fmt.Errorf("token not recognized by lexer : %s", data)
 }
 
 // The parser calls this method to get each new token.
@@ -189,12 +171,15 @@ func (lx *myLex) Lex(lval *mySymType) int {
 			return 0
 		case SKIP:
 			continue // ignore and continue
-		case '(', ')', '.', '\'':
-			lval.value = nil
-			return lx.ttype
 		case IDENT:
 			lval.value = Atom{
 				Value: token,
+			}
+			if PAT_OPERATOR.MatchString(token) {
+				op := string(token)
+				d := int(op[0])
+				fmt.Printf("DEBUG : type as char : %d  %c\n", d, d)
+				return d // need to capture the full, multibyte, first character
 			}
 			return IDENT
 		case NUMBER:

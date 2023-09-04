@@ -30,7 +30,7 @@ func (t Cell) String() string {
 
 	if t.Car == nil { //car == nil
 		if t.Cdr == nil {
-			return "()"
+			return "( )"
 		} else {
 			return "( . " + t.Cdr.String() + " )"
 		}

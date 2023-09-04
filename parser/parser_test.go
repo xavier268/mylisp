@@ -37,16 +37,23 @@ func TestParser(t *testing.T) {
 func TestParserList(t *testing.T) {
 
 	tests := []string{
-
-		"()",
-		"'()",
+		// simple lists
+		"() ; should fail, because () is not ( )",
+		"( )",
+		"'( )",
 		"( un deux )",
 		"( un . deux )",
 		"( un ' deux )",
 		"'( un  deux )",
 		"( un deux trois )",
+
+		// nested lists
 		"( un ( deux ) trois )",
 		"( un ( deux () ) trois )",
+
+		// using pairs to construct lists
+		" (un . ( deux . ( trois . () ) ) )",
+		" (un . ( deux . ( trois .  ) ) )",
 	}
 
 	sb := new(strings.Builder)
