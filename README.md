@@ -2,10 +2,20 @@
 My lisp interpreter in Go. For educationnal purposes.
 
 
+
 # Examples
 
 
 # Implementation notes
+
+
+## Variable
+
+
+
+## Builtins
+
+ 
 
 ## Numbers
 
@@ -22,6 +32,3 @@ The base construction is the Cell object.
 * The pair, ( a . ), represented as Cell {a}.
 * The pair ( a . ()) is the same as ( a ), represented as Cell{a,Cell{}} 
 
-## Using the 'tick' (') operator
-
-*  'anything is a shorthand representation for Cell{',anything}.
