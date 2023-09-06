@@ -50,13 +50,13 @@ func (t Cell) String() string {
 var ErrNotAList = fmt.Errorf("not a list")
 
 // if c is a list, returns the string of its inside, without parenthesis.
-// if not, retun error.
+// if not, return error.
 func (c *Cell) isList() (s string, err error) {
 	if c == nil {
 		return "", ErrNotAList
 	}
 	if (*c == Cell{}) {
-		return "", nil
+		return "", ErrNotAList
 	}
 	if c.Cdr == nil {
 		return c.Car.String(), nil

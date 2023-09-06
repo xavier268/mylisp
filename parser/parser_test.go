@@ -62,7 +62,7 @@ func TestParserList(t *testing.T) {
 
 		// nil and empty lists
 		"(a)",
-		"(a . ()) ",
+		"(a . ()) ", // Should NOT be reported as a list !
 		"(a . (()))",
 		" ( a () )",
 		" ( a (()))",

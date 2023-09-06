@@ -63,7 +63,7 @@ This file : _parser.list.want
 
 15: input : < ( un . ( deux . (trois . ( ) ) ) )>
 15: result raw: <parser.Cell{Car:parser.Symbol{Value:"un"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"deux"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"trois"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}}}>
-15: result str: <( un deux trois  )>
+15: result str: <( un . ( deux . ( trois . ( ) ) ) )>
 
 16: input : < ( un . ( deux.( trois . )) )>
 16: result raw: <parser.Cell{Car:parser.Symbol{Value:"un"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"deux"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"trois"}, Cdr:parser.Term(nil)}}}>
@@ -75,7 +75,7 @@ This file : _parser.list.want
 
 18: input : <(a . ()) >
 18: result raw: <parser.Cell{Car:parser.Symbol{Value:"a"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
-18: result str: <( a  )>
+18: result str: <( a . ( ) )>
 
 19: input : <(a . (()))>
 19: result raw: <parser.Cell{Car:parser.Symbol{Value:"a"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}, Cdr:parser.Term(nil)}}>
