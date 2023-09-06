@@ -10,12 +10,12 @@ This file : _parser.list.want
 1: result str: <( )>
 
 2: input : <'( ) ; >
-2: result raw: <parser.Cell{Car:parser.Atom{Value:"tick"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
-2: result str: <( tick  )>
+2: result raw: <parser.Cell{Car:parser.Atom{Value:"quote"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
+2: result str: <( quote  )>
 
 3: input : <' ( ) >
-3: result raw: <parser.Cell{Car:parser.Atom{Value:"tick"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
-3: result str: <( tick  )>
+3: result raw: <parser.Cell{Car:parser.Atom{Value:"quote"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
+3: result str: <( quote  )>
 
 4: input : <( un deux )>
 4: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Term(nil)}}>
@@ -26,12 +26,12 @@ This file : _parser.list.want
 5: result str: <( un . deux )>
 
 6: input : <( un ' deux )>
-6: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Atom{Value:"tick"}, Cdr:parser.Atom{Value:"deux"}}, Cdr:parser.Term(nil)}}>
-6: result str: <( un ( tick . deux ) )>
+6: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Atom{Value:"quote"}, Cdr:parser.Atom{Value:"deux"}}, Cdr:parser.Term(nil)}}>
+6: result str: <( un ( quote . deux ) )>
 
 7: input : <' ( un  deux )>
-7: result raw: <parser.Cell{Car:parser.Atom{Value:"tick"}, Cdr:parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Term(nil)}}}>
-7: result str: <( tick un deux )>
+7: result raw: <parser.Cell{Car:parser.Atom{Value:"quote"}, Cdr:parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Term(nil)}}}>
+7: result str: <( quote un deux )>
 
 8: input : <( un deux trois )>
 8: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Cell{Car:parser.Atom{Value:"trois"}, Cdr:parser.Term(nil)}}}>

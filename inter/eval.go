@@ -1,34 +1,91 @@
 package inter
 
+import "fmt"
+
+var ErrEval = fmt.Errorf("cannot evaluate provided input")
+
 // Eval a Term, recursively, returning the result as a Term.
 func (it *Inter) Eval(t Term) Term {
 
-	// try to apply special predicates, if any, before any substitution has a chance to happen.
+	// Eval nil to nil
+	if t == nil {
+		return nil
+	}
+
+	// try to handle self evaluating forms that have no scope impact
+	if tt, ok := DoSelfEval(t); ok {
+		return tt
+	}
+
+	// set new local scope
+	it.PushScope()
+	defer it.PopScope()
+
+	// do we have a defined variable ? If yes, return its binding without evaluating it.
+	if tt, ok := it.DoVar(t); ok {
+		return tt
+	}
+
+	// try to apply special predicates, if any.
 	if tt, ok := it.DoSpecial(t); ok {
 		return tt
 	}
 
-	// Do we have a single Atom ?
-	if a, ok := t.(Atom); ok {
-		// is it bound to something ?
-		if tt, ok := it.GetVariable(a); ok {
-			// bound ! Replace and return bind value.
-			return tt
+	// handle functions of the form  ( functor . args )
+	if functor, ok := car(t).(Symbol); ok {
+		if evfunc, ok := it.Get(functor); ok {
+			// replace functor with its lamda expression definition, and evaluate the replacement.
+			return it.Eval(Cell{
+				Car: evfunc,
+				Cdr: cdr(t),
+			})
+
 		}
-		// not bound, we're done !
-		return a
+
 	}
 
-	// Do we have a pair/list ?
-	if c, ok := t.(Cell); ok {
-		if c.Car == nil {
-			return t
+	// cannot evaluate, return error
+	return TermError(ErrEval, t)
+
+}
+
+// DoSelfEval eval when we do not need access to the scopes.
+func DoSelfEval(t Term) (res Term, ok bool) {
+	switch a := t.(type) {
+	case Number:
+		return a, true
+	case String:
+		return a, true
+	case Symbol:
+		switch a.Value {
+		case "true", "t":
+			return t, true
+		case "nil":
+			return nil, true
+		default:
+			return nil, false
 		}
-		// eval functor and argument
-		return Cell{Car: it.Eval(c.Car), Cdr: it.Eval(c.Cdr)} // if f was a function, it has been replaced now by a lambda expression.
+	case Cell:
+		switch {
+		case a.Car == Symbol{Value: "error"}:
+			return t, true
+		case a.Car == Symbol{Value: "quote"}:
+			return a.Cdr, true
+		default:
+			return nil, false
+		}
+	default:
+		return nil, false
 	}
+}
 
-	// nothing else to evaluate, return the original term
-	return t
+// Evaluate a symbol that has a binding, returning its binding.
+func (it *Inter) DoVar(t Term) (res Term, ok bool) {
 
+	if a, ok := t.(Symbol); ok {
+		if tt, ok := it.Get(a); ok {
+			return tt, true
+		}
+	}
+	return nil, false
 }

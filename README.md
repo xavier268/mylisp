@@ -1,6 +1,8 @@
 # mylisp
 My lisp interpreter in Go. For educationnal purposes.
 
+Inspired by https://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents
+
 
 
 # Examples

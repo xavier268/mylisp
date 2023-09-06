@@ -11,7 +11,7 @@ type Term interface {
 }
 
 var _ Term = Cell{}
-var _ Term = Atom{}
+var _ Term = Symbol{}
 var _ Term = String{}
 var _ Term = Number{}
 
@@ -201,10 +201,10 @@ func (t String) String() string {
 	return fmt.Sprintf("%q", t.Value)
 }
 
-type Atom struct {
+type Symbol struct {
 	Value string
 }
 
-func (t Atom) String() string {
+func (t Symbol) String() string {
 	return t.Value
 }

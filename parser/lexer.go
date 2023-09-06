@@ -106,7 +106,7 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 		panic("case not implemented")
 	}
 
-	// immediately process parenthesis, tick and period
+	// immediately process parenthesis, quote and period
 	if data[0] == '(' || data[0] == ')' || data[0] == '.' || data[0] == '\'' {
 		lx.pos += 1
 		lx.ttype = int(data[0])
@@ -179,7 +179,7 @@ func (lx *myLex) Lex(lval *mySymType) int {
 		case SKIP:
 			continue // ignore and continue
 		case IDENT:
-			lval.value = Atom{
+			lval.value = Symbol{
 				Value: token,
 			}
 			if PAT_OPERATOR.MatchString(token) {

@@ -4,7 +4,7 @@ package inter
 import "github.com/xavier268/mylisp/parser"
 
 type Term = parser.Term
-type Atom = parser.Atom
+type Symbol = parser.Symbol
 type Cell = parser.Cell
 type Number = parser.Number
 type String = parser.String
