@@ -21,6 +21,12 @@ func TestEval(t *testing.T) {
 		"( + 1 (+ 2/3 1/3 ))",
 		"(+ (+ 1 2) )",
 
+		// with quotes
+		"'(+ 1 2 )",
+		"( + '1 2 )",
+		"( + 1 '2 )",
+		"('+ 1 2 )",
+
 		// fail as not evaluable
 		"(1)",
 		"((+ 1 2 ) 3 )",
@@ -39,7 +45,7 @@ func TestEval(t *testing.T) {
 		it := NewInter()
 		res := it.Eval(ttt)
 		fmt.Fprintf(sb, "%3d: Evalued : %v\n", i, res)
-		fmt.Fprintln(sb, it)
+		// fmt.Fprintln(sb, it)
 	}
 
 	mytest.Verify(t, sb.String(), "eval")

@@ -26,22 +26,27 @@ func (it *Inter) Eval(t Term) Term {
 		return tt
 	}
 
-	// try to apply special predicates, if any.
+	// try to apply special predicates, if any, before evaluating
 	if tt, ok := it.DoSpecial(t); ok {
 		return tt
 	}
 
-	// handle functions of the form  ( functor . args )
-	if functor, ok := car(t).(Symbol); ok {
-		if evfunc, ok := it.Get(functor); ok {
-			// replace functor with its lamda expression definition, and evaluate the replacement.
+	// if the car is not nil, evaluate and replace, to see if we can continue.
+	// That will cover the case of quoted functors, as well as translatinf functors into their lambada expression.
+	// Do not evaluate yet the other parameters.
+	if ca := car(t); ca != nil { // Revoir logic
+		if tt, ok := DoSelfEval(ca); ok {
 			return it.Eval(Cell{
-				Car: evfunc,
+				Car: tt,
 				Cdr: cdr(t),
 			})
-
+		} // Revoir logic
+		if tt, ok := it.DoVar(ca); ok {
+			return it.Eval(Cell{
+				Car: tt,
+				Cdr: nil,
+			})
 		}
-
 	}
 
 	// cannot evaluate, return error
@@ -69,7 +74,7 @@ func DoSelfEval(t Term) (res Term, ok bool) {
 		switch {
 		case a.Car == Symbol{Value: "error"}:
 			return t, true
-		case a.Car == Symbol{Value: "quote"}:
+		case a.Car == Symbol{Value: "quote"}: // TODO Quote should be special ?
 			return a.Cdr, true
 		default:
 			return nil, false
