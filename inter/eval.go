@@ -57,6 +57,8 @@ func (it *Inter) Eval(t Term) Term {
 // DoSelfEval eval when we do not need access to the scopes.
 func DoSelfEval(t Term) (res Term, ok bool) {
 	switch a := t.(type) {
+	case Bool:
+		return a, true
 	case Number:
 		return a, true
 	case String:

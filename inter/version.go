@@ -8,5 +8,6 @@ type Symbol = parser.Symbol
 type Cell = parser.Cell
 type Number = parser.Number
 type String = parser.String
+type Bool = parser.Bool
 
-const VERSION = "0.0.1"
+const VERSION = "0.0.2"
