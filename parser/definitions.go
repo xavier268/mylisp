@@ -14,6 +14,19 @@ var _ Term = Cell{}
 var _ Term = Symbol{}
 var _ Term = String{}
 var _ Term = Number{}
+var _ Term = Bool{}
+
+type Bool struct {
+	Value bool
+}
+
+func (b Bool) String() string {
+	if b.Value {
+		return "#t"
+	} else {
+		return "#f"
+	}
+}
 
 type Cell struct {
 	Car, Cdr Term

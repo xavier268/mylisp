@@ -25,8 +25,9 @@ type mySymType struct {
 const NUMBER = 57346
 const IDENT = 57347
 const STRING = 57348
-const ERROR = 57349
-const SKIP = 57350
+const BOOL = 57349
+const ERROR = 57350
+const SKIP = 57351
 
 var myToknames = [...]string{
 	"$end",
@@ -39,6 +40,7 @@ var myToknames = [...]string{
 	"NUMBER",
 	"IDENT",
 	"STRING",
+	"BOOL",
 	"ERROR",
 	"SKIP",
 }
@@ -49,7 +51,7 @@ const myEofCode = 1
 const myErrCode = 2
 const myInitialStackSize = 16
 
-//line grammar.y:62
+//line grammar.y:63
 
 //line yacctab:1
 var myExca = [...]int8{
@@ -60,46 +62,47 @@ var myExca = [...]int8{
 
 const myPrivate = 57344
 
-const myLast = 45
+const myLast = 58
 
 var myAct = [...]int8{
-	17, 2, 23, 22, 14, 6, 16, 8, 9, 12,
-	7, 4, 3, 5, 18, 11, 20, 8, 10, 13,
-	7, 4, 3, 5, 8, 21, 1, 7, 4, 3,
-	5, 8, 19, 0, 7, 4, 3, 5, 8, 0,
-	15, 7, 4, 3, 5,
+	18, 2, 17, 24, 23, 15, 7, 1, 0, 10,
+	13, 0, 12, 0, 0, 19, 0, 21, 9, 11,
+	14, 8, 4, 3, 5, 6, 9, 22, 0, 8,
+	4, 3, 5, 6, 9, 20, 0, 8, 4, 3,
+	5, 6, 9, 0, 16, 8, 4, 3, 5, 6,
+	9, 0, 0, 8, 4, 3, 5, 6,
 }
 
 var myPact = [...]int16{
-	3, -1000, -1000, -1000, -1000, -1000, -1000, 3, 13, -1000,
-	-1000, -1, 34, 27, -1000, 20, -1000, 3, -2, -1000,
-	-3, -1000, -1000, -1000,
+	46, -1000, -1000, -1000, -1000, -1000, -1000, -1000, 46, 14,
+	-1000, -1000, 0, 38, 30, -1000, 22, -1000, 46, -1,
+	-1000, -2, -1000, -1000, -1000,
 }
 
 var myPgo = [...]int8{
-	0, 26, 5, 0, 6,
+	0, 7, 6, 0, 2,
 }
 
 var myR1 = [...]int8{
 	0, 1, 1, 2, 2, 2, 2, 2, 2, 4,
-	4, 3, 3, 3, 3, 3,
+	4, 3, 3, 3, 3, 3, 3,
 }
 
 var myR2 = [...]int8{
 	0, 0, 1, 2, 3, 5, 4, 4, 3, 1,
-	2, 1, 1, 1, 1, 2,
+	2, 1, 1, 1, 1, 1, 2,
 }
 
 var myChk = [...]int16{
-	-1000, -1, -3, 9, 8, 10, -2, 7, 4, -3,
-	5, -4, -3, 6, 5, 6, -4, -3, -3, 5,
-	-3, 5, 5, 5,
+	-1000, -1, -3, 9, 8, 10, 11, -2, 7, 4,
+	-3, 5, -4, -3, 6, 5, 6, -4, -3, -3,
+	5, -3, 5, 5, 5,
 }
 
 var myDef = [...]int8{
-	1, -2, 2, 11, 12, 13, 14, 0, 0, 15,
-	3, 0, 9, 0, 4, 0, 10, 9, 0, 8,
-	0, 6, 7, 5,
+	1, -2, 2, 11, 12, 13, 14, 15, 0, 0,
+	16, 3, 0, 9, 0, 4, 0, 10, 9, 0,
+	8, 0, 6, 7, 5,
 }
 
 var myTok1 = [...]int8{
@@ -111,7 +114,7 @@ var myTok1 = [...]int8{
 }
 
 var myTok2 = [...]int8{
-	2, 3, 8, 9, 10, 11, 12,
+	2, 3, 8, 9, 10, 11, 12, 13,
 }
 
 var myTok3 = [...]int8{
@@ -542,8 +545,14 @@ mydefault:
 			myVAL.value = myDollar[1].value
 		}
 	case 15:
-		myDollar = myS[mypt-2 : mypt+1]
+		myDollar = myS[mypt-1 : mypt+1]
 //line grammar.y:60
+		{
+			myVAL.value = myDollar[1].value
+		}
+	case 16:
+		myDollar = myS[mypt-2 : mypt+1]
+//line grammar.y:61
 		{
 			myVAL.value = Cell{Symbol{"quote"}, Cell{myDollar[2].value, nil}}
 		}

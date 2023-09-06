@@ -3,15 +3,16 @@ state 0
 	$accept: .top $end 
 	top: .    (1)
 
-	'('  shift 8
-	'\''  shift 7
+	'('  shift 9
+	'\''  shift 8
 	NUMBER  shift 4
 	IDENT  shift 3
 	STRING  shift 5
+	BOOL  shift 6
 	.  reduce 1 (src line 31)
 
 	top  goto 1
-	expr  goto 6
+	expr  goto 7
 	atom  goto 2
 
 state 1
@@ -46,25 +47,32 @@ state 5
 
 
 state 6
-	atom:  expr.    (14)
+	atom:  BOOL.    (14)
 
 	.  reduce 14 (src line 59)
 
 
 state 7
+	atom:  expr.    (15)
+
+	.  reduce 15 (src line 60)
+
+
+state 8
 	atom:  '\''.atom 
 
-	'('  shift 8
-	'\''  shift 7
+	'('  shift 9
+	'\''  shift 8
 	NUMBER  shift 4
 	IDENT  shift 3
 	STRING  shift 5
+	BOOL  shift 6
 	.  error
 
-	expr  goto 6
-	atom  goto 9
+	expr  goto 7
+	atom  goto 10
 
-state 8
+state 9
 	expr:  '('.')' 
 	expr:  '('.atoms ')' 
 	expr:  '('.atom '.' atom ')' 
@@ -72,160 +80,165 @@ state 8
 	expr:  '('.'.' atom ')' 
 	expr:  '('.'.' ')' 
 
-	'('  shift 8
-	')'  shift 10
-	'.'  shift 13
-	'\''  shift 7
+	'('  shift 9
+	')'  shift 11
+	'.'  shift 14
+	'\''  shift 8
 	NUMBER  shift 4
 	IDENT  shift 3
 	STRING  shift 5
+	BOOL  shift 6
 	.  error
 
-	expr  goto 6
-	atom  goto 12
-	atoms  goto 11
-
-state 9
-	atom:  '\'' atom.    (15)
-
-	.  reduce 15 (src line 60)
-
+	expr  goto 7
+	atom  goto 13
+	atoms  goto 12
 
 state 10
+	atom:  '\'' atom.    (16)
+
+	.  reduce 16 (src line 61)
+
+
+state 11
 	expr:  '(' ')'.    (3)
 
 	.  reduce 3 (src line 40)
 
 
-state 11
+state 12
 	expr:  '(' atoms.')' 
 
-	')'  shift 14
+	')'  shift 15
 	.  error
 
 
-state 12
+state 13
 	expr:  '(' atom.'.' atom ')' 
 	expr:  '(' atom.'.' ')' 
 	atoms:  atom.    (9)
 	atoms:  atom.atoms 
 
-	'('  shift 8
-	'.'  shift 15
-	'\''  shift 7
+	'('  shift 9
+	'.'  shift 16
+	'\''  shift 8
 	NUMBER  shift 4
 	IDENT  shift 3
 	STRING  shift 5
+	BOOL  shift 6
 	.  reduce 9 (src line 51)
 
-	expr  goto 6
-	atom  goto 17
-	atoms  goto 16
+	expr  goto 7
+	atom  goto 18
+	atoms  goto 17
 
-state 13
+state 14
 	expr:  '(' '.'.atom ')' 
 	expr:  '(' '.'.')' 
 
-	'('  shift 8
-	')'  shift 19
-	'\''  shift 7
+	'('  shift 9
+	')'  shift 20
+	'\''  shift 8
 	NUMBER  shift 4
 	IDENT  shift 3
 	STRING  shift 5
+	BOOL  shift 6
 	.  error
 
-	expr  goto 6
-	atom  goto 18
+	expr  goto 7
+	atom  goto 19
 
-state 14
+state 15
 	expr:  '(' atoms ')'.    (4)
 
 	.  reduce 4 (src line 42)
 
 
-state 15
+state 16
 	expr:  '(' atom '.'.atom ')' 
 	expr:  '(' atom '.'.')' 
 
-	'('  shift 8
-	')'  shift 21
-	'\''  shift 7
+	'('  shift 9
+	')'  shift 22
+	'\''  shift 8
 	NUMBER  shift 4
 	IDENT  shift 3
 	STRING  shift 5
+	BOOL  shift 6
 	.  error
 
-	expr  goto 6
-	atom  goto 20
+	expr  goto 7
+	atom  goto 21
 
-state 16
+state 17
 	atoms:  atom atoms.    (10)
 
 	.  reduce 10 (src line 53)
 
 
-state 17
+state 18
 	atoms:  atom.    (9)
 	atoms:  atom.atoms 
 
-	'('  shift 8
-	'\''  shift 7
+	'('  shift 9
+	'\''  shift 8
 	NUMBER  shift 4
 	IDENT  shift 3
 	STRING  shift 5
+	BOOL  shift 6
 	.  reduce 9 (src line 51)
 
-	expr  goto 6
-	atom  goto 17
-	atoms  goto 16
-
-state 18
-	expr:  '(' '.' atom.')' 
-
-	')'  shift 22
-	.  error
-
+	expr  goto 7
+	atom  goto 18
+	atoms  goto 17
 
 state 19
-	expr:  '(' '.' ')'.    (8)
-
-	.  reduce 8 (src line 46)
-
-
-state 20
-	expr:  '(' atom '.' atom.')' 
+	expr:  '(' '.' atom.')' 
 
 	')'  shift 23
 	.  error
 
 
+state 20
+	expr:  '(' '.' ')'.    (8)
+
+	.  reduce 8 (src line 46)
+
+
 state 21
+	expr:  '(' atom '.' atom.')' 
+
+	')'  shift 24
+	.  error
+
+
+state 22
 	expr:  '(' atom '.' ')'.    (6)
 
 	.  reduce 6 (src line 44)
 
 
-state 22
+state 23
 	expr:  '(' '.' atom ')'.    (7)
 
 	.  reduce 7 (src line 45)
 
 
-state 23
+state 24
 	expr:  '(' atom '.' atom ')'.    (5)
 
 	.  reduce 5 (src line 43)
 
 
-12 terminals, 5 nonterminals
-16 grammar rules, 24/16000 states
+13 terminals, 5 nonterminals
+17 grammar rules, 25/16000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
 54 working sets used
 memory: parser 14/240000
-19 extra closures
-43 shift entries, 1 exceptions
+20 extra closures
+50 shift entries, 1 exceptions
 10 goto entries
 8 entries saved by goto default
-Optimizer space used: output 45/240000
-45 table entries, 2 zero
-maximum spread: 10, maximum offset: 15
+Optimizer space used: output 58/240000
+58 table entries, 10 zero
+maximum spread: 11, maximum offset: 16

@@ -24,7 +24,7 @@ func init() {
 %type <value> top expr atom atoms 
 
 %token <value> '(' ')' '.' '\''
-%token <value> NUMBER IDENT STRING ERROR SKIP
+%token <value> NUMBER IDENT STRING BOOL ERROR SKIP
 
 %%
 
@@ -56,6 +56,7 @@ atom:
     IDENT                    { $$ = $1  }
     | NUMBER                 { $$ = $1  }
     | STRING                 { $$ = $1  }
+    | BOOL                   { $$ = $1  }
     | expr                   { $$ = $1  }
     |  '\''  atom            { $$ = Cell{  Symbol { "quote"}, Cell { $2,nil } }  }
 

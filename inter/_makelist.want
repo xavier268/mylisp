@@ -7,6 +7,9 @@ This file : _makelist.want
 1:	[x ( y z ) x] ---> ( x ( y z ) x )
 1:	[x ( y z ) x] ---> parser.Cell{Car:parser.Symbol{Value:"x"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Symbol{Value:"y"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"z"}, Cdr:parser.Term(nil)}}, Cdr:parser.Cell{Car:parser.Symbol{Value:"x"}, Cdr:parser.Term(nil)}}}
 
-2:	[] ---> ( )
-2:	[] ---> parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}
+2:	[] ---> <nil>
+2:	[] ---> <nil>
+
+3:	[<nil>] ---> ( )
+3:	[<nil>] ---> parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}
 

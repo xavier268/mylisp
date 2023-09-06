@@ -33,6 +33,7 @@ var PAT_COMMENT = regexp.MustCompile("(?m)^;.*$")
 var PAT_SPACE = regexp.MustCompile(`^[\s]+`)
 var PAT_STRING = regexp.MustCompile(`^"([^"]*)"`)
 var PAT_NUMBER = regexp.MustCompile(`^(-)?(\d+)(/(\d+))?`)    // should be tested before IDENT
+var PAT_BOOL = regexp.MustCompile(`^(#f|#t)`)                 // should be tested before IDENT
 var PAT_IDENT = regexp.MustCompile(`^[-+*/=$_\pL\d@?!%&<>]+`) // IDENT match this AND are neither number nor operator
 
 var PAT_OPERATOR = regexp.MustCompile(`^[()'.]$`) // tell if an ident is an operator, once identified as IDENT
@@ -132,6 +133,25 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 		panic("case not implemented")
 	}
 
+	// scan bools
+	pos = PAT_BOOL.FindIndex(data)
+	switch {
+	case pos == nil || pos[0] != 0:
+		// no bool, ignore
+	case pos[1] == len(data) && atEOF: // extend until end of file
+		lx.ttype = BOOL
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], bufio.ErrFinalToken // final token
+	case pos[1] == len(data) && !atEOF: // could be missing something ( not really for bool, but okay ...)
+		return 0, nil, nil // ask for more data
+	case pos[1] < len(data): // found, and there will be more
+		lx.ttype = BOOL
+		lx.pos += pos[1]
+		return pos[1], data[0:pos[1]], nil // return bool
+	default:
+		panic("case not implemented")
+	}
+
 	// scan identifiers
 	pos = PAT_IDENT.FindIndex(data)
 	switch {
@@ -191,7 +211,14 @@ func (lx *myLex) Lex(lval *mySymType) int {
 			return IDENT
 		case '(', ')', '\'', '.':
 			return int(token[0])
-
+		case BOOL: // boolean
+			if token == "#t" {
+				lval.value = Bool{true}
+				return BOOL
+			} else {
+				lval.value = Bool{false}
+				return BOOL
+			}
 		case NUMBER:
 			n, err := NumberFromString(token)
 			if err != nil {
