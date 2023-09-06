@@ -545,7 +545,7 @@ mydefault:
 		myDollar = myS[mypt-2 : mypt+1]
 //line grammar.y:60
 		{
-			myVAL.value = Cell{Symbol{"quote"}, myDollar[2].value}
+			myVAL.value = Cell{Symbol{"quote"}, Cell{myDollar[2].value, nil}}
 		}
 	}
 	goto mystack /* stack new state and value */

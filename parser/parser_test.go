@@ -53,11 +53,19 @@ func TestParserList(t *testing.T) {
 		"( un ( deux ( ) ) trois )",
 
 		// using pairs to construct lists
+		"(a)",
 		"( a . )",
 		"( . )",
 		"(.a )",
 		" ( un . ( deux . (trois . ( ) ) ) )",
 		" ( un . ( deux.( trois . )) )",
+
+		// nil and empty lists
+		"(a)",
+		"(a . ()) ",
+		"(a . (()))",
+		" ( a () )",
+		" ( a (()))",
 	}
 
 	sb := new(strings.Builder)
