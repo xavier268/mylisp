@@ -1,10 +1,36 @@
 package inter
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+	"strings"
+)
 
 type Scope struct {
 	bindings map[Symbol]Term
 	parent   *Scope
+}
+
+func (s Scope) String() string {
+	sb := new(strings.Builder)
+
+	// collect keys
+	keys := make([]Symbol, 0, len(s.bindings))
+	for s2 := range s.bindings {
+		keys = append(keys, s2)
+	}
+	// sort keys
+	slices.SortFunc(keys, func(a, b Symbol) int { return strings.Compare(a.Value, b.Value) })
+	// display scope
+	for _, k := range keys {
+		v := s.bindings[k]
+		if v == nil {
+			fmt.Fprintf(sb, "\t%s = nil\n", k)
+		} else {
+			fmt.Fprintf(sb, "\t%s = %s\n", k, v)
+		}
+	}
+	return sb.String()
 }
 
 func (it *Inter) PushScope() {
@@ -71,7 +97,7 @@ func (it *Inter) Bind(args, target Term) {
 	case String: // ignore
 		return
 	case Symbol:
-		it.Bind(a, target)
+		it.Set(a, target)
 		return
 	case Cell:
 		if tc, ok := target.(Cell); ok {

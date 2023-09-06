@@ -10,43 +10,43 @@ This file : _parser.list.want
 1: result str: <( )>
 
 2: input : <'( ) ; >
-2: result raw: <parser.Cell{Car:parser.Atom{Value:"quote"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
+2: result raw: <parser.Cell{Car:parser.Symbol{Value:"quote"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
 2: result str: <( quote  )>
 
 3: input : <' ( ) >
-3: result raw: <parser.Cell{Car:parser.Atom{Value:"quote"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
+3: result raw: <parser.Cell{Car:parser.Symbol{Value:"quote"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}>
 3: result str: <( quote  )>
 
 4: input : <( un deux )>
-4: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Term(nil)}}>
+4: result raw: <parser.Cell{Car:parser.Symbol{Value:"un"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"deux"}, Cdr:parser.Term(nil)}}>
 4: result str: <( un deux )>
 
 5: input : <( un . deux )>
-5: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Atom{Value:"deux"}}>
+5: result raw: <parser.Cell{Car:parser.Symbol{Value:"un"}, Cdr:parser.Symbol{Value:"deux"}}>
 5: result str: <( un . deux )>
 
 6: input : <( un ' deux )>
-6: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Atom{Value:"quote"}, Cdr:parser.Atom{Value:"deux"}}, Cdr:parser.Term(nil)}}>
+6: result raw: <parser.Cell{Car:parser.Symbol{Value:"un"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Symbol{Value:"quote"}, Cdr:parser.Symbol{Value:"deux"}}, Cdr:parser.Term(nil)}}>
 6: result str: <( un ( quote . deux ) )>
 
 7: input : <' ( un  deux )>
-7: result raw: <parser.Cell{Car:parser.Atom{Value:"quote"}, Cdr:parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Term(nil)}}}>
+7: result raw: <parser.Cell{Car:parser.Symbol{Value:"quote"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"un"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"deux"}, Cdr:parser.Term(nil)}}}>
 7: result str: <( quote un deux )>
 
 8: input : <( un deux trois )>
-8: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Cell{Car:parser.Atom{Value:"trois"}, Cdr:parser.Term(nil)}}}>
+8: result raw: <parser.Cell{Car:parser.Symbol{Value:"un"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"deux"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"trois"}, Cdr:parser.Term(nil)}}}>
 8: result str: <( un deux trois )>
 
 9: input : <( un ( deux ) trois )>
-9: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Term(nil)}, Cdr:parser.Cell{Car:parser.Atom{Value:"trois"}, Cdr:parser.Term(nil)}}}>
+9: result raw: <parser.Cell{Car:parser.Symbol{Value:"un"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Symbol{Value:"deux"}, Cdr:parser.Term(nil)}, Cdr:parser.Cell{Car:parser.Symbol{Value:"trois"}, Cdr:parser.Term(nil)}}}>
 9: result str: <( un ( deux ) trois )>
 
 10: input : <( un ( deux ( ) ) trois )>
-10: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}, Cdr:parser.Term(nil)}}, Cdr:parser.Cell{Car:parser.Atom{Value:"trois"}, Cdr:parser.Term(nil)}}}>
+10: result raw: <parser.Cell{Car:parser.Symbol{Value:"un"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Symbol{Value:"deux"}, Cdr:parser.Cell{Car:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}, Cdr:parser.Term(nil)}}, Cdr:parser.Cell{Car:parser.Symbol{Value:"trois"}, Cdr:parser.Term(nil)}}}>
 10: result str: <( un ( deux ( ) ) trois )>
 
 11: input : <( a . )>
-11: result raw: <parser.Cell{Car:parser.Atom{Value:"a"}, Cdr:parser.Term(nil)}>
+11: result raw: <parser.Cell{Car:parser.Symbol{Value:"a"}, Cdr:parser.Term(nil)}>
 11: result str: <( a )>
 
 12: input : <( . )>
@@ -54,14 +54,14 @@ This file : _parser.list.want
 12: result str: <( )>
 
 13: input : <(.a )>
-13: result raw: <parser.Cell{Car:parser.Term(nil), Cdr:parser.Atom{Value:"a"}}>
+13: result raw: <parser.Cell{Car:parser.Term(nil), Cdr:parser.Symbol{Value:"a"}}>
 13: result str: <( . a )>
 
 14: input : < ( un . ( deux . (trois . ( ) ) ) )>
-14: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Cell{Car:parser.Atom{Value:"trois"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}}}>
+14: result raw: <parser.Cell{Car:parser.Symbol{Value:"un"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"deux"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"trois"}, Cdr:parser.Cell{Car:parser.Term(nil), Cdr:parser.Term(nil)}}}}>
 14: result str: <( un deux trois  )>
 
 15: input : < ( un . ( deux.( trois . )) )>
-15: result raw: <parser.Cell{Car:parser.Atom{Value:"un"}, Cdr:parser.Cell{Car:parser.Atom{Value:"deux"}, Cdr:parser.Cell{Car:parser.Atom{Value:"trois"}, Cdr:parser.Term(nil)}}}>
+15: result raw: <parser.Cell{Car:parser.Symbol{Value:"un"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"deux"}, Cdr:parser.Cell{Car:parser.Symbol{Value:"trois"}, Cdr:parser.Term(nil)}}}>
 15: result str: <( un deux trois )>
 

@@ -29,7 +29,10 @@ func init() {
 %%
 
 top:
-    atom                     { $$ = $1
+                             { $$ = nil // its ok to parse an empty input ...
+                             mylex.(*myLex).LastResult = $$
+                             }
+    |    atom                { $$ = $1
                               mylex.(*myLex).LastResult = $$
                              }
                 

@@ -1,5 +1,7 @@
 package inter
 
+import "fmt"
+
 type Inter struct {
 	local, global *Scope
 }
@@ -8,4 +10,8 @@ func NewInter() *Inter {
 	it := new(Inter)
 	it.PushScope() // initialize both local and global scopes
 	return it
+}
+
+func (it Inter) String() string {
+	return fmt.Sprintf("--- Interpreter state ---\n\nLocal:\n%s\nGlobal:\n%s", it.local, it.global)
 }

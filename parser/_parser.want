@@ -2,7 +2,7 @@ Test name : TestParser
 This file : _parser.want
 
 0: input : <a>
-0: result raw: <parser.Atom{Value:"a"}>
+0: result raw: <parser.Symbol{Value:"a"}>
 0: result str: <a>
 
 1: input : <2/3>
@@ -14,12 +14,12 @@ This file : _parser.want
 2: result str: <"a string">
 
 3: input : < ' 2/3  >
-3: result raw: <parser.Cell{Car:parser.Atom{Value:"quote"}, Cdr:parser.Number{Num:2, Den:3}}>
+3: result raw: <parser.Cell{Car:parser.Symbol{Value:"quote"}, Cdr:parser.Number{Num:2, Den:3}}>
 3: result str: <( quote . 2/3 )>
 
 4: input : < a b ; should fail beacause multiple atoms not allowed outside list>
 4:	 ********** error: error : [parse error in test string #4, pos 4 : syntax error: unexpected IDENT]
-4: result raw: <parser.Atom{Value:"a"}>
+4: result raw: <parser.Symbol{Value:"a"}>
 4: result str: <a>
 
 5: input : <' ; should fail because ' must be followed by a Term>

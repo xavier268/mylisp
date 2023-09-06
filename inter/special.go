@@ -32,9 +32,8 @@ func (it *Inter) DoSpecial(t Term) (result Term, ok bool) {
 	case Cell: // input is ( a . b )
 		if t.Car == nil { // ( . b )
 			return nil, false
-		} else { // input is ( a . b )
-
 		}
+
 		panic("to be continued")
 		// TODO // (  + - * /  ...)
 		// TODO // ( ( lamda ...))
