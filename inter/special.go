@@ -1,5 +1,7 @@
 package inter
 
+import "fmt"
+
 // Handlling of special functors
 
 // Execute special builtin predicates, if any, and return true.
@@ -13,9 +15,16 @@ func (it *Inter) DoSpecial(t Term) (result Term, ok bool) {
 		return nil, true
 	}
 	switch { // all specials are selected here
+	case car(t) == Symbol{Value: "error"}:
+		return t, true
+	case car(t) == Symbol{Value: "quote"}:
+		return cdr(t), true
+	case car(t) == Symbol{Value: "eval"}:
+		fmt.Println("DEBUG : eval de : ", cdr(t))
+		return it.Eval(cdr(t)), true
 	case car(t) == Symbol{Value: "+"}:
 		return it.Plus(cdr(t)), true
 	}
-	// default ends up here ..
-	return nil, false // no special found
+	// default  ..
+	return nil, false // no special found, no applicable
 }

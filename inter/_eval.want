@@ -45,15 +45,31 @@ This file : _eval.want
  10: Parsed  : ( + 1 ( quote . 2 ) )
  10: Evalued : 3
 
- 11: Input   : ('+ 1 2 )
- 11: Parsed  : ( ( quote . + ) 1 2 )
- 11: Evalued : ( error cannot evaluate provided input ( ( quote . + ) 1 2 ) )
+ 11: Input   : ( eval (+ 1 2)	)
+ 11: Parsed  : ( eval ( + 1 2 ) )
+ 11: Evalued : ( error cannot evaluate provided input ( ( + 1 2 ) ) )
 
- 12: Input   : (1)
- 12: Parsed  : ( 1 )
- 12: Evalued : ( error cannot evaluate provided input ( 1 ) )
+ 12: Input   : ('+ 1 2 ) ; fail as not evaluable
+ 12: Parsed  : ( ( quote . + ) 1 2 )
+ 12: Evalued : ( error cannot evaluate provided input ( ( quote . + ) 1 2 ) )
 
- 13: Input   : ((+ 1 2 ) 3 )
- 13: Parsed  : ( ( + 1 2 ) 3 )
- 13: Evalued : ( error cannot evaluate provided input ( ( + 1 2 ) 3 ) )
+ 13: Input   : ( eval '+) ; fail
+ 13: Parsed  : ( eval ( quote . + ) )
+ 13: Evalued : ( error cannot evaluate provided input ( ( quote . + ) ) )
+
+ 14: Input   : ( eval ('+ )); should be ok
+ 14: Parsed  : ( eval ( ( quote . + ) ) )
+ 14: Evalued : ( error cannot evaluate provided input ( ( ( quote . + ) ) ) )
+
+ 15: Input   : ( (eval '+) 1 2 ) ; should work
+ 15: Parsed  : ( ( eval ( quote . + ) ) 1 2 )
+ 15: Evalued : ( error cannot evaluate provided input ( ( eval ( quote . + ) ) 1 2 ) )
+
+ 16: Input   : (1)
+ 16: Parsed  : ( 1 )
+ 16: Evalued : ( error cannot evaluate provided input ( 1 ) )
+
+ 17: Input   : ((+ 1 2 ) 3 )
+ 17: Parsed  : ( ( + 1 2 ) 3 )
+ 17: Evalued : ( error cannot evaluate provided input ( ( + 1 2 ) 3 ) )
 

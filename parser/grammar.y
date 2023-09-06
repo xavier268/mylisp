@@ -57,6 +57,6 @@ atom:
     | NUMBER                 { $$ = $1  }
     | STRING                 { $$ = $1  }
     | expr                   { $$ = $1  }
-    |  '\''  atom            { $$ = Cell{  Symbol { "quote"}, $2} }  
+    |  '\''  atom            { $$ = Cell{  Symbol { "quote"}, Cell { $2,nil } }  }
 
 %%

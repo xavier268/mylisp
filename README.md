@@ -1,7 +1,13 @@
 # mylisp
 My lisp interpreter in Go. For educationnal purposes.
 
-Inspired by https://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents
+Inspired by scheme syntax.
+
+See https://www.gnu.org/software/guile/manual/guile.html#SEC_Contents
+
+See https://web.mit.edu/scheme/scheme_v9.2/doc/mit-scheme-ref/index.html
+
+
 
 
 

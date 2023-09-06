@@ -12,6 +12,7 @@ import (
 func TestEval(t *testing.T) {
 
 	tests := []string{
+
 		"",
 		"1",
 		"(+)",
@@ -25,9 +26,15 @@ func TestEval(t *testing.T) {
 		"'(+ 1 2 )",
 		"( + '1 2 )",
 		"( + 1 '2 )",
-		"('+ 1 2 )",
 
-		// fail as not evaluable
+		// "( eval (+ 1 2)	)",
+
+		"('+ 1 2 ) ; fail as not evaluable",
+		"( eval '+) ; fail",
+		"( eval ('+ )); should be ok",
+		"( (eval '+) 1 2 ) ; should work",
+
+		// // fail as not evaluable
 		"(1)",
 		"((+ 1 2 ) 3 )",
 	}

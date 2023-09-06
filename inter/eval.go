@@ -67,21 +67,11 @@ func DoSelfEval(t Term) (res Term, ok bool) {
 			return t, true
 		case "nil":
 			return nil, true
-		default:
-			return nil, false
+
 		}
-	case Cell:
-		switch {
-		case a.Car == Symbol{Value: "error"}:
-			return t, true
-		case a.Car == Symbol{Value: "quote"}: // TODO Quote should be special ?
-			return a.Cdr, true
-		default:
-			return nil, false
-		}
-	default:
-		return nil, false
+	case Cell: // none for the moment ?
 	}
+	return nil, false
 }
 
 // Evaluate a symbol that has a binding, returning its binding.

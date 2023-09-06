@@ -33,7 +33,7 @@ var PAT_COMMENT = regexp.MustCompile("(?m)^;.*$")
 var PAT_SPACE = regexp.MustCompile(`^[\s]+`)
 var PAT_STRING = regexp.MustCompile(`^"([^"]*)"`)
 var PAT_NUMBER = regexp.MustCompile(`^(-)?(\d+)(/(\d+))?`) // should be tested before IDENT
-var PAT_IDENT = regexp.MustCompile(`^[-+*/=$_\pL\d]+`)     // IDENT match this AND are neither number nor operator
+var PAT_IDENT = regexp.MustCompile(`^[-+*/=$_\pL\d#@?]+`)  // IDENT match this AND are neither number nor operator
 
 var PAT_OPERATOR = regexp.MustCompile(`^[()'.]$`) // tell if an ident is an operator, once identified as IDENT
 
