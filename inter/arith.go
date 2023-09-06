@@ -14,7 +14,7 @@ var ErrNotANumber = fmt.Errorf("not a number")
 // Remember that specials are in charge of evaluating their input parameters.
 func (it *Inter) Plus(t Term) Term {
 
-	if (t == nil || t == Cell{}) { // nil or empty list
+	if (t == nil || t == Pair{}) { // nil or empty list
 		return parser.NumberZero
 	}
 

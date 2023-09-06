@@ -99,8 +99,8 @@ func (it *Inter) Bind(args, target Term) {
 	case Symbol:
 		it.Set(a, target)
 		return
-	case Cell:
-		if tc, ok := target.(Cell); ok {
+	case Pair:
+		if tc, ok := target.(Pair); ok {
 			it.Bind(a.Car, tc.Car)
 			it.Bind(a.Cdr, tc.Cdr)
 			return

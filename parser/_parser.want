@@ -14,7 +14,7 @@ This file : _parser.want
 2: result str: <"a string">
 
 3: input : < ' 2/3  >
-3: result raw: <parser.Cell{Car:parser.Symbol{Value:"quote"}, Cdr:parser.Cell{Car:parser.Number{Num:2, Den:3}, Cdr:parser.Term(nil)}}>
+3: result raw: <parser.Pair{Car:parser.Symbol{Value:"quote"}, Cdr:parser.Pair{Car:parser.Number{Num:2, Den:3}, Cdr:parser.Term(nil)}}>
 3: result str: <( quote 2/3 )>
 
 4: input : < a b ; should fail beacause multiple atoms not allowed outside list>

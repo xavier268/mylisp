@@ -38,19 +38,19 @@ top:
                 
 
 expr:  
-    '(' ')'                  { $$ = Cell{}  }
+    '(' ')'                  { $$ = Pair{}  }
     | '('  atoms  ')'        { $$ = $2   }
-    | '(' atom '.' atom ')'  { $$ = Cell{ $2, $4}  }
-    | '(' atom '.'  ')'      { $$ = Cell{ $2, nil}  }
-    | '('  '.' atom ')'      { $$ = Cell{nil, $3}  }
-    | '('  '.'  ')'          { $$ = Cell{}  }
+    | '(' atom '.' atom ')'  { $$ = Pair{ $2, $4}  }
+    | '(' atom '.'  ')'      { $$ = Pair{ $2, nil}  }
+    | '('  '.' atom ')'      { $$ = Pair{nil, $3}  }
+    | '('  '.'  ')'          { $$ = Pair{}  }
    
 
     
 
 atoms:
-    atom                     { $$ = Cell { $1, nil}  }
-    | atom atoms             { $$ = Cell { $1, $2 }  }
+    atom                     { $$ = Pair { $1, nil}  }
+    | atom atoms             { $$ = Pair { $1, $2 }  }
 
 atom:
     IDENT                    { $$ = $1  }
@@ -58,6 +58,6 @@ atom:
     | STRING                 { $$ = $1  }
     | BOOL                   { $$ = $1  }
     | expr                   { $$ = $1  }
-    |  '\''  atom            { $$ = Cell{  Symbol { "quote"}, Cell { $2,nil } }  }
+    |  '\''  atom            { $$ = Pair{  Symbol { "quote"}, Pair { $2,nil } }  }
 
 %%

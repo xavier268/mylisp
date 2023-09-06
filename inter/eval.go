@@ -36,13 +36,13 @@ func (it *Inter) Eval(t Term) Term {
 	// Do not evaluate yet the other parameters.
 	if ca := car(t); ca != nil { // Revoir logic
 		if tt, ok := DoSelfEval(ca); ok {
-			return it.Eval(Cell{
+			return it.Eval(Pair{
 				Car: tt,
 				Cdr: cdr(t),
 			})
 		} // Revoir logic
 		if tt, ok := it.DoVar(ca); ok {
-			return it.Eval(Cell{
+			return it.Eval(Pair{
 				Car: tt,
 				Cdr: nil,
 			})
@@ -71,7 +71,7 @@ func DoSelfEval(t Term) (res Term, ok bool) {
 			return nil, true
 
 		}
-	case Cell: // none for the moment ?
+	case Pair: // none for the moment ?
 	}
 	return nil, false
 }

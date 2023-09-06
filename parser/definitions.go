@@ -10,7 +10,7 @@ type Term interface {
 	String() string
 }
 
-var _ Term = Cell{}
+var _ Term = Pair{}
 var _ Term = Symbol{}
 var _ Term = String{}
 var _ Term = Number{}
@@ -28,7 +28,7 @@ func (b Bool) String() string {
 	}
 }
 
-type Cell struct {
+type Pair struct {
 	Car, Cdr Term
 }
 
@@ -40,7 +40,7 @@ func ToString(t Term) string {
 	return t.String()
 }
 
-func (t Cell) String() string {
+func (t Pair) String() string {
 
 	if t.Car == nil { //car == nil
 		if t.Cdr == nil {
@@ -64,17 +64,17 @@ var ErrNotAList = fmt.Errorf("not a list")
 
 // if c is a list, returns the string of its inside, without parenthesis.
 // if not, return error.
-func (c *Cell) isList() (s string, err error) {
+func (c *Pair) isList() (s string, err error) {
 	if c == nil {
 		return "", ErrNotAList
 	}
-	if (*c == Cell{}) {
+	if (*c == Pair{}) {
 		return "", ErrNotAList
 	}
 	if c.Cdr == nil {
 		return c.Car.String(), nil
 	}
-	if cc, ok := c.Cdr.(Cell); ok {
+	if cc, ok := c.Cdr.(Pair); ok {
 		// looks like a list
 		scc, err := cc.isList()
 		if err != nil {

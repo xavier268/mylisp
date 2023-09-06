@@ -476,7 +476,7 @@ mydefault:
 		myDollar = myS[mypt-2 : mypt+1]
 //line grammar.y:41
 		{
-			myVAL.value = Cell{}
+			myVAL.value = Pair{}
 		}
 	case 4:
 		myDollar = myS[mypt-3 : mypt+1]
@@ -488,37 +488,37 @@ mydefault:
 		myDollar = myS[mypt-5 : mypt+1]
 //line grammar.y:43
 		{
-			myVAL.value = Cell{myDollar[2].value, myDollar[4].value}
+			myVAL.value = Pair{myDollar[2].value, myDollar[4].value}
 		}
 	case 6:
 		myDollar = myS[mypt-4 : mypt+1]
 //line grammar.y:44
 		{
-			myVAL.value = Cell{myDollar[2].value, nil}
+			myVAL.value = Pair{myDollar[2].value, nil}
 		}
 	case 7:
 		myDollar = myS[mypt-4 : mypt+1]
 //line grammar.y:45
 		{
-			myVAL.value = Cell{nil, myDollar[3].value}
+			myVAL.value = Pair{nil, myDollar[3].value}
 		}
 	case 8:
 		myDollar = myS[mypt-3 : mypt+1]
 //line grammar.y:46
 		{
-			myVAL.value = Cell{}
+			myVAL.value = Pair{}
 		}
 	case 9:
 		myDollar = myS[mypt-1 : mypt+1]
 //line grammar.y:52
 		{
-			myVAL.value = Cell{myDollar[1].value, nil}
+			myVAL.value = Pair{myDollar[1].value, nil}
 		}
 	case 10:
 		myDollar = myS[mypt-2 : mypt+1]
 //line grammar.y:53
 		{
-			myVAL.value = Cell{myDollar[1].value, myDollar[2].value}
+			myVAL.value = Pair{myDollar[1].value, myDollar[2].value}
 		}
 	case 11:
 		myDollar = myS[mypt-1 : mypt+1]
@@ -554,7 +554,7 @@ mydefault:
 		myDollar = myS[mypt-2 : mypt+1]
 //line grammar.y:61
 		{
-			myVAL.value = Cell{Symbol{"quote"}, Cell{myDollar[2].value, nil}}
+			myVAL.value = Pair{Symbol{"quote"}, Pair{myDollar[2].value, nil}}
 		}
 	}
 	goto mystack /* stack new state and value */
