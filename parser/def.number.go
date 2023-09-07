@@ -6,87 +6,6 @@ import (
 	"strconv"
 )
 
-type Term interface {
-	String() string
-}
-
-var _ Term = Pair{}
-var _ Term = Symbol{}
-var _ Term = String{}
-var _ Term = Number{}
-var _ Term = Bool{}
-
-type Bool struct {
-	Value bool
-}
-
-func (b Bool) String() string {
-	if b.Value {
-		return "#t"
-	} else {
-		return "#f"
-	}
-}
-
-type Pair struct {
-	Car, Cdr Term
-}
-
-// a convenience string function, thaht handles nil Term in the correct way.
-func ToString(t Term) string {
-	if t == nil {
-		return "<nil>"
-	}
-	return t.String()
-}
-
-func (t Pair) String() string {
-
-	if t.Car == nil { //car == nil
-		if t.Cdr == nil {
-			return "( )"
-		} else {
-			return "( . " + t.Cdr.String() + " )"
-		}
-	} else { //car != nil
-		ss, err := t.isList()
-		if err == nil {
-			return "( " + ss + " )"
-		} else {
-			return "( " + t.Car.String() + " . " + t.Cdr.String() + " )"
-		}
-
-	}
-
-}
-
-var ErrNotAList = fmt.Errorf("not a list")
-
-// if c is a list, returns the string of its inside, without parenthesis.
-// if not, return error.
-func (c *Pair) isList() (s string, err error) {
-	if c == nil {
-		return "", ErrNotAList
-	}
-	if (*c == Pair{}) {
-		return "", ErrNotAList
-	}
-	if c.Cdr == nil {
-		return c.Car.String(), nil
-	}
-	if cc, ok := c.Cdr.(Pair); ok {
-		// looks like a list
-		scc, err := cc.isList()
-		if err != nil {
-			return "", err
-		} else {
-			return c.Car.String() + " " + scc, nil
-		}
-	} else {
-		return "", ErrNotAList
-	}
-}
-
 // numbers are rational numbers
 // Num & Den are always prime among them,
 // Num is always > 0, except to represent NaN with 1/0.
@@ -94,6 +13,8 @@ type Number struct {
 	Num int
 	Den int
 }
+
+var _ Term = Number{}
 
 var NumberZero = Number{0, 1}
 var NumberOne = Number{1, 1}
@@ -204,20 +125,27 @@ func Compare(n, m Number) int {
 	return cmp.Compare(n.Num*m.Den, m.Num*n.Den)
 }
 
-// ===================================================================
-
-type String struct {
-	Value string
+// IsBool implements Term.
+func (Number) IsBool() bool {
+	return false
 }
 
-func (t String) String() string {
-	return fmt.Sprintf("%q", t.Value)
+// IsNumber implements Term.
+func (Number) IsNumber() bool {
+	return true
 }
 
-type Symbol struct {
-	Value string
+// IsPair implements Term.
+func (Number) IsPair() bool {
+	return false
 }
 
-func (t Symbol) String() string {
-	return t.Value
+// IsString implements Term.
+func (Number) IsString() bool {
+	return false
+}
+
+// IsSymbol implements Term.
+func (Number) IsSymbol() bool {
+	return false
 }
