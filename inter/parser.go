@@ -2,7 +2,7 @@
 
 //line grammar.y:3
 
-package parser
+package inter
 
 import __yyfmt__ "fmt"
 

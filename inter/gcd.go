@@ -1,4 +1,4 @@
-package parser
+package inter
 
 // Compute Gcd of 2 numbers.
 // Gcd is always positive.

@@ -2,24 +2,24 @@ Test name : TestParser
 This file : _parser.want
 
 0: input : <a>
-0: result raw: <parser.Symbol{Value:"a"}>
+0: result raw: <inter.Symbol{Value:"a"}>
 0: result str: <a>
 
 1: input : <2/3>
-1: result raw: <parser.Number{Num:2, Den:3}>
+1: result raw: <inter.Number{Num:2, Den:3}>
 1: result str: <2/3>
 
 2: input : <"a string">
-2: result raw: <parser.String{Value:"a string"}>
+2: result raw: <inter.String{Value:"a string"}>
 2: result str: <"a string">
 
 3: input : < ' 2/3  >
-3: result raw: <parser.Pair{Car:parser.Symbol{Value:"quote"}, Cdr:parser.Pair{Car:parser.Number{Num:2, Den:3}, Cdr:parser.Term(nil)}}>
+3: result raw: <inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Pair{Car:inter.Number{Num:2, Den:3}, Cdr:inter.Term(nil)}}>
 3: result str: <( quote 2/3 )>
 
 4: input : < a b ; should fail beacause multiple atoms not allowed outside list>
 4:	 ********** error: error : [parse error in test string #4, pos 4 : syntax error: unexpected IDENT]
-4: result raw: <parser.Symbol{Value:"a"}>
+4: result raw: <inter.Symbol{Value:"a"}>
 4: result str: <a>
 
 5: input : <' ; should fail because ' must be followed by a Term>

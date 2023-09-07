@@ -2,14 +2,14 @@ Test name : TestMakeList
 This file : _makelist.want
 
 0:	[x] ---> ( x )
-0:	[x] ---> parser.Pair{Car:parser.Symbol{Value:"x"}, Cdr:parser.Term(nil)}
+0:	[x] ---> inter.Pair{Car:inter.Symbol{Value:"x"}, Cdr:inter.Term(nil)}
 
 1:	[x ( y z ) x] ---> ( x ( y z ) x )
-1:	[x ( y z ) x] ---> parser.Pair{Car:parser.Symbol{Value:"x"}, Cdr:parser.Pair{Car:parser.Pair{Car:parser.Symbol{Value:"y"}, Cdr:parser.Pair{Car:parser.Symbol{Value:"z"}, Cdr:parser.Term(nil)}}, Cdr:parser.Pair{Car:parser.Symbol{Value:"x"}, Cdr:parser.Term(nil)}}}
+1:	[x ( y z ) x] ---> inter.Pair{Car:inter.Symbol{Value:"x"}, Cdr:inter.Pair{Car:inter.Pair{Car:inter.Symbol{Value:"y"}, Cdr:inter.Pair{Car:inter.Symbol{Value:"z"}, Cdr:inter.Term(nil)}}, Cdr:inter.Pair{Car:inter.Symbol{Value:"x"}, Cdr:inter.Term(nil)}}}
 
 2:	[] ---> <nil>
 2:	[] ---> <nil>
 
 3:	[<nil>] ---> ( )
-3:	[<nil>] ---> parser.Pair{Car:parser.Term(nil), Cdr:parser.Term(nil)}
+3:	[<nil>] ---> inter.Pair{Car:inter.Term(nil), Cdr:inter.Term(nil)}
 

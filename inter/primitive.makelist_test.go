@@ -8,7 +8,7 @@ import (
 	"github.com/xavier268/mylisp/mytest"
 )
 
-func TestPrimitiveUtilsMakeList(t *testing.T) {
+func TestMakeList(t *testing.T) {
 
 	X, Y, Z := Symbol{Value: "x"}, Symbol{Value: "y"}, Symbol{Value: "z"}
 
@@ -31,5 +31,5 @@ func TestPrimitiveUtilsMakeList(t *testing.T) {
 		}
 	}
 
-	mytest.Verify(t, sb.String(), strings.ToLower(t.Name()))
+	mytest.Verify(t, sb.String(), "makelist")
 }

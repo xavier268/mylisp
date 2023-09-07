@@ -1,4 +1,4 @@
-package parser
+package inter
 
 type Term interface {
 	String() string

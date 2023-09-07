@@ -1,4 +1,4 @@
-package parser
+package inter
 
 type Symbol struct {
 	Value string

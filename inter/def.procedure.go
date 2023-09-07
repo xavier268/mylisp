@@ -1,4 +1,4 @@
-package parser
+package inter
 
 import "fmt"
 
@@ -9,7 +9,7 @@ import "fmt"
 // such as car; these procedures are not written in Scheme but in go.
 type Procedure struct {
 	Primitive func(Term) Term // a primitive procedure if this is not nil
-	Env       *Env            // the environement captured by the procedure, or nil if the procedure should run in the current eval environement
+	Env       *Environnement  // the environement captured by the procedure, or nil if the procedure should run in the current eval environement
 	Name      string          // the name of the procedure, if a primitive procedure. Could be "".
 	Formals   Term            // typically a list of symbols, but could also ba a symbol to represent the parameter list, or even a pair, or any term made of symbols.
 	Body      Term            // typically a list of terms

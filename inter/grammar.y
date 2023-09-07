@@ -2,7 +2,7 @@
 
 %{
 
-package parser
+package inter
 
 import (
 

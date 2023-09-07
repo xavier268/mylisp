@@ -2,8 +2,6 @@ package inter
 
 import (
 	"fmt"
-
-	"github.com/xavier268/mylisp/parser"
 )
 
 var ErrNotANumber = fmt.Errorf("not a number")
@@ -15,7 +13,7 @@ var ErrNotANumber = fmt.Errorf("not a number")
 func (it *Inter) Plus(t Term) Term {
 
 	if (t == nil || t == Pair{}) { // nil or empty list
-		return parser.NumberZero
+		return NumberZero
 	}
 
 	if n, ok := it.Eval(car(t)).(Number); ok { // eval the first argument, make sure result is a number

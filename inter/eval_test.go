@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/xavier268/mylisp/mytest"
-	"github.com/xavier268/mylisp/parser"
 )
 
 func TestEval(t *testing.T) {
@@ -45,7 +44,7 @@ func TestEval(t *testing.T) {
 	for i, tt := range tests {
 		fmt.Fprintln(sb)
 		fmt.Fprintf(sb, "%3d: Input   : %s\n", i, tt)
-		ttt, err := parser.ParseString(tt, fmt.Sprintf("%s - test # %d", t.Name(), i))
+		ttt, err := ParseString(tt, fmt.Sprintf("%s - test # %d", t.Name(), i))
 		if err != nil {
 			fmt.Fprintf(sb, "******** %v\n", err)
 		}

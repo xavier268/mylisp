@@ -1,13 +1,16 @@
-// package inter contains the interpreter
+// package inter constains lexer, parser and structure definitions.
 package inter
 
-import "github.com/xavier268/mylisp/parser"
+//go:generate go get golang.org/x/tools/cmd/goyacc
 
-type Term = parser.Term
-type Symbol = parser.Symbol
-type Pair = parser.Pair
-type Number = parser.Number
-type String = parser.String
-type Bool = parser.Bool
+//go:generate go install golang.org/x/tools/cmd/goyacc
 
-const VERSION = "0.1.0"
+//go:generate goyacc -o parser.go -p "my" grammar.y
+
+//go:generate go mod tidy
+
+//go:generate go fmt ./...
+
+const (
+	VERSION = "0.1.0"
+)
