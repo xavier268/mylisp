@@ -6,12 +6,12 @@ import (
 	"strings"
 )
 
-type Scope struct {
+type Environnement struct {
 	bindings map[Symbol]Term
-	parent   *Scope
+	parent   *Environnement
 }
 
-func (s Scope) String() string {
+func (s Environnement) String() string {
 	sb := new(strings.Builder)
 
 	// collect keys
@@ -34,7 +34,7 @@ func (s Scope) String() string {
 }
 
 func (it *Inter) PushScope() {
-	it.local = &Scope{
+	it.local = &Environnement{
 		bindings: map[Symbol]Term{},
 		parent:   it.local,
 	}

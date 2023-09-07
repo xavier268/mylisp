@@ -3,7 +3,7 @@ package inter
 import "fmt"
 
 type Inter struct {
-	local, global *Scope
+	local, global *Environnement
 }
 
 func NewInter() *Inter {

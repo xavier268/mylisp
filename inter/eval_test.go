@@ -36,6 +36,7 @@ func TestEval(t *testing.T) {
 
 		// // fail as not evaluable
 		"(1)",
+
 		"((+ 1 2 ) 3 )",
 	}
 

@@ -34,42 +34,38 @@ This file : _eval.want
   7: Evalued : 3
 
   8: Input   : '(+ 1 2 )
-  8: Parsed  : ( quote + 1 2 )
-  8: Evalued : ( + 1 2 )
+  8: Parsed  : ( quote ( + 1 2 ) )
+  8: Evalued : ( ( + 1 2 ) )
 
   9: Input   : ( + '1 2 )
-  9: Parsed  : ( + ( quote . 1 ) 2 )
-  9: Evalued : 3
+  9: Parsed  : ( + ( quote 1 ) 2 )
+  9: Evalued : ( error not a number ( ( quote 1 ) 2 ) )
 
  10: Input   : ( + 1 '2 )
- 10: Parsed  : ( + 1 ( quote . 2 ) )
- 10: Evalued : 3
+ 10: Parsed  : ( + 1 ( quote 2 ) )
+ 10: Evalued : ( error not a number ( 1 ( quote 2 ) ) )
 
- 11: Input   : ( eval (+ 1 2)	)
- 11: Parsed  : ( eval ( + 1 2 ) )
- 11: Evalued : ( error cannot evaluate provided input ( ( + 1 2 ) ) )
+ 11: Input   : ('+ 1 2 ) ; fail as not evaluable
+ 11: Parsed  : ( ( quote + ) 1 2 )
+ 11: Evalued : ( error cannot evaluate provided input ( ( quote + ) 1 2 ) )
 
- 12: Input   : ('+ 1 2 ) ; fail as not evaluable
- 12: Parsed  : ( ( quote . + ) 1 2 )
- 12: Evalued : ( error cannot evaluate provided input ( ( quote . + ) 1 2 ) )
+ 12: Input   : ( eval '+) ; fail
+ 12: Parsed  : ( eval ( quote + ) )
+ 12: Evalued : ( error cannot evaluate provided input ( ( quote + ) ) )
 
- 13: Input   : ( eval '+) ; fail
- 13: Parsed  : ( eval ( quote . + ) )
- 13: Evalued : ( error cannot evaluate provided input ( ( quote . + ) ) )
+ 13: Input   : ( eval ('+ )); should be ok
+ 13: Parsed  : ( eval ( ( quote + ) ) )
+ 13: Evalued : ( error cannot evaluate provided input ( ( ( quote + ) ) ) )
 
- 14: Input   : ( eval ('+ )); should be ok
- 14: Parsed  : ( eval ( ( quote . + ) ) )
- 14: Evalued : ( error cannot evaluate provided input ( ( ( quote . + ) ) ) )
+ 14: Input   : ( (eval '+) 1 2 ) ; should work
+ 14: Parsed  : ( ( eval ( quote + ) ) 1 2 )
+ 14: Evalued : ( error cannot evaluate provided input ( ( eval ( quote + ) ) 1 2 ) )
 
- 15: Input   : ( (eval '+) 1 2 ) ; should work
- 15: Parsed  : ( ( eval ( quote . + ) ) 1 2 )
- 15: Evalued : ( error cannot evaluate provided input ( ( eval ( quote . + ) ) 1 2 ) )
+ 15: Input   : (1)
+ 15: Parsed  : ( 1 )
+ 15: Evalued : ( error cannot evaluate provided input ( 1 ) )
 
- 16: Input   : (1)
- 16: Parsed  : ( 1 )
- 16: Evalued : ( error cannot evaluate provided input ( 1 ) )
-
- 17: Input   : ((+ 1 2 ) 3 )
- 17: Parsed  : ( ( + 1 2 ) 3 )
- 17: Evalued : ( error cannot evaluate provided input ( ( + 1 2 ) 3 ) )
+ 16: Input   : ((+ 1 2 ) 3 )
+ 16: Parsed  : ( ( + 1 2 ) 3 )
+ 16: Evalued : ( error cannot evaluate provided input ( ( + 1 2 ) 3 ) )
 

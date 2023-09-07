@@ -5,14 +5,17 @@ import "fmt"
 var ErrEval = fmt.Errorf("cannot evaluate provided input")
 
 // Eval a Term, recursively, returning the result as a Term.
+// TODO - review how environments are managed ?
 func (it *Inter) Eval(t Term) Term {
+
+	fmt.Println("DEBUG : eval de : ", t)
 
 	// Eval nil to nil
 	if t == nil {
 		return nil
 	}
 
-	// try to handle self evaluating forms that have no scope impact
+	// try to handle self evaluating forms that evaluate to themselves.
 	if tt, ok := DoSelfEval(t); ok {
 		return tt
 	}
@@ -34,13 +37,7 @@ func (it *Inter) Eval(t Term) Term {
 	// if the car is not nil, evaluate and replace, to see if we can continue.
 	// That will cover the case of quoted functors, as well as translatinf functors into their lambada expression.
 	// Do not evaluate yet the other parameters.
-	if ca := car(t); ca != nil { // Revoir logic
-		if tt, ok := DoSelfEval(ca); ok {
-			return it.Eval(Pair{
-				Car: tt,
-				Cdr: cdr(t),
-			})
-		} // Revoir logic
+	if ca := car(t); ca != nil {
 		if tt, ok := it.DoVar(ca); ok {
 			return it.Eval(Pair{
 				Car: tt,
@@ -56,6 +53,9 @@ func (it *Inter) Eval(t Term) Term {
 
 // DoSelfEval eval when we do not need access to the scopes.
 func DoSelfEval(t Term) (res Term, ok bool) {
+	if t == nil {
+		return t, true
+	}
 	switch a := t.(type) {
 	case Bool:
 		return a, true
@@ -63,14 +63,7 @@ func DoSelfEval(t Term) (res Term, ok bool) {
 		return a, true
 	case String:
 		return a, true
-	case Symbol:
-		switch a.Value {
-		case "true", "t":
-			return t, true
-		case "nil":
-			return nil, true
-
-		}
+	case Symbol: // none, for now ?
 	case Pair: // none for the moment ?
 	}
 	return nil, false
