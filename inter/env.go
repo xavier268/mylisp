@@ -33,7 +33,7 @@ func (s Environnement) String() string {
 	return sb.String()
 }
 
-func (it *Inter) PushScope() {
+func (it *Inter) PushEnv() {
 	it.local = &Environnement{
 		bindings: map[Symbol]Term{},
 		parent:   it.local,
@@ -43,11 +43,11 @@ func (it *Inter) PushScope() {
 	}
 }
 
-var ErrCannotPopScope = fmt.Errorf("cannot pop scope, scope stack is empty")
+var ErrCannotPopENv = fmt.Errorf("cannot pop environement,  stack is empty")
 
-func (it *Inter) PopScope() error {
+func (it *Inter) PopEnv() error {
 	if it.local == nil || it.local.parent == nil {
-		return ErrCannotPopScope
+		return ErrCannotPopENv
 	} else {
 		it.local = it.local.parent
 		return nil

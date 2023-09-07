@@ -8,7 +8,7 @@ type Inter struct {
 
 func NewInter() *Inter {
 	it := new(Inter)
-	it.PushScope() // initialize both local and global scopes
+	it.PushEnv() // initialize both local and global scopes
 	return it
 }
 

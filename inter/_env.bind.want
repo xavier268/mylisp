@@ -1,5 +1,5 @@
 Test name : TestBind
-This file : _scope_bind.want
+This file : _env.bind.want
 
 0: formal args ( X Y )	 target ( a b c )
 --- Interpreter state ---

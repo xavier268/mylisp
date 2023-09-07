@@ -62,6 +62,6 @@ func TestBind(t *testing.T) {
 		fmt.Fprintln(sb, it)
 	}
 
-	mytest.Verify(t, sb.String(), "scope_bind")
+	mytest.Verify(t, sb.String(), "env.bind")
 
 }

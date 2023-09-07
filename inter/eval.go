@@ -21,8 +21,8 @@ func (it *Inter) Eval(t Term) Term {
 	}
 
 	// set new local scope
-	it.PushScope()
-	defer it.PopScope()
+	it.PushEnv()
+	defer it.PopEnv()
 
 	// do we have a defined variable ? If yes, return its binding without evaluating it.
 	if tt, ok := it.DoVar(t); ok {
