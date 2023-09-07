@@ -10,6 +10,11 @@ type Pair struct {
 	Car, Cdr Term
 }
 
+// IsProcedure implements Term.
+func (Pair) IsProcedure() bool {
+	return false
+}
+
 // IsBool implements Term.
 func (Pair) IsBool() bool {
 	return false

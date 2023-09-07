@@ -4,6 +4,11 @@ type Symbol struct {
 	Value string
 }
 
+// IsProcedure implements Term.
+func (Symbol) IsProcedure() bool {
+	return false
+}
+
 // IsBool implements Term.
 func (Symbol) IsBool() bool {
 	return false

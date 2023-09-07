@@ -14,6 +14,11 @@ type Number struct {
 	Den int
 }
 
+// IsProcedure implements Term.
+func (Number) IsProcedure() bool {
+	return false
+}
+
 var _ Term = Number{}
 
 var NumberZero = Number{0, 1}

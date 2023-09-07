@@ -7,6 +7,7 @@ type Term interface {
 	IsString() bool
 	IsNumber() bool
 	IsBool() bool
+	IsProcedure() bool
 }
 
 var _ Term = Pair{}

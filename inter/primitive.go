@@ -13,8 +13,6 @@ func (it *Inter) DoSpecial(t Term) (result Term, ok bool) {
 		return nil, true
 	}
 	switch { // all specials are selected here
-	case car(t) == Symbol{Value: "error"}:
-		return t, true
 	case car(t) == Symbol{Value: "quote"}:
 		return cdr(t), true
 	case car(t) == Symbol{Value: "eval"}:

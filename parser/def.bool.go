@@ -4,6 +4,11 @@ type Bool struct {
 	Value bool
 }
 
+// IsProcedure implements Term.
+func (Bool) IsProcedure() bool {
+	return false
+}
+
 var _ Term = Bool{}
 
 func (b Bool) String() string {

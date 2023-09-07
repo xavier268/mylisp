@@ -5,7 +5,9 @@ Inspired by scheme syntax.
 
 
 
-See https://web.mit.edu/scheme/scheme_v9.2/doc/mit-scheme-ref/index.html  (prefered) or  https://www.gnu.org/software/guile/manual/guile.html#SEC_Contents
+See https://web.mit.edu/scheme/scheme_v9.2/doc/mit-scheme-ref/index.html  (prefered) 
+or  https://www.gnu.org/software/guile/manual/guile.html#SEC_Contents
+or https://www.scheme.com/tspl4/
 
 
 Redesigned needed to comply :
