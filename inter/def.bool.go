@@ -4,6 +4,11 @@ type Bool struct {
 	Value bool
 }
 
+// IsError implements Term.
+func (Bool) IsError() bool {
+	return false
+}
+
 // IsProcedure implements Term.
 func (Bool) IsProcedure() bool {
 	return false

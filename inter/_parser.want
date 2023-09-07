@@ -14,8 +14,8 @@ This file : _parser.want
 2: result str: <"a string">
 
 3: input : < ' 2/3  >
-3: result raw: <inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Pair{Car:inter.Number{Num:2, Den:3}, Cdr:inter.Term(nil)}}>
-3: result str: <( quote 2/3 )>
+3: result raw: <inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Number{Num:2, Den:3}}>
+3: result str: <( quote . 2/3 )>
 
 4: input : < a b ; should fail beacause multiple atoms not allowed outside list>
 4:	 ********** error: error : [parse error in test string #4, pos 4 : syntax error: unexpected IDENT]

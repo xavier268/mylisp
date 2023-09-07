@@ -33,39 +33,75 @@ This file : _eval.want
   7: Parsed  : ( + ( + 1 2 ) )
   7: Evalued : 3
 
-  8: Input   : '(+ 1 2 )
-  8: Parsed  : ( quote ( + 1 2 ) )
-  8: Evalued : ( ( + 1 2 ) )
+  8: Input   : (+ 2 ( 5 * 3 ) 2)
+  8: Parsed  : ( + 2 ( 5 * 3 ) 2 )
+  8: Evalued : term is not a number in ( 2 cannot evaluate provided input in ( 5 * 3 ) 2 )
 
-  9: Input   : ( + '1 2 )
-  9: Parsed  : ( + ( quote 1 ) 2 )
-  9: Evalued : ( error not a number ( ( quote 1 ) 2 ) )
+  9: Input   : (* 2 3 )
+  9: Parsed  : ( * 2 3 )
+  9: Evalued : 6
 
- 10: Input   : ( + 1 '2 )
- 10: Parsed  : ( + 1 ( quote 2 ) )
- 10: Evalued : ( error not a number ( 1 ( quote 2 ) ) )
+ 10: Input   : (*)
+ 10: Parsed  : ( * )
+ 10: Evalued : %!v(PANIC=String method: runtime error: invalid memory address or nil pointer dereference)
 
- 11: Input   : ('+ 1 2 ) ; fail as not evaluable
- 11: Parsed  : ( ( quote + ) 1 2 )
- 11: Evalued : ( error cannot evaluate provided input ( ( quote + ) 1 2 ) )
+ 11: Input   : '(+ 1 2 )
+ 11: Parsed  : ( quote + 1 2 )
+ 11: Evalued : ( + 1 2 )
 
- 12: Input   : ( eval '+) ; fail
- 12: Parsed  : ( eval ( quote + ) )
- 12: Evalued : ( error cannot evaluate provided input ( ( quote + ) ) )
+ 12: Input   : ( + '1 2 )
+ 12: Parsed  : ( + ( quote . 1 ) 2 )
+ 12: Evalued : 3
 
- 13: Input   : ( eval ('+ )); should be ok
- 13: Parsed  : ( eval ( ( quote + ) ) )
- 13: Evalued : ( error cannot evaluate provided input ( ( ( quote + ) ) ) )
+ 13: Input   : ( + 1 '2 )
+ 13: Parsed  : ( + 1 ( quote . 2 ) )
+ 13: Evalued : 3
 
- 14: Input   : ( (eval '+) 1 2 ) ; should work
- 14: Parsed  : ( ( eval ( quote + ) ) 1 2 )
- 14: Evalued : ( error cannot evaluate provided input ( ( eval ( quote + ) ) 1 2 ) )
+ 14: Input   : 'a
+ 14: Parsed  : ( quote . a )
+ 14: Evalued : a
 
- 15: Input   : (1)
- 15: Parsed  : ( 1 )
- 15: Evalued : ( error cannot evaluate provided input ( 1 ) )
+ 15: Input   : ''a
+ 15: Parsed  : ( quote . ( quote . a ) )
+ 15: Evalued : ( quote . a )
 
- 16: Input   : ((+ 1 2 ) 3 )
- 16: Parsed  : ( ( + 1 2 ) 3 )
- 16: Evalued : ( error cannot evaluate provided input ( ( + 1 2 ) 3 ) )
+ 16: Input   : '''a
+ 16: Parsed  : ( quote . ( quote . ( quote . a ) ) )
+ 16: Evalued : ( quote . ( quote . a ) )
+
+ 17: Input   : (quote  )
+ 17: Parsed  : ( quote )
+ 17: Evalued : <nil>
+
+ 18: Input   : (quote 1 )
+ 18: Parsed  : ( quote 1 )
+ 18: Evalued : ( 1 )
+
+ 19: Input   : (quote 1 2 )
+ 19: Parsed  : ( quote 1 2 )
+ 19: Evalued : ( 1 2 )
+
+ 20: Input   : ('+ 1 2 ) ; fail as not evaluable
+ 20: Parsed  : ( ( quote . + ) 1 2 )
+ 20: Evalued : cannot evaluate provided input in ( ( quote . + ) 1 2 )
+
+ 21: Input   : ( eval '+) ; fail
+ 21: Parsed  : ( eval ( quote . + ) )
+ 21: Evalued : cannot evaluate provided input in ( eval ( quote . + ) )
+
+ 22: Input   : ( eval ('+ )); should be ok
+ 22: Parsed  : ( eval ( ( quote . + ) ) )
+ 22: Evalued : cannot evaluate provided input in ( eval ( ( quote . + ) ) )
+
+ 23: Input   : ( (eval '+) 1 2 ) ; should work
+ 23: Parsed  : ( ( eval ( quote . + ) ) 1 2 )
+ 23: Evalued : cannot evaluate provided input in ( ( eval ( quote . + ) ) 1 2 )
+
+ 24: Input   : (1)
+ 24: Parsed  : ( 1 )
+ 24: Evalued : cannot evaluate provided input in ( 1 )
+
+ 25: Input   : ((+ 1 2 ) 3 )
+ 25: Parsed  : ( ( + 1 2 ) 3 )
+ 25: Evalued : cannot evaluate provided input in ( ( + 1 2 ) 3 )
 

@@ -8,6 +8,11 @@ type String struct {
 	Value string
 }
 
+// IsError implements Term.
+func (String) IsError() bool {
+	return false
+}
+
 // IsProcedure implements Term.
 func (String) IsProcedure() bool {
 	return false

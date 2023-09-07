@@ -4,6 +4,13 @@ type Symbol struct {
 	Value string
 }
 
+// IsError implements Term.
+func (Symbol) IsError() bool {
+	return false
+}
+
+var _ Term = Symbol{}
+
 // IsProcedure implements Term.
 func (Symbol) IsProcedure() bool {
 	return false
@@ -33,8 +40,6 @@ func (Symbol) IsString() bool {
 func (Symbol) IsSymbol() bool {
 	return true
 }
-
-var _ Term = Symbol{}
 
 func (t Symbol) String() string {
 	return t.Value

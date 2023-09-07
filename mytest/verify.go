@@ -15,17 +15,13 @@ var DISPLAY_WINDOW = 160 // max number of characters to display, before and afte
 // A .want extension is always added to the filename.
 func Verify(t *testing.T, content string, filename string) {
 
-	filename = filepath.Base(filename)
-	filename, _ = filepath.Abs("_" + filename)
-	filename = filename + ".want"
+	content = fmt.Sprintf("Test name : %s\nThis file : %s\n%s\n", t.Name(), filepath.Base(wantFile(filename)), content)
 
-	content = fmt.Sprintf("Test name : %s\nThis file : %s\n%s\n", t.Name(), filepath.Base(filename), content)
-
-	fmt.Println(GREEN+"Verifying test results against file : "+RESET, filename)
-	check, err := os.ReadFile(filename)
+	fmt.Println(GREEN+"Verifying test results against file : "+RESET, wantFile(filename))
+	check, err := os.ReadFile(wantFile(filename))
 	if err != nil {
 		fmt.Println(RED + "File not found, create it as a reference for future test. Make sure you manually review it !" + RESET)
-		os.WriteFile(filename, []byte(content), 0644)
+		os.WriteFile(wantFile(filename), []byte(content), 0644)
 		return
 	}
 	sc := string(check)
@@ -50,6 +46,8 @@ func Verify(t *testing.T, content string, filename string) {
 				fmt.Printf("\n============================ want==============================\n%s%s%s%s\n",
 					sc[i1:i], RED, sc[i:i2], RESET)
 
+				_ = os.WriteFile(gotFile(filename), []byte(content), 0644)
+				fmt.Printf("\n%s*** FAILING *** Got file saved in : %s%s\n", RED, gotFile(filename), RESET)
 				t.Fatalf("Result differs from reference file in %s", t.Name())
 			}
 		}
@@ -72,7 +70,21 @@ func Verify(t *testing.T, content string, filename string) {
 		fmt.Printf("\n============================ want==============================\n%s%s%s%s\n",
 			sc[i1:i], RED, sc[i:i2], RESET)
 
-		t.Fatalf("Result differs from reference file in %s", t.Name())
+		_ = os.WriteFile(gotFile(filename), []byte(content), 0644)
+		fmt.Printf("\n%s*** FAILING *** Got file saved in : %s%s\n", RED, gotFile(filename), RESET)
+		t.Fatalf("Result differs from reference file in %s", wantFile(filename))
 
 	}
+}
+
+func wantFile(filename string) string {
+	filename = filepath.Base(filename)
+	filename, _ = filepath.Abs("_" + filename)
+	return filename + ".want"
+}
+
+func gotFile(filename string) string {
+	filename = filepath.Base(filename)
+	filename, _ = filepath.Abs("_" + filename)
+	return filename + ".got"
 }

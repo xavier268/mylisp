@@ -554,7 +554,7 @@ mydefault:
 		myDollar = myS[mypt-2 : mypt+1]
 //line grammar.y:61
 		{
-			myVAL.value = Pair{Symbol{"quote"}, Pair{myDollar[2].value, nil}}
+			myVAL.value = Pair{Symbol{"quote"}, myDollar[2].value}
 		}
 	}
 	goto mystack /* stack new state and value */

@@ -14,6 +14,11 @@ type Number struct {
 	Den int
 }
 
+// IsError implements Term.
+func (Number) IsError() bool {
+	return false
+}
+
 // IsProcedure implements Term.
 func (Number) IsProcedure() bool {
 	return false

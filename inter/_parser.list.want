@@ -10,12 +10,12 @@ This file : _parser.list.want
 1: result str: <( )>
 
 2: input : <'( ) ; >
-2: result raw: <inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Pair{Car:inter.Pair{Car:inter.Term(nil), Cdr:inter.Term(nil)}, Cdr:inter.Term(nil)}}>
-2: result str: <( quote ( ) )>
+2: result raw: <inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Pair{Car:inter.Term(nil), Cdr:inter.Term(nil)}}>
+2: result str: <( quote . ( ) )>
 
 3: input : <' ( ) >
-3: result raw: <inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Pair{Car:inter.Pair{Car:inter.Term(nil), Cdr:inter.Term(nil)}, Cdr:inter.Term(nil)}}>
-3: result str: <( quote ( ) )>
+3: result raw: <inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Pair{Car:inter.Term(nil), Cdr:inter.Term(nil)}}>
+3: result str: <( quote . ( ) )>
 
 4: input : <( un deux )>
 4: result raw: <inter.Pair{Car:inter.Symbol{Value:"un"}, Cdr:inter.Pair{Car:inter.Symbol{Value:"deux"}, Cdr:inter.Term(nil)}}>
@@ -26,12 +26,12 @@ This file : _parser.list.want
 5: result str: <( un . deux )>
 
 6: input : <( un ' deux )>
-6: result raw: <inter.Pair{Car:inter.Symbol{Value:"un"}, Cdr:inter.Pair{Car:inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Pair{Car:inter.Symbol{Value:"deux"}, Cdr:inter.Term(nil)}}, Cdr:inter.Term(nil)}}>
-6: result str: <( un ( quote deux ) )>
+6: result raw: <inter.Pair{Car:inter.Symbol{Value:"un"}, Cdr:inter.Pair{Car:inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Symbol{Value:"deux"}}, Cdr:inter.Term(nil)}}>
+6: result str: <( un ( quote . deux ) )>
 
 7: input : <' ( un  deux )>
-7: result raw: <inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Pair{Car:inter.Pair{Car:inter.Symbol{Value:"un"}, Cdr:inter.Pair{Car:inter.Symbol{Value:"deux"}, Cdr:inter.Term(nil)}}, Cdr:inter.Term(nil)}}>
-7: result str: <( quote ( un deux ) )>
+7: result raw: <inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Pair{Car:inter.Symbol{Value:"un"}, Cdr:inter.Pair{Car:inter.Symbol{Value:"deux"}, Cdr:inter.Term(nil)}}}>
+7: result str: <( quote un deux )>
 
 8: input : <( un deux trois )>
 8: result raw: <inter.Pair{Car:inter.Symbol{Value:"un"}, Cdr:inter.Pair{Car:inter.Symbol{Value:"deux"}, Cdr:inter.Pair{Car:inter.Symbol{Value:"trois"}, Cdr:inter.Term(nil)}}}>

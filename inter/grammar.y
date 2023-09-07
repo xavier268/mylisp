@@ -58,6 +58,6 @@ atom:
     | STRING                 { $$ = $1  }
     | BOOL                   { $$ = $1  }
     | expr                   { $$ = $1  }
-    |  '\''  atom            { $$ = Pair{  Symbol { "quote"}, Pair { $2,nil } }  }
+    |  '\''  atom            { $$ = Pair{  Symbol { "quote"},  $2 }  }
 
 %%

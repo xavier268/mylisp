@@ -1,4 +1,4 @@
-// package inter constains lexer, parser and structure definitions.
+// package inter constains lexer, parser and interpreter.
 package inter
 
 //go:generate go get golang.org/x/tools/cmd/goyacc

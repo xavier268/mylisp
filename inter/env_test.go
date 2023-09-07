@@ -57,7 +57,7 @@ func TestBind(t *testing.T) {
 		}
 		fmt.Fprintf(sb, "%d: formal args %s\t target %s\n", i, s0, s1)
 
-		it.Bind(s0, s1)
+		it.current.Bind(s0, s1)
 		fmt.Fprintln(sb, it)
 	}
 

@@ -34,32 +34,32 @@ func (s Environnement) String() string {
 }
 
 func (it *Inter) PushEnv() {
-	it.local = &Environnement{
+	it.current = &Environnement{
 		bindings: map[Symbol]Term{},
-		parent:   it.local,
+		parent:   it.current,
 	}
 	if it.global == nil {
-		it.global = it.local // for initialization
+		it.global = it.current // for initialization
 	}
 }
 
 var ErrCannotPopENv = fmt.Errorf("cannot pop environement,  stack is empty")
 
 func (it *Inter) PopEnv() error {
-	if it.local == nil || it.local.parent == nil {
+	if it.current == nil || it.current.parent == nil {
 		return ErrCannotPopENv
 	} else {
-		it.local = it.local.parent
+		it.current = it.current.parent
 		return nil
 	}
 }
 
-// get symbol binding in all loacl or global scopes, nil if not found.
-func (it *Inter) Get(sym Symbol) (res Term, ok bool) {
-	if it.local == nil {
+// get symbol binding in environements, recursively. Ok if found.
+func (ev *Environnement) Get(sym Symbol) (res Term, ok bool) {
+	if ev == nil {
 		panic("scope is nil")
 	}
-	for s := it.local; s != nil; s = s.parent {
+	for s := ev; s != nil; s = s.parent {
 		if t, ok := s.bindings[sym]; ok {
 			return t, true
 		}
@@ -67,25 +67,17 @@ func (it *Inter) Get(sym Symbol) (res Term, ok bool) {
 	return nil, false // not found
 }
 
-// Set symbol in local scope
-func (it *Inter) Set(sym Symbol, t Term) {
-	if it.local == nil {
+// Set symbol in environment.
+func (ev *Environnement) Set(sym Symbol, t Term) {
+	if ev == nil {
 		panic("scope is nil")
 	}
-	it.local.bindings[sym] = t
-}
-
-// set symbol in global scope
-func (it *Inter) SetGlobal(sym Symbol, t Term) {
-	if it.global == nil {
-		panic("scope is nil")
-	}
-	it.global.bindings[sym] = t
+	ev.bindings[sym] = t
 }
 
 // binds a tree of arguments to a target tree.
 // only the symbols matching Terms in the same position in the target tree are bound.
-func (it *Inter) Bind(args, target Term) {
+func (ev *Environnement) Bind(args, target Term) {
 
 	if args == nil {
 		return
@@ -97,12 +89,12 @@ func (it *Inter) Bind(args, target Term) {
 	case String: // ignore
 		return
 	case Symbol:
-		it.Set(a, target)
+		ev.Set(a, target)
 		return
 	case Pair:
 		if tc, ok := target.(Pair); ok {
-			it.Bind(a.Car, tc.Car)
-			it.Bind(a.Cdr, tc.Cdr)
+			ev.Bind(a.Car, tc.Car)
+			ev.Bind(a.Cdr, tc.Cdr)
 			return
 		} else {
 			return // no  match

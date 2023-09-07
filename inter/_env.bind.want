@@ -4,7 +4,7 @@ This file : _env.bind.want
 0: formal args ( X Y )	 target ( a b c )
 --- Interpreter state ---
 
-Local:
+Current:
 	X = a
 	Y = b
 
@@ -16,7 +16,7 @@ Global:
 1: formal args ( X Y )	 target ( a b )
 --- Interpreter state ---
 
-Local:
+Current:
 	X = a
 	Y = b
 
@@ -28,7 +28,7 @@ Global:
 2: formal args ( X Y )	 target ( a )
 --- Interpreter state ---
 
-Local:
+Current:
 	X = a
 
 Global:
@@ -38,7 +38,7 @@ Global:
 3: formal args ( X Y )	 target ( )
 --- Interpreter state ---
 
-Local:
+Current:
 	X = nil
 
 Global:
@@ -48,7 +48,7 @@ Global:
 4: formal args ( X Y )	 target ( . ( ) )
 --- Interpreter state ---
 
-Local:
+Current:
 	X = nil
 	Y = nil
 
@@ -60,7 +60,7 @@ Global:
 5: formal args ( X Y )	 target %!s(<nil>)
 --- Interpreter state ---
 
-Local:
+Current:
 
 Global:
 
@@ -68,7 +68,7 @@ Global:
 6: formal args ( A . B )	 target ( a ( b c ) d )
 --- Interpreter state ---
 
-Local:
+Current:
 	A = a
 	B = ( ( b c ) d )
 
@@ -80,7 +80,7 @@ Global:
 7: formal args ( A . B )	 target ( a ( b ) )
 --- Interpreter state ---
 
-Local:
+Current:
 	A = a
 	B = ( ( b ) )
 
@@ -92,7 +92,7 @@ Global:
 8: formal args ( A . B )	 target ( a b )
 --- Interpreter state ---
 
-Local:
+Current:
 	A = a
 	B = ( b )
 
@@ -104,7 +104,7 @@ Global:
 9: formal args ( A . B )	 target ( a )
 --- Interpreter state ---
 
-Local:
+Current:
 	A = a
 	B = nil
 
@@ -116,7 +116,7 @@ Global:
 10: formal args ( A . B )	 target ( )
 --- Interpreter state ---
 
-Local:
+Current:
 	A = nil
 	B = nil
 
@@ -128,7 +128,7 @@ Global:
 11: formal args ( A . B )	 target %!s(<nil>)
 --- Interpreter state ---
 
-Local:
+Current:
 
 Global:
 
@@ -136,7 +136,7 @@ Global:
 12: formal args S	 target ( a b )
 --- Interpreter state ---
 
-Local:
+Current:
 	S = ( a b )
 
 Global:
@@ -146,7 +146,7 @@ Global:
 13: formal args S	 target ( a )
 --- Interpreter state ---
 
-Local:
+Current:
 	S = ( a )
 
 Global:
@@ -156,7 +156,7 @@ Global:
 14: formal args S	 target ( )
 --- Interpreter state ---
 
-Local:
+Current:
 	S = ( )
 
 Global:
@@ -166,7 +166,7 @@ Global:
 15: formal args S	 target ( . ( ) )
 --- Interpreter state ---
 
-Local:
+Current:
 	S = ( . ( ) )
 
 Global:
@@ -176,7 +176,7 @@ Global:
 16: formal args S	 target %!s(<nil>)
 --- Interpreter state ---
 
-Local:
+Current:
 	S = nil
 
 Global:
@@ -186,7 +186,7 @@ Global:
 17: formal args ( X ( Y Z ) U )	 target ( a ( b c ) d )
 --- Interpreter state ---
 
-Local:
+Current:
 	U = d
 	X = a
 	Y = b
@@ -202,7 +202,7 @@ Global:
 18: formal args ( X ( Y 3 ) U )	 target ( a ( b c ) d )
 --- Interpreter state ---
 
-Local:
+Current:
 	U = d
 	X = a
 	Y = b
@@ -216,7 +216,7 @@ Global:
 19: formal args ( X ( Y Z ) U )	 target ( a ( b ) d )
 --- Interpreter state ---
 
-Local:
+Current:
 	U = d
 	X = a
 	Y = b
@@ -230,7 +230,7 @@ Global:
 20: formal args ( X ( Y Z ) U )	 target ( a b d )
 --- Interpreter state ---
 
-Local:
+Current:
 	U = d
 	X = a
 
