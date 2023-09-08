@@ -2,7 +2,7 @@ package inter
 
 // Identifiers that are predefined.
 // They all evaluate to themselves.
-// Builtin should self register in this map.
+// Builtin should self register in this map using Register function.
 var KEYWORDS = make(map[string]kwdata, 10)
 
 // All primitive, built in functions or macros must have this signature.
@@ -21,7 +21,7 @@ func IsKeyword(s string) bool {
 	return ok
 }
 
-// Register a keyword, typically during initialization.
+// Register a keyword for a built-in primitive, typically during initialization.
 func Register(keyword string, evalArgFirst bool, primitive Primitive) {
 	if IsKeyword(keyword) {
 		panic("trying to registerd twice an existing keyword : " + keyword)
