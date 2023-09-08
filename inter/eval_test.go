@@ -25,6 +25,10 @@ func TestEval(t *testing.T) {
 		"(* 2 3 )",
 		"(*)",
 
+		// list of symbols
+		"( a) ; should fail ",
+		" ( a b ) ; should fail",
+
 		// with quotes
 		"'(+ 1 2 )",
 		"( + '1 2 )",
@@ -47,6 +51,17 @@ func TestEval(t *testing.T) {
 		// // fail as not evaluable
 		"(1) ; fail",
 		"((+ 1 2 ) 3 ) ; fail",
+
+		// car, cons, cdr, list
+		"(list)",
+		"(list 'a )",
+		"(list a ) ; fail because a unbound",
+		"(car( a b)) ; fail to evaluate (a b)",
+		"(car ' (a b)) ",
+		"(cdr ' (a b)) ",
+		"(car ' ()) ",
+		"(cdr ' ()) ",
+		"(cons)",
 	}
 
 	sb := new(strings.Builder)

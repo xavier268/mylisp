@@ -45,71 +45,115 @@ This file : _eval.want
  10: Parsed  : ( * )
  10: Evalued : term is not a number in <nil>
 
- 11: Input   : '(+ 1 2 )
- 11: Parsed  : ( quote + 1 2 )
- 11: Evalued : ( + 1 2 )
+ 11: Input   : ( a) ; should fail 
+ 11: Parsed  : ( a )
+ 11: Evalued : cannot evaluate provided input in ( a )
 
- 12: Input   : ( + '1 2 )
- 12: Parsed  : ( + ( quote . 1 ) 2 )
- 12: Evalued : 3
+ 12: Input   :  ( a b ) ; should fail
+ 12: Parsed  : ( a b )
+ 12: Evalued : cannot evaluate provided input in ( a b )
 
- 13: Input   : ( + 1 '2 )
- 13: Parsed  : ( + 1 ( quote . 2 ) )
- 13: Evalued : 3
+ 13: Input   : '(+ 1 2 )
+ 13: Parsed  : ( quote + 1 2 )
+ 13: Evalued : ( + 1 2 )
 
- 14: Input   : 'a
- 14: Parsed  : ( quote . a )
- 14: Evalued : a
+ 14: Input   : ( + '1 2 )
+ 14: Parsed  : ( + ( quote . 1 ) 2 )
+ 14: Evalued : 3
 
- 15: Input   : ''a
- 15: Parsed  : ( quote . ( quote . a ) )
- 15: Evalued : ( quote . a )
+ 15: Input   : ( + 1 '2 )
+ 15: Parsed  : ( + 1 ( quote . 2 ) )
+ 15: Evalued : 3
 
- 16: Input   : '''a
- 16: Parsed  : ( quote . ( quote . ( quote . a ) ) )
- 16: Evalued : ( quote . ( quote . a ) )
+ 16: Input   : 'a
+ 16: Parsed  : ( quote . a )
+ 16: Evalued : a
 
- 17: Input   : (quote  )
- 17: Parsed  : ( quote )
- 17: Evalued : <nil>
+ 17: Input   : ''a
+ 17: Parsed  : ( quote . ( quote . a ) )
+ 17: Evalued : ( quote . a )
 
- 18: Input   : (quote 1 )
- 18: Parsed  : ( quote 1 )
- 18: Evalued : ( 1 )
+ 18: Input   : '''a
+ 18: Parsed  : ( quote . ( quote . ( quote . a ) ) )
+ 18: Evalued : ( quote . ( quote . a ) )
 
- 19: Input   : (quote 1 2 )
- 19: Parsed  : ( quote 1 2 )
- 19: Evalued : ( 1 2 )
+ 19: Input   : (quote  )
+ 19: Parsed  : ( quote )
+ 19: Evalued : <nil>
 
- 20: Input   : ('+ 1 2 ) 
- 20: Parsed  : ( ( quote . + ) 1 2 )
- 20: Evalued : 3
+ 20: Input   : (quote 1 )
+ 20: Parsed  : ( quote 1 )
+ 20: Evalued : ( 1 )
 
- 21: Input   : (let ((x 2) (y 3))  (* x y)) ; --> 6 
- 21: Parsed  : ( let ( ( x 2 ) ( y 3 ) ) ( * x y ) )
- 21: Evalued : 6
+ 21: Input   : (quote 1 2 )
+ 21: Parsed  : ( quote 1 2 )
+ 21: Evalued : ( 1 2 )
 
- 22: Input   : (let ((x 2) )  (+ x y)) ; fail, y is unbound 
- 22: Parsed  : ( let ( ( x 2 ) ) ( + x y ) )
- 22: Evalued : term is not a number in ( 2 cannot evaluate provided input in y )
+ 22: Input   : ('+ 1 2 ) 
+ 22: Parsed  : ( ( quote . + ) 1 2 )
+ 22: Evalued : 3
 
- 23: Input   : (let ())
- 23: Parsed  : ( let ( ) )
- 23: Evalued : <nil>
+ 23: Input   : (let ((x 2) (y 3))  (* x y)) ; --> 6 
+ 23: Parsed  : ( let ( ( x 2 ) ( y 3 ) ) ( * x y ) )
+ 23: Evalued : 6
 
- 24: Input   : (let () ( define a ( + 1 2 )) a ) ; --> 3
- 24: Parsed  : ( let ( ) ( define a ( + 1 2 ) ) a )
- 24: Evalued : 3
+ 24: Input   : (let ((x 2) )  (+ x y)) ; fail, y is unbound 
+ 24: Parsed  : ( let ( ( x 2 ) ) ( + x y ) )
+ 24: Evalued : term is not a number in ( 2 cannot evaluate provided input in y )
 
- 25: Input   : ( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) ) ;--> 447, because shadowing x
- 25: Parsed  : ( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) )
- 25: Evalued : 447
+ 25: Input   : (let ())
+ 25: Parsed  : ( let ( ) )
+ 25: Evalued : <nil>
 
- 26: Input   : (1) ; fail
- 26: Parsed  : ( 1 )
- 26: Evalued : cannot evaluate provided input in ( 1 )
+ 26: Input   : (let () ( define a ( + 1 2 )) a ) ; --> 3
+ 26: Parsed  : ( let ( ) ( define a ( + 1 2 ) ) a )
+ 26: Evalued : 3
 
- 27: Input   : ((+ 1 2 ) 3 ) ; fail
- 27: Parsed  : ( ( + 1 2 ) 3 )
- 27: Evalued : cannot evaluate provided input in ( 3 3 )
+ 27: Input   : ( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) ) ;--> 447, because shadowing x
+ 27: Parsed  : ( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) )
+ 27: Evalued : 447
+
+ 28: Input   : (1) ; fail
+ 28: Parsed  : ( 1 )
+ 28: Evalued : cannot evaluate provided input in ( 1 )
+
+ 29: Input   : ((+ 1 2 ) 3 ) ; fail
+ 29: Parsed  : ( ( + 1 2 ) 3 )
+ 29: Evalued : cannot evaluate provided input in ( 3 3 )
+
+ 30: Input   : (list)
+ 30: Parsed  : ( list )
+ 30: Evalued : ( )
+
+ 31: Input   : (list 'a )
+ 31: Parsed  : ( list ( quote . a ) )
+ 31: Evalued : ( a )
+
+ 32: Input   : (list a ) ; fail because a unbound
+ 32: Parsed  : ( list a )
+ 32: Evalued : ( cannot evaluate provided input in a )
+
+ 33: Input   : (car( a b)) ; fail to evaluate (a b)
+ 33: Parsed  : ( car ( a b ) )
+ 33: Evalued : <nil>
+
+ 34: Input   : (car ' (a b)) 
+ 34: Parsed  : ( car ( quote a b ) )
+ 34: Evalued : a
+
+ 35: Input   : (cdr ' (a b)) 
+ 35: Parsed  : ( cdr ( quote a b ) )
+ 35: Evalued : ( b )
+
+ 36: Input   : (car ' ()) 
+ 36: Parsed  : ( car ( quote . ( ) ) )
+ 36: Evalued : <nil>
+
+ 37: Input   : (cdr ' ()) 
+ 37: Parsed  : ( cdr ( quote . ( ) ) )
+ 37: Evalued : <nil>
+
+ 38: Input   : (cons)
+ 38: Parsed  : ( cons )
+ 38: Evalued : ( )
 
