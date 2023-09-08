@@ -39,6 +39,8 @@ func TestEval(t *testing.T) {
 
 		// let
 		"(let ((x 2) (y 3))  (* x y)) ; --> 6 ",
+		"(let ((x 2) )  (+ x y)) ; fail, y is unbound ",
+		"(let ())",
 
 		// // fail as not evaluable
 		"(1) ; fail",
@@ -67,7 +69,7 @@ func TestEval(t *testing.T) {
 
 func TestEvalDetail(t *testing.T) {
 
-	tt := "(let ((x 2) (y 3))  (* x y))"
+	tt := "(let ((x 2) (y 3)) (display x ) (newline) (* x y) )"
 
 	sb := new(strings.Builder)
 	fmt.Fprintln(sb)

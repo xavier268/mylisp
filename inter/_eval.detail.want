@@ -1,7 +1,7 @@
 Test name : TestEvalDetail
 This file : _eval.detail.want
 
-Input   : (let ((x 2) (y 3))  (* x y))
-Parsed  : ( let ( ( x 2 ) ( y 3 ) ) ( * x y ) )
+Input   : (let ((x 2) (y 3)) (display x ) (newline) (* x y) )
+Parsed  : ( let ( ( x 2 ) ( y 3 ) ) ( display x ) ( newline ) ( * x y ) )
 Evalued : 6
 

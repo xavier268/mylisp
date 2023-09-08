@@ -89,11 +89,19 @@ This file : _eval.want
  21: Parsed  : ( let ( ( x 2 ) ( y 3 ) ) ( * x y ) )
  21: Evalued : 6
 
- 22: Input   : (1) ; fail
- 22: Parsed  : ( 1 )
- 22: Evalued : cannot evaluate provided input in ( 1 )
+ 22: Input   : (let ((x 2) )  (+ x y)) ; fail, y is unbound 
+ 22: Parsed  : ( let ( ( x 2 ) ) ( + x y ) )
+ 22: Evalued : term is not a number in ( 2 cannot evaluate provided input in y )
 
- 23: Input   : ((+ 1 2 ) 3 ) ; fail
- 23: Parsed  : ( ( + 1 2 ) 3 )
- 23: Evalued : cannot evaluate provided input in ( 3 3 )
+ 23: Input   : (let ())
+ 23: Parsed  : ( let ( ) )
+ 23: Evalued : <nil>
+
+ 24: Input   : (1) ; fail
+ 24: Parsed  : ( 1 )
+ 24: Evalued : cannot evaluate provided input in ( 1 )
+
+ 25: Input   : ((+ 1 2 ) 3 ) ; fail
+ 25: Parsed  : ( ( + 1 2 ) 3 )
+ 25: Evalued : cannot evaluate provided input in ( 3 3 )
 
