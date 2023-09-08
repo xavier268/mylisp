@@ -1,0 +1,7 @@
+Test name : TestEvalDetail
+This file : _eval.detail.want
+
+Input   : ( * )
+Parsed  : ( * )
+Evalued : term is not a number in <nil>
+

@@ -44,5 +44,5 @@ func (Error) IsSymbol() bool {
 }
 
 func (e Error) String() string {
-	return e.Err.Error() + " in " + e.Context.String()
+	return e.Err.Error() + " in " + ToString(e.Context)
 }

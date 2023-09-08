@@ -21,7 +21,7 @@ func TestEval(t *testing.T) {
 		"( + 1 (+ 2/3 1/3 ))",
 		"(+ (+ 1 2) )",
 
-		"(+ 2 ( 5 * 3 ) 2)",
+		"(+ 2 ( * 5 3 ) 2)",
 		"(* 2 3 )",
 		"(*)",
 
@@ -35,18 +35,14 @@ func TestEval(t *testing.T) {
 		"(quote  )",
 		"(quote 1 )",
 		"(quote 1 2 )",
+		"('+ 1 2 ) ",
 
-		// "( eval (+ 1 2)	)",
-
-		"('+ 1 2 ) ; fail as not evaluable",
-		"( eval '+) ; fail",
-		"( eval ('+ )); should be ok",
-		"( (eval '+) 1 2 ) ; should work",
+		// let
+		"(let ((x 2) (y 3))  (* x y)) ; --> 6 ",
 
 		// // fail as not evaluable
-		"(1)",
-
-		"((+ 1 2 ) 3 )",
+		"(1) ; fail",
+		"((+ 1 2 ) 3 ) ; fail",
 	}
 
 	sb := new(strings.Builder)
@@ -67,4 +63,23 @@ func TestEval(t *testing.T) {
 
 	mytest.Verify(t, sb.String(), "eval")
 
+}
+
+func TestEvalDetail(t *testing.T) {
+
+	tt := "( * )"
+
+	sb := new(strings.Builder)
+	fmt.Fprintln(sb)
+	fmt.Fprintf(sb, "Input   : %s\n", tt)
+	ttt, err := ParseString(tt, t.Name())
+	if err != nil {
+		fmt.Fprintf(sb, "******** %v\n", err)
+	}
+	fmt.Fprintf(sb, "Parsed  : %v\n", ttt)
+	it := NewInter()
+	res := it.Eval(ttt)
+	fmt.Fprintf(sb, "Evalued : %v\n", ToString(res))
+
+	mytest.Verify(t, sb.String(), "eval.detail")
 }

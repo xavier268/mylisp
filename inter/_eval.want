@@ -33,9 +33,9 @@ This file : _eval.want
   7: Parsed  : ( + ( + 1 2 ) )
   7: Evalued : 3
 
-  8: Input   : (+ 2 ( 5 * 3 ) 2)
-  8: Parsed  : ( + 2 ( 5 * 3 ) 2 )
-  8: Evalued : term is not a number in ( 2 cannot evaluate provided input in ( 5 * 3 ) 2 )
+  8: Input   : (+ 2 ( * 5 3 ) 2)
+  8: Parsed  : ( + 2 ( * 5 3 ) 2 )
+  8: Evalued : 19
 
   9: Input   : (* 2 3 )
   9: Parsed  : ( * 2 3 )
@@ -43,7 +43,7 @@ This file : _eval.want
 
  10: Input   : (*)
  10: Parsed  : ( * )
- 10: Evalued : %!v(PANIC=String method: runtime error: invalid memory address or nil pointer dereference)
+ 10: Evalued : term is not a number in <nil>
 
  11: Input   : '(+ 1 2 )
  11: Parsed  : ( quote + 1 2 )
@@ -81,27 +81,19 @@ This file : _eval.want
  19: Parsed  : ( quote 1 2 )
  19: Evalued : ( 1 2 )
 
- 20: Input   : ('+ 1 2 ) ; fail as not evaluable
+ 20: Input   : ('+ 1 2 ) 
  20: Parsed  : ( ( quote . + ) 1 2 )
- 20: Evalued : cannot evaluate provided input in ( ( quote . + ) 1 2 )
+ 20: Evalued : 3
 
- 21: Input   : ( eval '+) ; fail
- 21: Parsed  : ( eval ( quote . + ) )
- 21: Evalued : cannot evaluate provided input in ( eval ( quote . + ) )
+ 21: Input   : (let ((x 2) (y 3))  (* x y)) ; --> 6 
+ 21: Parsed  : ( let ( ( x 2 ) ( y 3 ) ) ( * x y ) )
+ 21: Evalued : invalid argument list format in ( 2 )
 
- 22: Input   : ( eval ('+ )); should be ok
- 22: Parsed  : ( eval ( ( quote . + ) ) )
- 22: Evalued : cannot evaluate provided input in ( eval ( ( quote . + ) ) )
+ 22: Input   : (1) ; fail
+ 22: Parsed  : ( 1 )
+ 22: Evalued : cannot evaluate provided input in ( 1 )
 
- 23: Input   : ( (eval '+) 1 2 ) ; should work
- 23: Parsed  : ( ( eval ( quote . + ) ) 1 2 )
- 23: Evalued : cannot evaluate provided input in ( ( eval ( quote . + ) ) 1 2 )
-
- 24: Input   : (1)
- 24: Parsed  : ( 1 )
- 24: Evalued : cannot evaluate provided input in ( 1 )
-
- 25: Input   : ((+ 1 2 ) 3 )
- 25: Parsed  : ( ( + 1 2 ) 3 )
- 25: Evalued : cannot evaluate provided input in ( ( + 1 2 ) 3 )
+ 23: Input   : ((+ 1 2 ) 3 ) ; fail
+ 23: Parsed  : ( ( + 1 2 ) 3 )
+ 23: Evalued : cannot evaluate provided input in ( 3 3 )
 

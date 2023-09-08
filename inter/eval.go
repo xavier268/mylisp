@@ -27,21 +27,27 @@ func (it *Inter) Eval(t Term) Term {
 		return tt
 	}
 
-	// if special form, try to apply special predicate
-	if car(t) != nil && car(t).IsSymbol() && IsKeyword(car(t).(Symbol).Value) { // we have ( symbol ... )
-		return it.EvalSpecial(t)
+	// if special form, try to apply special predicate to it.
+	if car(t) != nil && car(t).IsSymbol() { // t is ( symbol ... )
+		if tt, ok := it.current.Get(car(t).(Symbol)); ok && tt != nil { // symbol is a var, evaluate it !
+			return Pair{
+				Car: tt,
+				Cdr: cdr(t),
+			}
+		}
+		if IsKeyword(car(t).(Symbol).Value) { // t is  ( keyword ... )
+			return it.EvalSpecial(t)
+		}
+
 	}
 
-	// if the car is not nil, evaluate and replace the car (and only the car) to see if we can continue.
-	// That will cover the case of quoted functors, as well as translatinf functors into their lambada expression.
-	// Do not evaluate yet the other parameters.
-	if ca := car(t); ca != nil && ca.IsSymbol() {
-		if tt, ok := EvalVar(it.current, ca); ok {
-			return it.Eval(Pair{
-				Car: tt,
-				Cdr: cdr(t), // args not evaluated yet
+	// if the functor could be a form like ( (something ... )  ... )
+	if car(t) != nil && car(t).IsPair() && caar(t).IsSymbol() { // we have something like ( ( funct ... )  ... )
+		return it.Eval(
+			Pair{
+				Car: it.Eval(car(t)),
+				Cdr: cdr(t),
 			})
-		}
 	}
 
 	// cannot evaluate, return error

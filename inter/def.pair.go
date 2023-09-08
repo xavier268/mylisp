@@ -58,7 +58,7 @@ func (t Pair) String() string {
 		if err == nil {
 			return "( " + ss + " )"
 		} else {
-			return "( " + t.Car.String() + " . " + t.Cdr.String() + " )"
+			return "( " + t.Car.String() + " . " + ToString(t.Cdr) + " )"
 		}
 
 	}

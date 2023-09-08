@@ -3,6 +3,7 @@ package inter
 import "fmt"
 
 var ErrVariableUnassigned = fmt.Errorf("variable is bound but unassigned")
+var ErrVariableNotBound = fmt.Errorf("variable is not bound")
 
 // Evaluate a symbol as a Variable, returning its binding if any, possibly unassigned if variable exists but has no value yet (or nil value).
 func EvalVar(ev *Environnement, t Term) (res Term, ok bool) {

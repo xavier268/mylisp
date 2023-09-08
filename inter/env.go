@@ -33,6 +33,13 @@ func (s Environnement) String() string {
 	return sb.String()
 }
 
+func (ev *Environnement) Fork() *Environnement {
+	return &Environnement{
+		bindings: map[Symbol]Term{},
+		parent:   ev,
+	}
+}
+
 func (it *Inter) PushEnv() {
 	it.current = &Environnement{
 		bindings: map[Symbol]Term{},
@@ -67,12 +74,35 @@ func (ev *Environnement) Get(sym Symbol) (res Term, ok bool) {
 	return nil, false // not found
 }
 
-// Set symbol in environment.
+// Set symbol in current environement, creating it if needed
 func (ev *Environnement) Set(sym Symbol, t Term) {
 	if ev == nil {
 		panic("scope is nil")
 	}
+	if (sym == Symbol{}) {
+		panic("symbol has no name")
+	}
 	ev.bindings[sym] = t
+}
+
+// Try to find the specified variable in one of the environements,
+// and set this specific variable in this specific environement to the value.
+// Variable is NEVER created if not found, but an error will be returned.
+// A existing variable will NEVER be shadowed, but will be changed.
+func (ev *Environnement) SetBang(sym Symbol, t Term) error {
+	if ev == nil {
+		return ErrVariableNotBound
+	}
+	if _, ok := ev.bindings[sym]; ok {
+		ev.bindings[sym] = t
+		return nil
+	}
+	pv := ev.parent
+	if pv == nil {
+		return ErrVariableNotBound
+	} else {
+		return pv.SetBang(sym, t)
+	}
 }
 
 // binds a tree of arguments to a target tree.
