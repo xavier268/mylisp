@@ -4,7 +4,7 @@ import "fmt"
 
 type Inter struct {
 	current, global *Environnement
-	quit            bool // quit requested
+	OnQuit          func() // a function hook, called when the interpreter is quitting.
 }
 
 func NewInter() *Inter {

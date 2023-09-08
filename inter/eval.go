@@ -9,11 +9,9 @@ var ErrEval = fmt.Errorf("cannot evaluate provided input")
 // TODO - review how environments are managed ?
 func (it *Inter) Eval(t Term) Term {
 
-	if it.quit {
-		return nil
+	if DEBUG >= 2 {
+		fmt.Println("DEBUG : evaluating : ", ToString(t))
 	}
-
-	fmt.Println("DEBUG : eval de : ", t)
 
 	// If litteral, done.
 	// nil and Pair{} are litterals.

@@ -43,6 +43,7 @@ func (String) IsSymbol() bool {
 	return false
 }
 
+// default is to printed quoted string
 func (t String) String() string {
 	return fmt.Sprintf("%q", t.Value)
 }

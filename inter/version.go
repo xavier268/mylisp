@@ -14,3 +14,6 @@ package inter
 const (
 	VERSION = "0.1.0"
 )
+
+// 0 - off, 1 - on, 2 - on with trace
+var DEBUG int = 2
