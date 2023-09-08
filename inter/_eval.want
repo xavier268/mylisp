@@ -97,11 +97,19 @@ This file : _eval.want
  23: Parsed  : ( let ( ) )
  23: Evalued : <nil>
 
- 24: Input   : (1) ; fail
- 24: Parsed  : ( 1 )
- 24: Evalued : cannot evaluate provided input in ( 1 )
+ 24: Input   : (let () ( define a ( + 1 2 )) a ) ; --> 3
+ 24: Parsed  : ( let ( ) ( define a ( + 1 2 ) ) a )
+ 24: Evalued : 3
 
- 25: Input   : ((+ 1 2 ) 3 ) ; fail
- 25: Parsed  : ( ( + 1 2 ) 3 )
- 25: Evalued : cannot evaluate provided input in ( 3 3 )
+ 25: Input   : ( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) ) ;--> 447, because shadowing x
+ 25: Parsed  : ( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) )
+ 25: Evalued : 447
+
+ 26: Input   : (1) ; fail
+ 26: Parsed  : ( 1 )
+ 26: Evalued : cannot evaluate provided input in ( 1 )
+
+ 27: Input   : ((+ 1 2 ) 3 ) ; fail
+ 27: Parsed  : ( ( + 1 2 ) 3 )
+ 27: Evalued : cannot evaluate provided input in ( 3 3 )
 

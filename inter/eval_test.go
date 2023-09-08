@@ -37,10 +37,12 @@ func TestEval(t *testing.T) {
 		"(quote 1 2 )",
 		"('+ 1 2 ) ",
 
-		// let
+		// let & define
 		"(let ((x 2) (y 3))  (* x y)) ; --> 6 ",
 		"(let ((x 2) )  (+ x y)) ; fail, y is unbound ",
 		"(let ())",
+		"(let () ( define a ( + 1 2 )) a ) ; --> 3",
+		"( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) ) ;--> 447, because shadowing x",
 
 		// // fail as not evaluable
 		"(1) ; fail",
@@ -69,7 +71,12 @@ func TestEval(t *testing.T) {
 
 func TestEvalDetail(t *testing.T) {
 
-	tt := "(let ((x 2) (y 3)) (display x ) (newline) (* x y) )"
+	tt := `(let  (
+		( x 3 ) ( y 0 ))
+		 ( let (( x 444 )) ; shadowing x
+		         ( set! y x) 
+				 ) ; end of inner let
+				       ( + y x) )`
 
 	sb := new(strings.Builder)
 	fmt.Fprintln(sb)
