@@ -39,7 +39,6 @@ func spLet(it *Inter, t Term) Term { //  t is (((variable init) ...) expression 
 			} else {
 				return Error{ErrInvalidArgumentListFormat, varinit}
 			}
-
 		}
 	}
 

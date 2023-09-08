@@ -10,7 +10,7 @@ func main() {
 
 	inter.DEBUG = 0
 
-	inter.Welcome()
+	fmt.Print(inter.Welcome())
 
 	it := inter.NewInter()
 
