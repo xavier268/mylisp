@@ -1,7 +1,7 @@
 Test name : TestEvalDetail
 This file : _eval.detail.want
 
-Input   : ( * )
-Parsed  : ( * )
-Evalued : term is not a number in <nil>
+Input   : (let ((x 2) (y 3))  (* x y))
+Parsed  : ( let ( ( x 2 ) ( y 3 ) ) ( * x y ) )
+Evalued : 6
 

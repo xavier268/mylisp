@@ -67,7 +67,7 @@ func TestEval(t *testing.T) {
 
 func TestEvalDetail(t *testing.T) {
 
-	tt := "( * )"
+	tt := "(let ((x 2) (y 3))  (* x y))"
 
 	sb := new(strings.Builder)
 	fmt.Fprintln(sb)

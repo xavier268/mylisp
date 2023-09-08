@@ -87,7 +87,7 @@ This file : _eval.want
 
  21: Input   : (let ((x 2) (y 3))  (* x y)) ; --> 6 
  21: Parsed  : ( let ( ( x 2 ) ( y 3 ) ) ( * x y ) )
- 21: Evalued : invalid argument list format in ( 2 )
+ 21: Evalued : 6
 
  22: Input   : (1) ; fail
  22: Parsed  : ( 1 )

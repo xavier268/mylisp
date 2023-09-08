@@ -30,9 +30,12 @@ func spLet(it *Inter, t Term) Term { //  t is (((variable init) ...) expression 
 	// Vars and inits are evaluated in the current environment (in some unspecified order)
 	// Vars are bound to fresh locations holding the results in newev
 	if varinits := car(t); varinits != nil { // varinits is ((var1 init1) ( var2 init2) ...)
-		for varinit := car(varinits); varinit != nil && (varinit != Pair{}); varinit = cdr(varinit) { // varinit is (var init)
+
+		for rest := varinits; rest != nil && (rest != Pair{}); rest = cdr(rest) {
+			varinit := car(rest) // varinit is (var init)
 			if va, ok := car(varinit).(Symbol); ok && (va != Symbol{}) {
-				newev.Set(va, it.Eval(cdar(varinit)))
+				in := cadr(varinit)
+				newev.Set(va, it.Eval(in))
 			} else {
 				return Error{ErrInvalidArgumentListFormat, varinit}
 			}
