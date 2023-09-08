@@ -10,6 +10,8 @@ func main() {
 
 	inter.DEBUG = 0
 
+	inter.Welcome()
+
 	it := inter.NewInter()
 
 	it.Repl()

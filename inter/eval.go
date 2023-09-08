@@ -27,11 +27,11 @@ func (it *Inter) Eval(t Term) Term {
 
 	// if special form, try to apply special predicate to it.
 	if car(t) != nil && car(t).IsSymbol() { // t is ( symbol ... )
-		if tt, ok := it.current.Get(car(t).(Symbol)); ok && tt != nil { // symbol is a var, evaluate it !
-			return Pair{
+		if tt, ok := it.current.Get(car(t).(Symbol)); ok && tt != nil { // symbol is a var, get its value  !
+			return it.Eval(Pair{ // evaluate resulting form
 				Car: tt,
 				Cdr: cdr(t),
-			}
+			})
 		}
 		if IsKeyword(car(t).(Symbol).Value) { // t is  ( keyword ... )
 			return it.EvalSpecial(t)
