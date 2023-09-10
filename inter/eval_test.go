@@ -62,6 +62,9 @@ func TestEval(t *testing.T) {
 		"(car ' ()) ",
 		"(cdr ' ()) ",
 		"(cons)",
+
+		// keywords list
+		"( keywords)",
 	}
 
 	sb := new(strings.Builder)

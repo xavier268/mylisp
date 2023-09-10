@@ -157,3 +157,7 @@ This file : _eval.want
  38: Parsed  : ( cons )
  38: Evalued : ( )
 
+ 39: Input   : ( keywords)
+ 39: Parsed  : ( keywords )
+ 39: Evalued : ( * + car cdr cons define display keywords let list newline quit quote set! )
+
