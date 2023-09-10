@@ -18,7 +18,7 @@ func (it *Inter) Repl() {
 		}
 		for _, t := range tl {
 			tt := it.Eval(t)
-			fmt.Printf("\n%s\n", ToString(tt))
+			fmt.Printf("%s\n", ToString(tt))
 		}
 	}
 }
