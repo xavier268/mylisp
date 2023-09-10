@@ -44,13 +44,13 @@ func TestBind(t *testing.T) {
 		fmt.Fprintln(sb)
 		it := NewInter()
 
-		s0, err := ParseString(s[0], t.Name())
+		s0, err := Parse1String(s[0], t.Name())
 
 		if err != nil {
 			fmt.Fprintln(sb, "*******", err, s[0])
 			continue
 		}
-		s1, err := ParseString(s[1], t.Name())
+		s1, err := Parse1String(s[1], t.Name())
 		if err != nil {
 			fmt.Fprintln(sb, "*******", err, s[1])
 			continue

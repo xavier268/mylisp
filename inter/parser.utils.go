@@ -7,7 +7,18 @@ import (
 	"strings"
 )
 
-func Parse(rdr io.Reader, sourcename string) (Term, error) {
+// Return the LAST parsed Term.
+func Parse1(rdr io.Reader, sourcename string) (Term, error) {
+	r, err := ParseN(rdr, sourcename)
+	if len(r) == 0 {
+		return nil, err
+	} else {
+		return r[len(r)-1], err
+	}
+}
+
+// Return a (golang) list of parsed Terms.
+func ParseN(rdr io.Reader, sourcename string) ([]Term, error) {
 	var err error
 	lx := NewLexer(rdr, sourcename)
 	p := myNewParser()
@@ -19,22 +30,44 @@ func Parse(rdr io.Reader, sourcename string) (Term, error) {
 	return r, err
 }
 
-func ParseFile(filename string) (Term, error) {
+func Parse1File(filename string) (Term, error) {
 	var err error
 	f, err := os.Open(filename)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
-	return Parse(f, filename)
+	return Parse1(f, filename)
 }
 
-func ParseString(input string, sourcename string) (Term, error) {
-	return Parse(strings.NewReader(input), sourcename)
+func ParseNFile(filename string) ([]Term, error) {
+	var err error
+	f, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	return ParseN(f, filename)
 }
 
-func MustParseString(input string, sourcename string) Term {
-	r, err := ParseString(input, sourcename)
+func Parse1String(input string, sourcename string) (Term, error) {
+	return Parse1(strings.NewReader(input), sourcename)
+}
+
+func ParseNString(input string, sourcename string) ([]Term, error) {
+	return ParseN(strings.NewReader(input), sourcename)
+}
+
+func MustParse1String(input string, sourcename string) Term {
+	r, err := Parse1String(input, sourcename)
+	if err != nil {
+		panic(err)
+	}
+	return r
+}
+
+func MustParseNString(input string, sourcename string) []Term {
+	r, err := ParseNString(input, sourcename)
 	if err != nil {
 		panic(err)
 	}

@@ -69,7 +69,7 @@ func TestEval(t *testing.T) {
 	for i, tt := range tests {
 		fmt.Fprintln(sb)
 		fmt.Fprintf(sb, "%3d: Input   : %s\n", i, tt)
-		ttt, err := ParseString(tt, fmt.Sprintf("%s - test # %d", t.Name(), i))
+		ttt, err := Parse1String(tt, fmt.Sprintf("%s - test # %d", t.Name(), i))
 		if err != nil {
 			fmt.Fprintf(sb, "******** %v\n", err)
 		}
@@ -96,7 +96,7 @@ func TestEvalDetail(t *testing.T) {
 	sb := new(strings.Builder)
 	fmt.Fprintln(sb)
 	fmt.Fprintf(sb, "Input   : %s\n", tt)
-	ttt, err := ParseString(tt, t.Name())
+	ttt, err := Parse1String(tt, t.Name())
 	if err != nil {
 		fmt.Fprintf(sb, "******** %v\n", err)
 	}

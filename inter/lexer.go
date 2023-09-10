@@ -13,7 +13,7 @@ type myLex struct {
 	SourceName string  // source for the data, used to print relevant errors
 	pos        int     // position reading (bytes)
 	LastErr    []error // the errors encountered
-	LastResult Term    // the last result from the parser
+	LastResult []Term  // the  result from the parser
 }
 
 func NewLexer(input io.Reader, fileName string) *myLex {

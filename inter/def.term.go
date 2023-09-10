@@ -1,5 +1,10 @@
 package inter
 
+import (
+	"fmt"
+	"strings"
+)
+
 type Term interface {
 	String() string
 	IsPair() bool
@@ -21,9 +26,21 @@ var _ Term = Error{}
 var _ Term = nil
 
 // a convenience string function, that handles nil Term.
-func ToString(t Term) string {
+func ToString(t any) string {
 	if t == nil {
 		return "<nil>"
 	}
-	return t.String()
+	switch tt := t.(type) {
+	case Term:
+		return tt.String()
+	case []Term:
+		res := []string{}
+		for _, rt := range tt {
+			res = append(res, rt.String())
+		}
+		return strings.Join(res, "\n")
+	default:
+		return fmt.Sprintf("%v", t)
+
+	}
 }

@@ -15,7 +15,7 @@ func TestParser(t *testing.T) {
 		"2/3",
 		`"a string"`,
 		" ' 2/3  ",
-		" a b ; should fail beacause multiple atoms not allowed outside list",
+		" a b ; should not fail, but report last stement parsed, b",
 		"' ; should fail because ' must be followed by a Term",
 	}
 
@@ -23,7 +23,7 @@ func TestParser(t *testing.T) {
 	for i, tt := range tests {
 		fmt.Fprintln(sb)
 		fmt.Fprintf(sb, "%d: input : <%s>\n", i, tt)
-		res, err := ParseString(tt, fmt.Sprintf("test string #%d", i))
+		res, err := Parse1String(tt, fmt.Sprintf("test string #%d", i))
 		if err != nil {
 			fmt.Fprintf(sb, "%d:\t ********** error: %v\n", i, err)
 		}
@@ -72,7 +72,7 @@ func TestParserList(t *testing.T) {
 	for i, tt := range tests {
 		fmt.Fprintln(sb)
 		fmt.Fprintf(sb, "%d: input : <%s>\n", i, tt)
-		res, err := ParseString(tt, fmt.Sprintf("test string #%d", i))
+		res, err := Parse1String(tt, fmt.Sprintf("test string #%d", i))
 		if err != nil {
 			fmt.Fprintf(sb, "%d:\t ********** error: %v\n", i, err)
 		}

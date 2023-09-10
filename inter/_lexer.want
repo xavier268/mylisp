@@ -2,98 +2,98 @@ Test name : TestLexer
 This file : _lexer.want
 
 0:	input : <a>
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 1:	input : < a b>
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}}
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"b"}}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}, listvalue:[]inter.Term(nil)}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"b"}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 2:	input : <2/3>
-	ttype : 57346 (E002),	lval : &inter.mySymType{yys:0, value:inter.Number{Num:2, Den:3}}
+	ttype : 57346 (E002),	lval : &inter.mySymType{yys:0, value:inter.Number{Num:2, Den:3}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 3:	input : <2/3  3/4>
-	ttype : 57346 (E002),	lval : &inter.mySymType{yys:0, value:inter.Number{Num:2, Den:3}}
-	ttype : 57346 (E002),	lval : &inter.mySymType{yys:0, value:inter.Number{Num:3, Den:4}}
+	ttype : 57346 (E002),	lval : &inter.mySymType{yys:0, value:inter.Number{Num:2, Den:3}, listvalue:[]inter.Term(nil)}
+	ttype : 57346 (E002),	lval : &inter.mySymType{yys:0, value:inter.Number{Num:3, Den:4}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 4:	input : <  2/3  3/4  >
-	ttype : 57346 (E002),	lval : &inter.mySymType{yys:0, value:inter.Number{Num:2, Den:3}}
-	ttype : 57346 (E002),	lval : &inter.mySymType{yys:0, value:inter.Number{Num:3, Den:4}}
+	ttype : 57346 (E002),	lval : &inter.mySymType{yys:0, value:inter.Number{Num:2, Den:3}, listvalue:[]inter.Term(nil)}
+	ttype : 57346 (E002),	lval : &inter.mySymType{yys:0, value:inter.Number{Num:3, Den:4}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 5:	input : <'>
-	ttype : 39 ('),	lval : &inter.mySymType{yys:0, value:inter.Term(nil)}
+	ttype : 39 ('),	lval : &inter.mySymType{yys:0, value:inter.Term(nil), listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 6:	input : < ' a>
-	ttype : 39 ('),	lval : &inter.mySymType{yys:0, value:inter.Term(nil)}
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}}
+	ttype : 39 ('),	lval : &inter.mySymType{yys:0, value:inter.Term(nil), listvalue:[]inter.Term(nil)}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 7:	input : < 'a>
-	ttype : 39 ('),	lval : &inter.mySymType{yys:0, value:inter.Term(nil)}
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}}
+	ttype : 39 ('),	lval : &inter.mySymType{yys:0, value:inter.Term(nil), listvalue:[]inter.Term(nil)}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 8:	input : <'()a>
-	ttype : 39 ('),	lval : &inter.mySymType{yys:0, value:inter.Term(nil)}
-	ttype : 40 ((),	lval : &inter.mySymType{yys:0, value:inter.Term(nil)}
-	ttype : 41 ()),	lval : &inter.mySymType{yys:0, value:inter.Term(nil)}
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}}
+	ttype : 39 ('),	lval : &inter.mySymType{yys:0, value:inter.Term(nil), listvalue:[]inter.Term(nil)}
+	ttype : 40 ((),	lval : &inter.mySymType{yys:0, value:inter.Term(nil), listvalue:[]inter.Term(nil)}
+	ttype : 41 ()),	lval : &inter.mySymType{yys:0, value:inter.Term(nil), listvalue:[]inter.Term(nil)}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 9:	input : <"a string" and
 		   "another string">
-	ttype : 57348 (E004),	lval : &inter.mySymType{yys:0, value:inter.String{Value:"a string"}}
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"and"}}
-	ttype : 57348 (E004),	lval : &inter.mySymType{yys:0, value:inter.String{Value:"another string"}}
+	ttype : 57348 (E004),	lval : &inter.mySymType{yys:0, value:inter.String{Value:"a string"}, listvalue:[]inter.Term(nil)}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"and"}, listvalue:[]inter.Term(nil)}
+	ttype : 57348 (E004),	lval : &inter.mySymType{yys:0, value:inter.String{Value:"another string"}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 10:	input : <a b ; comment
 		f
 		; another comment
 		d ;>
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}}
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"b"}}
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"f"}}
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"d"}}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"a"}, listvalue:[]inter.Term(nil)}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"b"}, listvalue:[]inter.Term(nil)}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"f"}, listvalue:[]inter.Term(nil)}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"d"}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 11:	input : <)>
-	ttype : 41 ()),	lval : &inter.mySymType{yys:0, value:inter.Term(nil)}
+	ttype : 41 ()),	lval : &inter.mySymType{yys:0, value:inter.Term(nil), listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 12:	input : <()>
-	ttype : 40 ((),	lval : &inter.mySymType{yys:0, value:inter.Term(nil)}
-	ttype : 41 ()),	lval : &inter.mySymType{yys:0, value:inter.Term(nil)}
+	ttype : 40 ((),	lval : &inter.mySymType{yys:0, value:inter.Term(nil), listvalue:[]inter.Term(nil)}
+	ttype : 41 ()),	lval : &inter.mySymType{yys:0, value:inter.Term(nil), listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 13:	input : <( )>
-	ttype : 40 ((),	lval : &inter.mySymType{yys:0, value:inter.Term(nil)}
-	ttype : 41 ()),	lval : &inter.mySymType{yys:0, value:inter.Term(nil)}
+	ttype : 40 ((),	lval : &inter.mySymType{yys:0, value:inter.Term(nil), listvalue:[]inter.Term(nil)}
+	ttype : 41 ()),	lval : &inter.mySymType{yys:0, value:inter.Term(nil), listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 14:	input : <//>
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"//"}}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"//"}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 15:	input : </>
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"/"}}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"/"}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 16:	input : <+=>
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"+="}}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"+="}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 17:	input : <+ =>
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"+"}}
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"="}}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"+"}, listvalue:[]inter.Term(nil)}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"="}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 
 18:	input : <==>
-	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"=="}}
+	ttype : 57347 (E003),	lval : &inter.mySymType{yys:0, value:inter.Symbol{Value:"=="}, listvalue:[]inter.Term(nil)}
 	ttype : 0
 

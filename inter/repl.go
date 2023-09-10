@@ -11,14 +11,15 @@ func (it *Inter) Repl() {
 	for {
 		lines := readLines()
 
-		t, err := ParseString(lines, "terminal")
+		tl, err := ParseNString(lines, "terminal")
 		if err != nil {
 			fmt.Println("Error :", err)
 			continue
 		}
-
-		tt := it.Eval(t)
-		fmt.Printf("\n%s\n", ToString(tt))
+		for _, t := range tl {
+			tt := it.Eval(t)
+			fmt.Printf("\n%s\n", ToString(tt))
+		}
 	}
 }
 

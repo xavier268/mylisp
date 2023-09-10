@@ -19,7 +19,8 @@ func init() {
 type mySymType struct {
 	yys int
 	// define SymType structure, used to communicate with lexer
-	value Term
+	value     Term
+	listvalue []Term
 }
 
 const NUMBER = 57346
@@ -51,7 +52,7 @@ const myEofCode = 1
 const myErrCode = 2
 const myInitialStackSize = 16
 
-//line grammar.y:63
+//line grammar.y:65
 
 //line yacctab:1
 var myExca = [...]int8{
@@ -62,25 +63,25 @@ var myExca = [...]int8{
 
 const myPrivate = 57344
 
-const myLast = 58
+const myLast = 57
 
 var myAct = [...]int8{
-	18, 2, 17, 24, 23, 15, 7, 1, 0, 10,
-	13, 0, 12, 0, 0, 19, 0, 21, 9, 11,
-	14, 8, 4, 3, 5, 6, 9, 22, 0, 8,
-	4, 3, 5, 6, 9, 20, 0, 8, 4, 3,
-	5, 6, 9, 0, 16, 8, 4, 3, 5, 6,
-	9, 0, 0, 8, 4, 3, 5, 6,
+	2, 9, 12, 15, 8, 4, 3, 5, 6, 11,
+	14, 25, 24, 18, 16, 19, 20, 7, 22, 0,
+	19, 9, 23, 13, 8, 4, 3, 5, 6, 9,
+	21, 0, 8, 4, 3, 5, 6, 9, 0, 17,
+	8, 4, 3, 5, 6, 9, 0, 0, 8, 4,
+	3, 5, 6, 1, 0, 0, 10,
 }
 
 var myPact = [...]int16{
-	46, -1000, -1000, -1000, -1000, -1000, -1000, -1000, 46, 14,
-	-1000, -1000, 0, 38, 30, -1000, 22, -1000, 46, -1,
-	-1000, -2, -1000, -1000, -1000,
+	41, -1000, 41, -1000, -1000, -1000, -1000, -1000, 41, -3,
+	-1000, -1000, -1000, 9, 33, 25, -1000, 17, -1000, 41,
+	7, -1000, 6, -1000, -1000, -1000,
 }
 
 var myPgo = [...]int8{
-	0, 7, 6, 0, 2,
+	0, 53, 17, 0, 13,
 }
 
 var myR1 = [...]int8{
@@ -89,20 +90,20 @@ var myR1 = [...]int8{
 }
 
 var myR2 = [...]int8{
-	0, 0, 1, 2, 3, 5, 4, 4, 3, 1,
+	0, 0, 2, 2, 3, 5, 4, 4, 3, 1,
 	2, 1, 1, 1, 1, 1, 2,
 }
 
 var myChk = [...]int16{
 	-1000, -1, -3, 9, 8, 10, 11, -2, 7, 4,
-	-3, 5, -4, -3, 6, 5, 6, -4, -3, -3,
-	5, -3, 5, 5, 5,
+	-1, -3, 5, -4, -3, 6, 5, 6, -4, -3,
+	-3, 5, -3, 5, 5, 5,
 }
 
 var myDef = [...]int8{
-	1, -2, 2, 11, 12, 13, 14, 15, 0, 0,
-	16, 3, 0, 9, 0, 4, 0, 10, 9, 0,
-	8, 0, 6, 7, 5,
+	1, -2, 1, 11, 12, 13, 14, 15, 0, 0,
+	2, 16, 3, 0, 9, 0, 4, 0, 10, 9,
+	0, 8, 0, 6, 7, 5,
 }
 
 var myTok1 = [...]int8{
@@ -460,99 +461,100 @@ mydefault:
 
 	case 1:
 		myDollar = myS[mypt-0 : mypt+1]
-//line grammar.y:32
+//line grammar.y:33
 		{
-			myVAL.value = nil // its ok to parse an empty input ...
-			mylex.(*myLex).LastResult = myVAL.value
+			myVAL.listvalue = []Term{}
+			mylex.(*myLex).LastResult = []Term{}
 		}
 	case 2:
-		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:35
+		myDollar = myS[mypt-2 : mypt+1]
+//line grammar.y:36
 		{
-			myVAL.value = myDollar[1].value
-			mylex.(*myLex).LastResult = myVAL.value
+			myVAL.listvalue = append(myVAL.listvalue, myDollar[1].value)
+			myVAL.listvalue = append(myVAL.listvalue, myDollar[2].listvalue...)
+			mylex.(*myLex).LastResult = myVAL.listvalue
 		}
 	case 3:
 		myDollar = myS[mypt-2 : mypt+1]
-//line grammar.y:41
+//line grammar.y:43
 		{
 			myVAL.value = Pair{}
 		}
 	case 4:
 		myDollar = myS[mypt-3 : mypt+1]
-//line grammar.y:42
+//line grammar.y:44
 		{
 			myVAL.value = myDollar[2].value
 		}
 	case 5:
 		myDollar = myS[mypt-5 : mypt+1]
-//line grammar.y:43
+//line grammar.y:45
 		{
 			myVAL.value = Pair{myDollar[2].value, myDollar[4].value}
 		}
 	case 6:
 		myDollar = myS[mypt-4 : mypt+1]
-//line grammar.y:44
+//line grammar.y:46
 		{
 			myVAL.value = Pair{myDollar[2].value, nil}
 		}
 	case 7:
 		myDollar = myS[mypt-4 : mypt+1]
-//line grammar.y:45
+//line grammar.y:47
 		{
 			myVAL.value = Pair{nil, myDollar[3].value}
 		}
 	case 8:
 		myDollar = myS[mypt-3 : mypt+1]
-//line grammar.y:46
+//line grammar.y:48
 		{
 			myVAL.value = Pair{}
 		}
 	case 9:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:52
+//line grammar.y:54
 		{
 			myVAL.value = Pair{myDollar[1].value, nil}
 		}
 	case 10:
 		myDollar = myS[mypt-2 : mypt+1]
-//line grammar.y:53
+//line grammar.y:55
 		{
 			myVAL.value = Pair{myDollar[1].value, myDollar[2].value}
 		}
 	case 11:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:56
+//line grammar.y:58
 		{
 			myVAL.value = myDollar[1].value
 		}
 	case 12:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:57
+//line grammar.y:59
 		{
 			myVAL.value = myDollar[1].value
 		}
 	case 13:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:58
+//line grammar.y:60
 		{
 			myVAL.value = myDollar[1].value
 		}
 	case 14:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:59
+//line grammar.y:61
 		{
 			myVAL.value = myDollar[1].value
 		}
 	case 15:
 		myDollar = myS[mypt-1 : mypt+1]
-//line grammar.y:60
+//line grammar.y:62
 		{
 			myVAL.value = myDollar[1].value
 		}
 	case 16:
 		myDollar = myS[mypt-2 : mypt+1]
-//line grammar.y:61
+//line grammar.y:63
 		{
 			myVAL.value = Pair{Symbol{"quote"}, myDollar[2].value}
 		}

@@ -19,21 +19,23 @@ func init() {
 %union{
     // define SymType structure, used to communicate with lexer
     value Term
+    listvalue []Term
 }
 
-%type <value> top expr atom atoms 
+%type <listvalue> top
+%type <value>  expr atom atoms 
 
 %token <value> '(' ')' '.' '\''
 %token <value> NUMBER IDENT STRING BOOL ERROR SKIP
 
 %%
 
-top:
-                             { $$ = nil // its ok to parse an empty input ...
-                             mylex.(*myLex).LastResult = $$
+top:                         { $$ = []Term{} 
+                             mylex.(*myLex).LastResult =[]Term{} 
                              }
-    |    atom                { $$ = $1
-                              mylex.(*myLex).LastResult = $$
+    |    atom top            { $$ = append( $$ , $1 ) 
+                             $$ = append( $$ , $2 ...) 
+                             mylex.(*myLex).LastResult = $$   
                              }
                 
 

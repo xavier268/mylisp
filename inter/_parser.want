@@ -17,10 +17,9 @@ This file : _parser.want
 3: result raw: <inter.Pair{Car:inter.Symbol{Value:"quote"}, Cdr:inter.Number{Num:2, Den:3}}>
 3: result str: <( quote . 2/3 )>
 
-4: input : < a b ; should fail beacause multiple atoms not allowed outside list>
-4:	 ********** error: error : [parse error in test string #4, pos 4 : syntax error: unexpected IDENT]
-4: result raw: <inter.Symbol{Value:"a"}>
-4: result str: <a>
+4: input : < a b ; should not fail, but report last stement parsed, b>
+4: result raw: <inter.Symbol{Value:"b"}>
+4: result str: <b>
 
 5: input : <' ; should fail because ' must be followed by a Term>
 5:	 ********** error: error : [parse error in test string #5, pos 52 : syntax error: unexpected $end]
