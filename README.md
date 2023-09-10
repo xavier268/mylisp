@@ -30,7 +30,7 @@ Redesigned needed to comply :
 
 ## Builtins
 
-Target special forms are ( Gnu MIT Scheme)
+Target special forms are ( Gnu MIT Scheme) :
 
 access 	and 	begin case 	cond 	cons-stream declare 	define define-integrable 	define-structure 	define-syntax
 delay 	do 	er-macro-transformer fluid-let 	if 	lambda let 	let* 	let*-syntax let-syntax 	letrec 	letrec-syntax
@@ -41,8 +41,8 @@ syntax-rules 	the-environment
 
 * Numbers are integer or rationnal. 
 * The decimal point is not accepted. 
-* Rational are written 8/3. 
-* Rational are immutable and always normalized, with a positive denoominator. 
+* Rational are written 8/3. ( no space ! )
+* Rational are immutable and always normalized, with a positive denominator. 
 * Zero is 0/1, while 1/0 represents NaN.
 
 ## Internal representation of lists
