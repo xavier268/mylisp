@@ -3,8 +3,8 @@ package inter
 import "fmt"
 
 type Inter struct {
-	current, global *Environnement
-	OnQuit          func() // a function hook, called when the interpreter is quitting.
+	current, global *Environnement // TODO - do we really need global env ?
+	OnQuit          func()         // a function hook, called when the interpreter is quitting.
 }
 
 func NewInter() *Inter {

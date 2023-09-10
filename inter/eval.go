@@ -6,7 +6,7 @@ var ErrEval = fmt.Errorf("cannot evaluate provided input")
 
 // Eval a Term, recursively, returning the result as a Term.
 // An expression to be evaluated may be a literal, a variable reference, a special form, or a procedure call.
-// TODO - review how environments are managed ?
+// Only the primitives or procedures that require it should fork the environement.
 func (it *Inter) Eval(t Term) Term {
 
 	if DEBUG >= 2 {
