@@ -65,6 +65,24 @@ func TestEval(t *testing.T) {
 
 		// keywords list
 		"( keywords)",
+
+		// let shadowing
+		`(let  (
+			( x 3 ) ( y 0 ))
+			 ( let (( x 444 )) ; shadowing x
+					 ( set! y x) 
+					 ) ; end of inner let
+						   ( + y x) )`,
+
+		// lambda
+		"(lambda ( x y ) ( + x y ))",
+		"(lambda ( x y ) ( + x y ) ( * x y ))",
+		"(lambda ( x ) ( + x y ) )",
+		"(lambda () ( + y) )",
+		"(lambda () ) ; do nothing ",
+
+		// lambda , applied
+		" (( lambda ( x y ) ( + x x y) ) 2 3 ) ; 7",
 	}
 
 	sb := new(strings.Builder)
@@ -89,13 +107,7 @@ func TestEval(t *testing.T) {
 
 func TestEvalDetail(t *testing.T) {
 
-	tt := `(let  (
-		( x 3 ) ( y 0 ))
-		 ( let (( x 444 )) ; shadowing x
-		         ( set! y x) 
-				 ) ; end of inner let
-				       ( + y x) )`
-
+	tt := " (( lambda ( x y ) ( + x x y) ) 2 3 ) ; 7"
 	sb := new(strings.Builder)
 	fmt.Fprintln(sb)
 	fmt.Fprintf(sb, "Input   : %s\n", tt)

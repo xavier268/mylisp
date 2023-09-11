@@ -1,12 +1,7 @@
 Test name : TestEvalDetail
 This file : _eval.detail.want
 
-Input   : (let  (
-		( x 3 ) ( y 0 ))
-		 ( let (( x 444 )) ; shadowing x
-		         ( set! y x) 
-				 ) ; end of inner let
-				       ( + y x) )
-Parsed  : ( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) )
-Evalued : 447
+Input   :  (( lambda ( x y ) ( + x x y) ) 2 3 ) ; 7
+Parsed  : ( ( lambda ( x y ) ( + x x y ) ) 2 3 )
+Evalued : 7
 

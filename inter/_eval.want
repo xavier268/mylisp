@@ -159,5 +159,48 @@ This file : _eval.want
 
  39: Input   : ( keywords)
  39: Parsed  : ( keywords )
- 39: Evalued : ( * + car cdr cons define display keywords let list newline quit quote set! )
+ 39: Evalued : ( * + car cdr cons define display keywords lambda let list newline quit quote set! )
+
+ 40: Input   : (let  (
+			( x 3 ) ( y 0 ))
+			 ( let (( x 444 )) ; shadowing x
+					 ( set! y x) 
+					 ) ; end of inner let
+						   ( + y x) )
+ 40: Parsed  : ( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) )
+ 40: Evalued : 447
+
+ 41: Input   : (lambda ( x y ) ( + x y ))
+ 41: Parsed  : ( lambda ( x y ) ( + x y ) )
+ 41: Evalued : #<procedure : >
+( x y )
+	---> ( ( + x y ) )
+
+ 42: Input   : (lambda ( x y ) ( + x y ) ( * x y ))
+ 42: Parsed  : ( lambda ( x y ) ( + x y ) ( * x y ) )
+ 42: Evalued : #<procedure : >
+( x y )
+	---> ( ( + x y ) ( * x y ) )
+
+ 43: Input   : (lambda ( x ) ( + x y ) )
+ 43: Parsed  : ( lambda ( x ) ( + x y ) )
+ 43: Evalued : #<procedure : >
+( x )
+	---> ( ( + x y ) )
+
+ 44: Input   : (lambda () ( + y) )
+ 44: Parsed  : ( lambda ( ) ( + y ) )
+ 44: Evalued : #<procedure : >
+( )
+	---> ( ( + y ) )
+
+ 45: Input   : (lambda () ) ; do nothing 
+ 45: Parsed  : ( lambda ( ) )
+ 45: Evalued : #<procedure : >
+( )
+	---> <nil>
+
+ 46: Input   :  (( lambda ( x y ) ( + x x y) ) 2 3 ) ; 7
+ 46: Parsed  : ( ( lambda ( x y ) ( + x x y ) ) 2 3 )
+ 46: Evalued : 7
 

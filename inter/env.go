@@ -104,32 +104,3 @@ func (ev *Environnement) SetBang(sym Symbol, t Term) error {
 		return pv.SetBang(sym, t)
 	}
 }
-
-// binds a tree of arguments to a target tree.
-// only the symbols matching Terms in the same position in the target tree are bound.
-func (ev *Environnement) Bind(args, target Term) {
-
-	if args == nil {
-		return
-	}
-
-	switch a := args.(type) {
-	case Number: // ignore
-		return
-	case String: // ignore
-		return
-	case Symbol:
-		ev.Set(a, target)
-		return
-	case Pair:
-		if tc, ok := target.(Pair); ok {
-			ev.Bind(a.Car, tc.Car)
-			ev.Bind(a.Cdr, tc.Cdr)
-			return
-		} else {
-			return // no  match
-		}
-	default:
-		panic("case not implemented")
-	}
-}

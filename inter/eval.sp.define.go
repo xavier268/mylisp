@@ -2,7 +2,7 @@ package inter
 
 // Syntax : (define variable expression) or ( define variable )
 // This implementation will define the variable in the environement where define is executed.
-// TODO - so maybe, we don't need the notion of gloabl/local environement ?
+// TODO - so maybe, we don't need the notion of global/local environement ?
 // Expression IS EVALUATED before binding.
 
 func init() {
