@@ -13,6 +13,12 @@ func init() {
 		"displays help for the provided symbols, if available.",
 		"returns nil",
 	})
+
+	Register("version", false, func(_ *Inter, _ Term) Term { return String{VERSION} }, []string{
+		"( version )",
+		"returns the version of the interpreter as a String",
+		"arguments, if any, are not evaluated and ignored",
+	})
 }
 
 func spHelp(_ *Inter, t Term) Term { // ( help) for general help or ( help keyword ) for help on keyword - keyword is a symbol

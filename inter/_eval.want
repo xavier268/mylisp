@@ -207,7 +207,7 @@ This file : _eval.want
 
  51: Input   : ( keywords)
  51: Parsed  : ( keywords )
- 51: Evalued : ( * + - / car cdr cons define display file-sep help join-path keywords lambda let list load newline os-name quit quote set! string-append )
+ 51: Evalued : ( * + - / car cdr cons define display file-sep help join-path keywords lambda let list load newline os-name quit quote set! string-append version )
 
  52: Input   : (let  (
 			( x 3 ) ( y 0 ))
