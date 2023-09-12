@@ -5,10 +5,10 @@ import "fmt"
 var ErrNaN = fmt.Errorf("term is not a number")
 
 func init() {
-	Register("+", true, spPlus)
-	Register("*", true, spTimes)
-	Register("/", true, spDiv)
-	Register("-", true, spMinus)
+	Register("+", true, spPlus, []string{"addition for numbers"})
+	Register("*", true, spTimes, []string{"multiplication for numbers"})
+	Register("/", true, spDiv, []string{"division for numbers"})
+	Register("-", true, spMinus, []string{"subtraction for numbers"})
 }
 
 // ( + ) - 0

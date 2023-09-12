@@ -13,6 +13,7 @@ type Primitive func(it *Inter, args Term) Term
 type kwdata struct {
 	evalArgFirst bool      // ie, should we eval the arguments before calling the primitive function ?
 	primitive    Primitive // the primitive function to call.
+	help         []string  // help text for keyword
 }
 
 // Is this string the name of a registered keyword ?
@@ -22,9 +23,9 @@ func IsKeyword(s string) bool {
 }
 
 // Register a keyword for a built-in primitive, typically during initialization.
-func Register(keyword string, evalArgFirst bool, primitive Primitive) {
+func Register(keyword string, evalArgFirst bool, primitive Primitive, help []string) {
 	if IsKeyword(keyword) {
 		panic("trying to registerd twice an existing keyword : " + keyword)
 	}
-	KEYWORDS[keyword] = kwdata{evalArgFirst, primitive}
+	KEYWORDS[keyword] = kwdata{evalArgFirst, primitive, help}
 }

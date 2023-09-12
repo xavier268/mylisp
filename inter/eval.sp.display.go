@@ -3,8 +3,16 @@ package inter
 import "fmt"
 
 func init() {
-	Register("display", true, spDisplay)
-	Register("newline", false, spNewline)
+	Register("display", true, spDisplay, []string{
+		"(display x )",
+		"Evaluates a single Term x and displays it on the terminal.",
+		"x can be any Term.",
+		"There will be no space before nor after.",
+		"If x is a String, it will be displayed unquoted. That will not apply for Strings in other elements, like Pairs.",
+	})
+	Register("newline", false, spNewline, []string{
+		"returns a newline char as a string. Takes no arguments.",
+	})
 }
 
 var ErrDisplayTooManyArguments = fmt.Errorf("display: too many arguments")

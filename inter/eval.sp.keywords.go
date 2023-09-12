@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	Register("keywords", false, spKeywords)
+	Register("keywords", false, spKeywords, []string{"displays a list of primitive keywords"})
 }
 
 // ( keywords ... ) will return the current list of built-in keywords currently implemented.

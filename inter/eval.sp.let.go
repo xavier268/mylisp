@@ -9,7 +9,18 @@ package inter
 // are being computed (thus allowing mutually recursive definitions).
 
 func init() {
-	Register("let", false, spLet)
+	Register("let", false, spLet, []string{
+		"( let ((variable init) ...) expression expression ... )",
+		"The inits are evaluated in the current environment (in some unspecified order),",
+		"the variables are bound to fresh locations holding the results,",
+		"the expressions are evaluated sequentially in the extended environment,",
+		"and the value of the last expression is returned.",
+		"Each binding of a variable has the expressions as its region.",
+		"MIT/GNU Scheme allows any of the inits to be omitted, in which case the corresponding variables are unassigned.",
+		"Note that the following are equivalent:",
+		"          (let ((variable init) ...) expression expression ...)",
+		"          ((lambda (variable ...) expression expression ...) init ...)",
+	})
 }
 
 // ( let ((variable init) ...) expression expression ... )

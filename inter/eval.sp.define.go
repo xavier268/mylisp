@@ -8,10 +8,21 @@ package inter
 func init() {
 	// (define variable expression)
 	// expression WILL BE EVALUATED before binding, even if flag is false, but not variable.
-	Register("define", false, spDefine)
+	Register("define", false, spDefine, []string{
+		"(define variable expression ) or ( define variable )",
+		"This implementation will define/binds the variable to the expression in the environement where define is executed.",
+		"Expression is evaluated before binding.",
+	})
 	// (set! variable expression)
 	// expression WILL BE EVALUATED before binding, even if flag is false, but not variable.
-	Register("set!", false, spSetBang)
+	Register("set!", false, spSetBang, []string{
+		"(set! variable expression)",
+		"Return nil or an Error Term.",
+		"Will look for an EXISTING variable called var. If none found, error.",
+		"Expression IS EVALUATED before being stored.",
+		"It is an error to perform a set! on an unbound variable.",
+		"If you omit expression, the variable becomes unassigned; an attempt to reference such a variable is an error.",
+	})
 }
 
 // (define variable expression) or ( define variable )

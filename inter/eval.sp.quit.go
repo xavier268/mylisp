@@ -20,5 +20,5 @@ func spQuit(it *Inter, args Term) Term {
 
 // register quit function.
 func init() {
-	Register("quit", false, spQuit)
+	Register("quit", false, spQuit, []string{"exit the interpreter"})
 }

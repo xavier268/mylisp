@@ -1,10 +1,19 @@
 package inter
 
 func init() {
-	Register("list", true, spList)
-	Register("car", true, spCar)
-	Register("cdr", true, spCdr)
-	Register("cons", true, spCons)
+	Register("list", true, spList, []string{
+		" ( list arg1 arg2 ...) creates a lit : ( arg1 arg2 ...).",
+	})
+	Register("car", true, spCar, []string{
+		"car returns the first element of the pair, or nil if not found",
+	})
+	Register("cdr", true, spCdr, []string{
+		"cdr returns the rest of the pair, or nil if not found",
+	})
+	Register("cons", true, spCons, []string{
+		"( cons obj1 ob2 )",
+		"cons returns a new pair, (obj1.obj2)",
+	})
 }
 
 // ( list arg1 arg2 ...) creates a lit : ( arg1 arg2 ...).
