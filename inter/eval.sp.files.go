@@ -1,6 +1,7 @@
 package inter
 
 import (
+	"fmt"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -19,6 +20,18 @@ func init() {
 	})
 	Register("string-append", true, spStringAppend, []string{
 		"evaluate the arguments, and join them into a single string.",
+	})
+	Register("load", true, spLoad, []string{
+		"When you use load, it reads and evaluates the code in the specified file,",
+		"just as if you had typed the code directly into the REPL or program.",
+		"This means that any definitions, including variable bindings and function definitions, ",
+		"become available in your current Scheme environment.",
+		"load is typically used for loading complete Scheme programs or libraries. ",
+		"It's useful when you want to use functions or variables defined in another file as part of your program. ",
+		"For example, if you have a utility library that you want to reuse across multiple projects, you can load it using load.",
+		"load can create or modify variables and procedures in the current environment, so it can affect the global scope of your program. ",
+		"This can lead to potential naming conflicts if you're not careful.",
+		"load will only return the last evaluated value.",
 	})
 }
 
@@ -70,4 +83,26 @@ func spFileSep(_ *Inter, _ Term) Term { // returns the system file separator as 
 
 func spOSName(_ *Inter, _ Term) Term { // returns the system os name as a string, eg windows-amd64, from GOOS and GOARCH
 	return String{runtime.GOOS + "-" + runtime.GOARCH}
+}
+
+var ErrLoadArgument = fmt.Errorf("load expects a single, String, argument")
+
+func spLoad(it *Inter, t Term) Term {
+
+	if t == nil || car(t) == nil || !t.IsPair() || !car(t).IsString() || cdr(t) != nil {
+		return Error{ErrLoadArgument, t}
+	}
+
+	filename := car(t).(String).Value
+	terms, err := ParseNFile(filename)
+	if err != nil {
+		return Error{err, t}
+	}
+
+	var res Term // only store and return the LAST value.
+	for _, term := range terms {
+		res = it.Eval(term)
+	}
+
+	return res
 }

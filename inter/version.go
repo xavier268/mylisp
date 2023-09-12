@@ -24,4 +24,4 @@ func Welcome() string {
 }
 
 // 0 - off, 1 - on, 2 - on with trace
-var DEBUG int = 2
+var DEBUG int = 0

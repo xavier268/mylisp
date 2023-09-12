@@ -12,6 +12,7 @@ func init() {
 	})
 	Register("newline", false, spNewline, []string{
 		"returns a newline char as a string. Takes no arguments.",
+		"If arguments are provided, they are not evaluated and silently ignored.",
 	})
 }
 
@@ -37,8 +38,5 @@ func spDisplay(_ *Inter, t Term) Term {
 // ( newline ) // with ZERO arguments, prints a new line.
 func spNewline(_ *Inter, t Term) Term {
 	fmt.Println()
-	if t != nil || (t != Pair{}) {
-		return Error{ErrDisplayTooManyArguments, t}
-	}
 	return nil
 }
