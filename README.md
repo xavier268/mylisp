@@ -3,15 +3,13 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/xavier268/mylisp)](https://goreportcard.com/report/github.com/xavier268/mylisp)
 
 # mylisp
-My lisp interpreter in Go. For educationnal purposes.
-
+My lisp interpreter in Go.
 Inspired by scheme syntax.
+See :
+* https://web.mit.edu/scheme/scheme_v9.2/doc/mit-scheme-ref/index.html  (prefered) 
+* https://www.gnu.org/software/guile/manual/guile.html#SEC_Contents
+* https://www.scheme.com/tspl4/
 
-
-
-See https://web.mit.edu/scheme/scheme_v9.2/doc/mit-scheme-ref/index.html  (prefered) 
-or  https://www.gnu.org/software/guile/manual/guile.html#SEC_Contents
-or https://www.scheme.com/tspl4/
 
 # Examples
 
@@ -38,10 +36,10 @@ New keywords :
 * ( load fullPathName ) loads and evaluate a file
 * ( file-sep ) retuns the system file separator
 * ( version ) gets the current version of the interpreter
+* ( help keyword ) : display online help for keyword
 
 Extended behaviour vs standard :
-* (display x1 x2 ...) : display can display zero, one or more Terms.
-* ( help keyword) : display online help for keyword
+* ( display x1 x2 ... ) : display can display zero, one or more Terms.
 
 
  
