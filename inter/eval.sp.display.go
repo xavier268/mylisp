@@ -14,6 +14,11 @@ func init() {
 		"returns a newline char as a string. Takes no arguments.",
 		"If arguments are provided, they are not evaluated and silently ignored.",
 	})
+	Register("debug", true, spDebug, []string{
+		"( debug value ) or ( debug )",
+		"set the debug flag to an integer value, and return its new value.",
+		" if no argument is provided, just return the current value",
+	})
 }
 
 var ErrDisplayTooManyArguments = fmt.Errorf("display: too many arguments")
@@ -39,4 +44,19 @@ func spDisplay(_ *Inter, t Term) Term {
 func spNewline(_ *Inter, t Term) Term {
 	fmt.Println()
 	return nil
+}
+
+func spDebug(_ *Inter, t Term) Term { // t contains ( value ) or ()
+	if t == nil || (t == Pair{}) {
+		return Number{DEBUG, 1}
+	}
+
+	if car(t) != nil {
+		if n, ok := car(t).(Number); ok && n.Den == 1 {
+			DEBUG = n.Num
+			return n
+		}
+	}
+	var ErrNotAnInteger = fmt.Errorf("not an integer")
+	return Error{ErrNotAnInteger, t}
 }
