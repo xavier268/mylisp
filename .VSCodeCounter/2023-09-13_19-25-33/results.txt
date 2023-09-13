@@ -1,0 +1,80 @@
+Date : 2023-09-13 19:25:33
+Directory : c:\Users\xavie\Desktop\mylisp
+Total : 48 files,  2455 codes, 324 comments, 568 blanks, all 3347 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| go               |         44 |      2,371 |        322 |        521 |      3,214 |
+| Bison            |          1 |         43 |          2 |         20 |         65 |
+| Markdown         |          1 |         39 |          0 |         24 |         63 |
+| Go Module File   |          1 |          2 |          0 |          2 |          4 |
+| Go Checksum File |          1 |          0 |          0 |          1 |          1 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                        | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                           |         48 |      2,455 |        324 |        568 |      3,347 |
+| . (Files)                                                   |          4 |         83 |          5 |         41 |        129 |
+| examples                                                    |          1 |         16 |          0 |          5 |         21 |
+| inter                                                       |         40 |      2,273 |        311 |        504 |      3,088 |
+| mytest                                                      |          3 |         83 |          8 |         18 |        109 |
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                    | language         | code       | comment    | blank      | total      |
++-------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| c:\Users\xavie\Desktop\mylisp\README.md                     | Markdown         |         39 |          0 |         24 |         63 |
+| c:\Users\xavie\Desktop\mylisp\examples\examples_test.go     | go               |         16 |          0 |          5 |         21 |
+| c:\Users\xavie\Desktop\mylisp\go.mod                        | Go Module File   |          2 |          0 |          2 |          4 |
+| c:\Users\xavie\Desktop\mylisp\go.sum                        | Go Checksum File |          0 |          0 |          1 |          1 |
+| c:\Users\xavie\Desktop\mylisp\inter\def.bool.go             | go               |         33 |          7 |         11 |         51 |
+| c:\Users\xavie\Desktop\mylisp\inter\def.error.go            | go               |         30 |          8 |         11 |         49 |
+| c:\Users\xavie\Desktop\mylisp\inter\def.number.go           | go               |        123 |         15 |         24 |        162 |
+| c:\Users\xavie\Desktop\mylisp\inter\def.number.scan_test.go | go               |         29 |          0 |          7 |         36 |
+| c:\Users\xavie\Desktop\mylisp\inter\def.pair.go             | go               |         65 |         10 |         17 |         92 |
+| c:\Users\xavie\Desktop\mylisp\inter\def.procedure.go        | go               |         32 |         12 |         12 |         56 |
+| c:\Users\xavie\Desktop\mylisp\inter\def.string.go           | go               |         30 |          8 |         12 |         50 |
+| c:\Users\xavie\Desktop\mylisp\inter\def.symbol.go           | go               |         29 |          7 |         11 |         47 |
+| c:\Users\xavie\Desktop\mylisp\inter\def.term.go             | go               |         40 |          1 |          6 |         47 |
+| c:\Users\xavie\Desktop\mylisp\inter\env.go                  | go               |         86 |         10 |         13 |        109 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.go                 | go               |         36 |         11 |         12 |         59 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.keywords.go        | go               |         18 |          8 |          6 |         32 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.literal.go         | go               |         27 |          1 |          2 |         30 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.procedure.go       | go               |         34 |          8 |         13 |         55 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.ariths.go       | go               |         81 |         15 |         25 |        121 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.begin.go        | go               |         15 |          0 |          4 |         19 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.define.go       | go               |         31 |         20 |          5 |         56 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.display.go      | go               |         33 |          6 |          8 |         47 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.files.go        | go               |         90 |          0 |         19 |        109 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.go              | go               |         27 |          2 |         11 |         40 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.help.go         | go               |         54 |          3 |         13 |         70 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.keywords.go     | go               |         23 |          4 |          9 |         36 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.lambda.go       | go               |         36 |         14 |         11 |         61 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.let.go          | go               |         47 |         20 |         11 |         78 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.list.go         | go               |         37 |          6 |          6 |         49 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.quit.go         | go               |         16 |          3 |          6 |         25 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.sp.quote.go        | go               |         12 |          0 |          2 |         14 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval.var.go             | go               |         18 |          1 |          4 |         23 |
+| c:\Users\xavie\Desktop\mylisp\inter\eval_test.go            | go               |        114 |         12 |         30 |        156 |
+| c:\Users\xavie\Desktop\mylisp\inter\gcd.go                  | go               |         13 |          3 |          2 |         18 |
+| c:\Users\xavie\Desktop\mylisp\inter\grammar.y               | Bison            |         43 |          2 |         20 |         65 |
+| c:\Users\xavie\Desktop\mylisp\inter\inter.go                | go               |         14 |          0 |          5 |         19 |
+| c:\Users\xavie\Desktop\mylisp\inter\lexer.go                | go               |        204 |         24 |         22 |        250 |
+| c:\Users\xavie\Desktop\mylisp\inter\lexer_test.go           | go               |         54 |          4 |         10 |         68 |
+| c:\Users\xavie\Desktop\mylisp\inter\parser.go               | go               |        452 |         42 |         70 |        564 |
+| c:\Users\xavie\Desktop\mylisp\inter\parser.utils.go         | go               |         64 |          2 |         10 |         76 |
+| c:\Users\xavie\Desktop\mylisp\inter\parser_test.go          | go               |         67 |          4 |         14 |         85 |
+| c:\Users\xavie\Desktop\mylisp\inter\repl.go                 | go               |         74 |          7 |         12 |         93 |
+| c:\Users\xavie\Desktop\mylisp\inter\utils.go                | go               |         32 |          3 |          8 |         43 |
+| c:\Users\xavie\Desktop\mylisp\inter\version.go              | go               |         10 |          8 |         10 |         28 |
+| c:\Users\xavie\Desktop\mylisp\lisp.go                       | go               |         42 |          5 |         14 |         61 |
+| c:\Users\xavie\Desktop\mylisp\mytest\colors.go              | go               |          9 |          2 |          3 |         14 |
+| c:\Users\xavie\Desktop\mylisp\mytest\verify.go              | go               |         72 |          6 |         13 |         91 |
+| c:\Users\xavie\Desktop\mylisp\mytest\version.go             | go               |          2 |          0 |          2 |          4 |
+| Total                                                       |                  |      2,455 |        324 |        568 |      3,347 |
++-------------------------------------------------------------+------------------+------------+------------+------------+------------+
