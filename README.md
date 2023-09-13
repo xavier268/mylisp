@@ -20,7 +20,7 @@ Examples lisp/scheme files are in the examples folder.
 You can run an example directly from the command line with :
 
 ```
-go run . -l "examples/couter.scm"
+go run . -l "examples/counter.scm"
 ```
 
 ## Builtins and help
