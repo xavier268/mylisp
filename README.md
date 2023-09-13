@@ -1,3 +1,7 @@
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/xavier268/mylisp.svg)](https://pkg.go.dev/github.com/xavier268/mylisp) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/xavier268/mylisp)](https://goreportcard.com/report/github.com/xavier268/mylisp)
+
 # mylisp
 My lisp interpreter in Go. For educationnal purposes.
 
