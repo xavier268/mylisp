@@ -19,6 +19,7 @@
 
 ; calling counter should fail, because none created yet
 ( display "calling counter should fail, because not yet created " ) ( newline)
+counter
 ( counter )
 
 ; first, create a counter
