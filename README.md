@@ -9,33 +9,36 @@ See https://web.mit.edu/scheme/scheme_v9.2/doc/mit-scheme-ref/index.html  (prefe
 or  https://www.gnu.org/software/guile/manual/guile.html#SEC_Contents
 or https://www.scheme.com/tspl4/
 
-
-Redesigned needed to comply :
-
-* think about error reporting  as a separate return value ? as a list in the interpreter ?
-* check lists are not implementing an end-of-list empty cell as a marker, but only a nil cdr on the last cell.
-* redesign scopes and names ; ensure names point to the *location* where value is stored. *Locations* should contain also some meta information about what is stored : unassigned/unbound, variables, procedures, macros, ...
-* redo eval ... following mit-scheme 
-
-
 # Examples
 
+Examples lisp/scheme files are in the examples folder.
 
-# Implementation notes
+You can run an example directly from the command line with :
+
+```
+go run . -l "examples/couter.scm"
+```
+
+## Builtins and help
+
+You can list the available keywords built-in with * (keywords )*.
+
+You can display help on one or more keywoards ( kw1, kw2 ...) by evaluationg ( help kw1 kw2 )
+
+## Non standard keywords :
+
+New keywords :
+
+* ( debug value ) sets the debug/trace level
+* ( join-path p1 p2 ... ) constructs a path from path components
+* ( load fullPathName ) loads and evaluate a file
+* ( file-sep ) retuns the system file separator
+* ( version ) gets the current version of the interpreter
+
+Extended behaviour vs standard :
+* (display x1 x2 ...) : display can display zero or more than one Terms.
 
 
-## Variable
-
-
-
-## Builtins
-
-Target special forms are ( Gnu MIT Scheme) :
-
-access 	and 	begin case 	cond 	cons-stream declare 	define define-integrable 	define-structure 	define-syntax
-delay 	do 	er-macro-transformer fluid-let 	if 	lambda let 	let* 	let*-syntax let-syntax 	letrec 	letrec-syntax
-local-declare 	named-lambda 	non-hygienic-macro-transformer or 	quasiquote 	quote rsc-macro-transformer 	sc-macro-transformer 	set!
-syntax-rules 	the-environment 
  
 ## Numbers
 
@@ -45,11 +48,12 @@ syntax-rules 	the-environment
 * Rational are immutable and always normalized, with a positive denominator. 
 * Zero is 0/1, while 1/0 represents NaN.
 
-## Internal representation of lists
+## Strings
 
-The base construction is the Pair object. 
-* () is represented as Pair{}. The go nil **does not** represent the empty list.
-* ( a ) is Pair {a,Pair{}}. 
-* The pair, ( a . ), represented as Pair {a}.
-* ~~ The pair ( a . ()) is the same as ( a ), represented as Pair{a,Cell{}} ~~
+* string litterlas are quoted with douple quotes (")
+* there is no escaping, string litteral may contain newline directly
 
+
+## Errors 
+
+Error is a specific type that can be returned from evaluation.

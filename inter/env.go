@@ -41,10 +41,7 @@ func (ev *Environnement) Fork() *Environnement {
 }
 
 func (it *Inter) PushEnv() {
-	it.current = &Environnement{
-		bindings: map[Symbol]Term{},
-		parent:   it.current,
-	}
+	it.current = it.current.Fork()
 	if it.global == nil {
 		it.global = it.current // for initialization
 	}
