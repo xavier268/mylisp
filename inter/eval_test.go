@@ -13,6 +13,7 @@ func TestEval(t *testing.T) {
 	tests := []string{
 
 		"",
+		" 1 2 3 ",
 		"1",
 		"(+)",
 		"(+ 1 )",
@@ -63,6 +64,9 @@ func TestEval(t *testing.T) {
 		"(let () ( define a ( + 1 2 )) a ) ; --> 3",
 		"( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) ) ;--> 447, because shadowing x",
 
+		" ( define a '(+ 3 2 )) a ; ( + 3 2 ) ",
+		" ( define a (+ 3 2 )) a ; 5 ",
+
 		// // fail as not evaluable
 		"(1) ; fail",
 		"((+ 1 2 ) 3 ) ; fail",
@@ -95,12 +99,13 @@ func TestEval(t *testing.T) {
 
 		// lambda , applied
 		" (( lambda ( x y ) ( + x x y) ) 2 3 ) ; 7",
+		" ( define sq ( lambda ( x ) ( * x x ) )) ( sq 3 ) ; 9",
 
 		// begin
-		"(begin 1 ( + 1 2 ) ( * 3 3 ))",
+		"(begin 1 ( + 1 2 ) ( * 3 3 )) ; 9",
 
 		// dump-env
-		"( dump- env) ",
+		"( dump-env) ",
 		"( let ( ( x 3 )) ( dump-env))",
 
 		// keywords list
@@ -112,14 +117,16 @@ func TestEval(t *testing.T) {
 	for i, tt := range tests {
 		fmt.Fprintln(sb)
 		fmt.Fprintf(sb, "%3d: Input   : %s\n", i, tt)
-		ttt, err := Parse1String(tt, fmt.Sprintf("%s - test # %d", t.Name(), i))
+		tlist, err := ParseNString(tt, fmt.Sprintf("%s - test # %d", t.Name(), i))
 		if err != nil {
 			fmt.Fprintf(sb, "******** %v\n", err)
 		}
-		fmt.Fprintf(sb, "%3d: Parsed  : %v\n", i, ttt)
 		it := NewInter()
-		res := it.Eval(ttt)
-		fmt.Fprintf(sb, "%3d: Evalued : %v\n", i, res)
+		for _, ttt := range tlist {
+			fmt.Fprintf(sb, "%3d: Parsed  : %v\n", i, ttt)
+			res := it.Eval(ttt)
+			fmt.Fprintf(sb, "%3d: Evalued : %v\n", i, res)
+		}
 		// fmt.Fprintln(sb, it)
 	}
 
