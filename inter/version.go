@@ -14,7 +14,7 @@ import "fmt"
 //go:generate go fmt ./...
 
 const (
-	VERSION   = "0.2.1"
+	VERSION   = "0.2.2"
 	COPYRIGHT = "(c) Xavier Gandillot (aka xavier268) 2023"
 )
 
