@@ -29,12 +29,12 @@ func NewLexer(input io.Reader, fileName string) *myLex {
 	return lx
 }
 
-var PAT_COMMENT = regexp.MustCompile("(?m)^;.*$")
-var PAT_SPACE = regexp.MustCompile(`^[\s]+`)
-var PAT_STRING = regexp.MustCompile(`^"([^"]*)"`)
-var PAT_NUMBER = regexp.MustCompile(`^(-)?(\d+)(/(\d+))?`)    // should be tested before IDENT
-var PAT_BOOL = regexp.MustCompile(`^(#f|#t)`)                 // should be tested before IDENT
-var PAT_IDENT = regexp.MustCompile(`^[-+*/=$_\pL\d@?!%&<>]+`) // IDENT match this AND are neither number nor operator
+var myPAT_COMMENT = regexp.MustCompile("(?m)^;.*$")
+var myPAT_SPACE = regexp.MustCompile(`^[\s]+`)
+var myPAT_STRING = regexp.MustCompile(`^"([^"]*)"`)
+var myPAT_NUMBER = regexp.MustCompile(`^(-)?(\d+)(/(\d+))?`)    // should be tested before IDENT
+var myPAT_BOOL = regexp.MustCompile(`^(#f|#t)`)                 // should be tested before IDENT
+var myPAT_IDENT = regexp.MustCompile(`^[-+*/=$_\pL\d@?!%&<>]+`) // IDENT match this AND are neither number nor operator
 
 var PAT_OPERATOR = regexp.MustCompile(`^[()'.]$`) // tell if an ident is an operator, once identified as IDENT
 
@@ -51,7 +51,7 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 	}
 
 	// eat white spaces
-	pos = PAT_SPACE.FindIndex(data)
+	pos = myPAT_SPACE.FindIndex(data)
 	switch {
 	case pos == nil || pos[0] != 0:
 		// no number, ignore
@@ -70,7 +70,7 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 	}
 
 	// eat comments
-	pos = PAT_COMMENT.FindIndex(data)
+	pos = myPAT_COMMENT.FindIndex(data)
 	switch {
 	case pos == nil || pos[0] != 0:
 		// no number, ignore
@@ -89,7 +89,7 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 	}
 
 	// scan strings
-	pos = PAT_STRING.FindIndex(data)
+	pos = myPAT_STRING.FindIndex(data)
 	switch {
 	case pos == nil || pos[0] != 0:
 		// no number, ignore
@@ -115,7 +115,7 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 	}
 
 	// scan numbers
-	pos = PAT_NUMBER.FindIndex(data)
+	pos = myPAT_NUMBER.FindIndex(data)
 	switch {
 	case pos == nil || pos[0] != 0:
 		// no number, ignore
@@ -134,7 +134,7 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 	}
 
 	// scan bools
-	pos = PAT_BOOL.FindIndex(data)
+	pos = myPAT_BOOL.FindIndex(data)
 	switch {
 	case pos == nil || pos[0] != 0:
 		// no bool, ignore
@@ -153,7 +153,7 @@ func (lx *myLex) splitFunc(data []byte, atEOF bool) (advance int, token []byte, 
 	}
 
 	// scan identifiers
-	pos = PAT_IDENT.FindIndex(data)
+	pos = myPAT_IDENT.FindIndex(data)
 	switch {
 	case pos == nil || pos[0] != 0:
 		// no number, ignore

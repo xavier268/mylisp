@@ -15,9 +15,9 @@ func init() {
 func spKeywords(*Inter, Term) Term {
 
 	var kw Term
-	kws := make([]string, 0, len(KEYWORDS))
+	kws := make([]string, 0, len(keywordsDefinitions))
 
-	for s := range KEYWORDS {
+	for s := range keywordsDefinitions {
 		kws = append(kws, s)
 	}
 

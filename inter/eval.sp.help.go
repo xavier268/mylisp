@@ -39,7 +39,7 @@ func spHelp(_ *Inter, t Term) Term { // ( help) for general help or ( help keywo
 		kw := car(rest)
 		if kw != nil {
 			if sym, ok := kw.(Symbol); ok {
-				if kwdata, ok := KEYWORDS[sym.Value]; ok {
+				if kwdata, ok := keywordsDefinitions[sym.Value]; ok {
 					fmt.Fprintf(sb, "\n;\n; help for %s\n", sym.Value)
 					for _, h := range kwdata.help {
 						fmt.Fprintf(sb, "; %s\n", h)

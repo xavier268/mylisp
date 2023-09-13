@@ -3,7 +3,7 @@ package inter
 // Identifiers that are predefined.
 // They all evaluate to themselves.
 // Builtin should self register in this map using Register function.
-var KEYWORDS = make(map[string]kwdata, 10)
+var keywordsDefinitions = make(map[string]kwdata, 10)
 
 // All primitive, built in functions or macros must have this signature.
 // They will be called with args containing the cdr of the form ( keyword .... ).
@@ -18,7 +18,7 @@ type kwdata struct {
 
 // Is this string the name of a registered keyword ?
 func IsKeyword(s string) bool {
-	_, ok := KEYWORDS[s]
+	_, ok := keywordsDefinitions[s]
 	return ok
 }
 
@@ -27,5 +27,5 @@ func Register(keyword string, evalArgFirst bool, primitive Primitive, help []str
 	if IsKeyword(keyword) {
 		panic("trying to registered twice an existing keyword : " + keyword)
 	}
-	KEYWORDS[keyword] = kwdata{evalArgFirst, primitive, help}
+	keywordsDefinitions[keyword] = kwdata{evalArgFirst, primitive, help}
 }

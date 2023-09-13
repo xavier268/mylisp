@@ -41,9 +41,9 @@ func init() {
 func spLambda(it *Inter, t Term) Term { // t contains ( ( x1 x2 ...)  body1 body2 ...)
 
 	p := Procedure{
-		Env:     it.current, // capture closing environnement. Will be forked before use.
-		Formals: nil,
-		Body:    cdr(t), // body contains ( expr1 expr 2 ...), list of expressions to be evaluated.
+		env:     it.current, // capture closing environnement. Will be forked before use.
+		formals: nil,
+		body:    cdr(t), // body contains ( expr1 expr 2 ...), list of expressions to be evaluated.
 	}
 
 	// capture formals
@@ -54,7 +54,7 @@ func spLambda(it *Inter, t Term) Term { // t contains ( ( x1 x2 ...)  body1 body
 			Context: fr,
 		}
 	}
-	p.Formals = fr
+	p.formals = fr
 
 	return p
 }

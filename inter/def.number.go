@@ -60,7 +60,7 @@ func (n Number) Normalize() Number {
 		}
 	}
 
-	p := Gcd(n.Num, n.Den)
+	p := gcd(n.Num, n.Den)
 	if n.Den > 0 {
 		return Number{
 			Num: n.Num / p,
@@ -78,10 +78,10 @@ func (n Number) Normalize() Number {
 
 func NumberFromString(s string) (n Number, err error) {
 
-	if pp := PAT_NUMBER.FindStringIndex(s); pp == nil || pp[0] != 0 || pp[1] != len(s) {
+	if pp := myPAT_NUMBER.FindStringIndex(s); pp == nil || pp[0] != 0 || pp[1] != len(s) {
 		return NumberZero, fmt.Errorf("invalid number format : <%s>", s)
 	}
-	m := PAT_NUMBER.FindStringSubmatch(s)
+	m := myPAT_NUMBER.FindStringSubmatch(s)
 	if len(m) != 5 {
 		return NumberZero, fmt.Errorf("invalid number format : <%s>", s)
 	}

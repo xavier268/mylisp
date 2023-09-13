@@ -1,9 +1,9 @@
 package inter
 
-// Compute Gcd of 2 numbers.
-// Gcd is always positive.
+// Compute gcd of 2 numbers.
+// gcd is always positive.
 // It is 0 only if both args are 0.
-func Gcd(a, b int) int {
+func gcd(a, b int) int {
 	if a < 0 {
 		a = -a
 	}
@@ -13,5 +13,5 @@ func Gcd(a, b int) int {
 	if b < 0 {
 		b = -b
 	}
-	return Gcd(b, a%b)
+	return gcd(b, a%b)
 }

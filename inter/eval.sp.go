@@ -3,10 +3,10 @@ package inter
 import "fmt"
 
 // Should only be called with a term of the form ( keyword ...)
-func (it *Inter) EvalSpecial(t Term) Term {
+func (it *Inter) evalSpecial(t Term) Term {
 
 	kw := car(t).(Symbol).Value
-	kwd := KEYWORDS[kw]
+	kwd := keywordsDefinitions[kw]
 
 	args := cdr(t)
 

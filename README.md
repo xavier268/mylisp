@@ -34,13 +34,14 @@ You can display help on one or more keywoards ( kw1, kw2 ...) by evaluationg ( h
 New keywords :
 
 * ( debug value ) sets the debug/trace level
-* ( join-path p1 p2 ... ) constructs a path from path components
+* ( join-path p1 p2 ... ) constructs a path from path components, using system file separator
 * ( load fullPathName ) loads and evaluate a file
 * ( file-sep ) retuns the system file separator
 * ( version ) gets the current version of the interpreter
 
 Extended behaviour vs standard :
-* (display x1 x2 ...) : display can display zero or more than one Terms.
+* (display x1 x2 ...) : display can display zero, one or more Terms.
+* ( help keyword) : display online help for keyword
 
 
  
@@ -54,7 +55,7 @@ Extended behaviour vs standard :
 
 ## Strings
 
-* string litterlas are quoted with douple quotes (")
+* string litterlas are quoted with double quotes (")
 * there is no escaping, string litteral may contain newline directly
 
 

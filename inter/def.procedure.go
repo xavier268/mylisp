@@ -7,9 +7,9 @@ import "fmt"
 // Doc says : Procedures are created by evaluating lambda expressions (see Lambda Expressions);
 // the lambda may either be explicit or may be implicit as in a “procedure define” (see Definitions).
 type Procedure struct {
-	Env     *Environnement // the environement captured by the procedure, the "closing" envirnement. A new environement will be forked from it before executing procedure.
-	Formals Term           // typically a list of symbols, but could also be a symbol to represent the parameter list, or even a pair, or any term made of symbols.
-	Body    Term           // typically a list of terms
+	env     *Environnement // the environement captured by the procedure, the "closing" envirnement. A new environement will be forked from it before executing procedure.
+	formals Term           // typically a list of symbols, but could also be a symbol to represent the parameter list, or even a pair, or any term made of symbols.
+	body    Term           // typically a list of terms
 }
 
 // IsError implements Term.
@@ -51,5 +51,5 @@ func (Procedure) IsSymbol() bool {
 
 // String implements Term.
 func (p Procedure) String() string {
-	return fmt.Sprintf("#<procedure : >\n%s\n\t---> %s", p.Formals, ToString(p.Body))
+	return fmt.Sprintf("#<procedure : >\n%s\n\t---> %s", p.formals, ToString(p.body))
 }

@@ -21,7 +21,7 @@ func (it *Inter) Eval(t Term) Term {
 
 	// if a bound variable, evaluate it in the current environement and return its value.
 	// Error if variable is bound but unassigned.
-	if tt, ok := EvalVar(it.current, t); ok {
+	if tt, ok := evalVar(it.current, t); ok {
 		return tt
 	}
 
@@ -34,13 +34,13 @@ func (it *Inter) Eval(t Term) Term {
 			})
 		}
 		if IsKeyword(car(t).(Symbol).Value) { // t is  ( keyword ... )
-			return it.EvalSpecial(t)
+			return it.evalSpecial(t)
 		}
 	}
 
 	// if the functor is a procedure, call it.
 	if car(t) != nil && car(t).IsProcedure() { // t is ( proc arg1 arg2 ... )
-		return it.EvalProcedure(t)
+		return it.evalProcedure(t)
 	}
 
 	// if the functor could be a form like ( (something ... )  ... )

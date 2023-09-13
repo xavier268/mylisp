@@ -2,7 +2,7 @@ package inter
 
 import "fmt"
 
-func (it *Inter) EvalProcedure(t Term) Term { // t contains ( proc arg1 arg2 ...) , args list could be empty.
+func (it *Inter) evalProcedure(t Term) Term { // t contains ( proc arg1 arg2 ...) , args list could be empty.
 
 	p := car(t).(Procedure)
 
@@ -10,20 +10,20 @@ func (it *Inter) EvalProcedure(t Term) Term { // t contains ( proc arg1 arg2 ...
 
 	// change environnement to forked closure.
 	oldenv := it.current      // save old environement
-	it.current = p.Env.Fork() // fork the closure environement, make it current
+	it.current = p.env.Fork() // fork the closure environement, make it current
 	defer func() {            // restore old environement on exit
 		it.current = oldenv
 	}()
 
 	// bind arguments to formals
-	err := bindArgs(it.current, p.Formals, cdr(t))
+	err := bindArgs(it.current, p.formals, cdr(t))
 	if err != nil {
 		return Error{err, t}
 	}
 
 	// evaluate the body/bodies in the closure environement
 	var result Term
-	for bodies := p.Body; bodies != nil && (bodies != Pair{}); bodies = cdr(bodies) {
+	for bodies := p.body; bodies != nil && (bodies != Pair{}); bodies = cdr(bodies) {
 
 		exp := car(bodies)
 		result = it.Eval(exp)
