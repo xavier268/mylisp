@@ -33,6 +33,14 @@ func (s Environnement) String() string {
 	return sb.String()
 }
 
+// Dump the current environnement and its ancestors
+func (s *Environnement) Dump() {
+	for e := s; e != nil; e = e.parent {
+		fmt.Println(e)
+		fmt.Println("; ------------ ")
+	}
+}
+
 func (ev *Environnement) Fork() *Environnement {
 	return &Environnement{
 		bindings: map[Symbol]Term{},

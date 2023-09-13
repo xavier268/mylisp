@@ -205,50 +205,62 @@ This file : _eval.want
  50: Parsed  : ( cons )
  50: Evalued : ( )
 
- 51: Input   : ( keywords)
- 51: Parsed  : ( keywords )
- 51: Evalued : ( * + - / begin car cdr cons debug define display file-sep help join-path keywords lambda let list load newline os-name quit quote set! string-append version )
-
- 52: Input   : (let  (
+ 51: Input   : (let  (
 			( x 3 ) ( y 0 ))
 			 ( let (( x 444 )) ; shadowing x
 					 ( set! y x) 
 					 ) ; end of inner let
 						   ( + y x) )
- 52: Parsed  : ( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) )
- 52: Evalued : 447
+ 51: Parsed  : ( let ( ( x 3 ) ( y 0 ) ) ( let ( ( x 444 ) ) ( set! y x ) ) ( + y x ) )
+ 51: Evalued : 447
 
- 53: Input   : (lambda ( x y ) ( + x y ))
- 53: Parsed  : ( lambda ( x y ) ( + x y ) )
- 53: Evalued : #<procedure : >
+ 52: Input   : (lambda ( x y ) ( + x y ))
+ 52: Parsed  : ( lambda ( x y ) ( + x y ) )
+ 52: Evalued : #<procedure : >
 ( x y )
 	---> ( ( + x y ) )
 
- 54: Input   : (lambda ( x y ) ( + x y ) ( * x y ))
- 54: Parsed  : ( lambda ( x y ) ( + x y ) ( * x y ) )
- 54: Evalued : #<procedure : >
+ 53: Input   : (lambda ( x y ) ( + x y ) ( * x y ))
+ 53: Parsed  : ( lambda ( x y ) ( + x y ) ( * x y ) )
+ 53: Evalued : #<procedure : >
 ( x y )
 	---> ( ( + x y ) ( * x y ) )
 
- 55: Input   : (lambda ( x ) ( + x y ) )
- 55: Parsed  : ( lambda ( x ) ( + x y ) )
- 55: Evalued : #<procedure : >
+ 54: Input   : (lambda ( x ) ( + x y ) )
+ 54: Parsed  : ( lambda ( x ) ( + x y ) )
+ 54: Evalued : #<procedure : >
 ( x )
 	---> ( ( + x y ) )
 
- 56: Input   : (lambda () ( + y) )
- 56: Parsed  : ( lambda ( ) ( + y ) )
- 56: Evalued : #<procedure : >
+ 55: Input   : (lambda () ( + y) )
+ 55: Parsed  : ( lambda ( ) ( + y ) )
+ 55: Evalued : #<procedure : >
 ( )
 	---> ( ( + y ) )
 
- 57: Input   : (lambda () ) ; do nothing 
- 57: Parsed  : ( lambda ( ) )
- 57: Evalued : #<procedure : >
+ 56: Input   : (lambda () ) ; do nothing 
+ 56: Parsed  : ( lambda ( ) )
+ 56: Evalued : #<procedure : >
 ( )
 	---> <nil>
 
- 58: Input   :  (( lambda ( x y ) ( + x x y) ) 2 3 ) ; 7
- 58: Parsed  : ( ( lambda ( x y ) ( + x x y ) ) 2 3 )
- 58: Evalued : 7
+ 57: Input   :  (( lambda ( x y ) ( + x x y) ) 2 3 ) ; 7
+ 57: Parsed  : ( ( lambda ( x y ) ( + x x y ) ) 2 3 )
+ 57: Evalued : 7
+
+ 58: Input   : (begin 1 ( + 1 2 ) ( * 3 3 ))
+ 58: Parsed  : ( begin 1 ( + 1 2 ) ( * 3 3 ) )
+ 58: Evalued : 9
+
+ 59: Input   : ( dump- env) 
+ 59: Parsed  : ( dump- env )
+ 59: Evalued : cannot evaluate provided input in ( dump- env )
+
+ 60: Input   : ( let ( ( x 3 )) ( dump-env))
+ 60: Parsed  : ( let ( ( x 3 ) ) ( dump-env ) )
+ 60: Evalued : <nil>
+
+ 61: Input   : ( keywords)
+ 61: Parsed  : ( keywords )
+ 61: Evalued : ( * + - / begin car cdr cons debug define display dump-env file-sep help join-path keywords lambda let list load newline os-name quit quote set! string-append version )
 

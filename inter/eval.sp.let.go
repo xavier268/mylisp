@@ -9,6 +9,7 @@ package inter
 // are being computed (thus allowing mutually recursive definitions).
 
 func init() {
+
 	Register("let", false, spLet, []string{
 		"( let ((variable init) ...) expression expression ... )",
 		"The inits are evaluated in the current environment (in some unspecified order),",
@@ -20,6 +21,15 @@ func init() {
 		"Note that the following are equivalent:",
 		"          (let ((variable init) ...) expression expression ...)",
 		"          ((lambda (variable ...) expression expression ...) init ...)",
+	})
+
+	Register("dump-env", false, func(it *Inter, _ Term) Term {
+		it.current.Dump()
+		return nil
+	}, []string{
+		"(dump-env) will display the content of the current environnement",
+		"nil is always returned.",
+		"any argument, if present, are ignored and never evaluated.",
 	})
 }
 

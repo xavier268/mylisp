@@ -1,7 +1,7 @@
 Test name : TestEvalDetail
 This file : _eval.detail.want
 
-Input   :  (( lambda ( x y ) ( + x x y) ) 2 3 ) ; 7
-Parsed  : ( ( lambda ( x y ) ( + x x y ) ) 2 3 )
-Evalued : 7
+Input   : (begin 1 ( + 1 2 ) ( * 3 3 ))
+Parsed  : ( begin 1 ( + 1 2 ) ( * 3 3 ) )
+Evalued : 9
 
