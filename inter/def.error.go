@@ -1,6 +1,6 @@
 package inter
 
-// Error is a type to indicate an error has occured.
+// Error is a type to indicate an error has occurred.
 type Error struct {
 	Err     error
 	Context Term

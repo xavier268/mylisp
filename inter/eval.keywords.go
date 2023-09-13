@@ -7,7 +7,7 @@ var KEYWORDS = make(map[string]kwdata, 10)
 
 // All primitive, built in functions or macros must have this signature.
 // They will be called with args containing the cdr of the form ( keyword .... ).
-// detailled format depends on the function.
+// detailed format depends on the function.
 type Primitive func(it *Inter, args Term) Term
 
 type kwdata struct {
@@ -25,7 +25,7 @@ func IsKeyword(s string) bool {
 // Register a keyword for a built-in primitive, typically during initialization.
 func Register(keyword string, evalArgFirst bool, primitive Primitive, help []string) {
 	if IsKeyword(keyword) {
-		panic("trying to registerd twice an existing keyword : " + keyword)
+		panic("trying to registered twice an existing keyword : " + keyword)
 	}
 	KEYWORDS[keyword] = kwdata{evalArgFirst, primitive, help}
 }
