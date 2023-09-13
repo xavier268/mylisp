@@ -50,9 +50,6 @@ func (ev *Environnement) Fork() *Environnement {
 
 func (it *Inter) PushEnv() {
 	it.current = it.current.Fork()
-	if it.global == nil {
-		it.global = it.current // for initialization
-	}
 }
 
 var ErrCannotPopENv = fmt.Errorf("cannot pop environement,  stack is empty")
