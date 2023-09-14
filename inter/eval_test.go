@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/xavier268/mylisp/mytest"
+	"github.com/xavier268/mytest"
 )
 
 func TestEval(t *testing.T) {
